@@ -1,0 +1,46 @@
+<div class="container" data-controller="apartments">
+  <%= form_with(url: apartments_path, method: :get, data: { 'apartments-target': 'form'}) do |f| %>
+    <div class="cities-filter">
+      <h3>Cities</h3>
+      <input class="filter" data-action="input->apartments#change" type="checkbox" id="paris" name="paris" value="true" <%= 'checked' if params[:paris] == "true"%>>
+      <label class="tag" for="paris">Paris</label>
+
+      <input class="filter" data-action="input->apartments#change" type="checkbox" id="lyon" name="lyon" value="true" <%= 'checked' if params[:lyon] == "true"%>>
+      <label class="tag" for="lyon">Lyon</label>
+
+    </div>
+
+    <div class="status-filter">
+
+      <h3>Status</h3>
+      <input class="filter" data-action="input->apartments#change" type="radio" id="furnished" name="status" value="furnished" <%= 'checked' if params[:status] == "furnished"%>>
+      <label class="tag" for="furnished">Meublé</label>
+
+      <input class="filter" data-action="input->apartments#change" type="radio" id="unfurnished" name="status" value="unfurnished" <%= 'checked' if params[:status] == "unfurnished"%>>
+      <label class="tag" for="unfurnished">Non meublé</label>
+
+    </div>
+
+    <div class="rooms-filter">
+      <h3>Rooms:</h3>
+
+      <label class="tag">Nombre de pièce</label>
+      <input placeholder="Min" class="filter" data-action="keyup->apartments#changeRooms" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %> >
+      <input placeholder="Max" class="filter" data-apartments-target="secondRoomsInput" data-action="keyup->apartments#validRooms" min="1" max="120" type="number" name="rooms_max" value=<%= params[:rooms_max] if params[:rooms_max].present? && params[:rooms_max].to_i >= params[:rooms_min].to_i %> >
+
+    </div>
+    <div class="surface-filter">
+      <h3>Surface:</h3>
+
+      <input placeholder="Min" class="filter" data-action="keyup->apartments#changeSurface"  min="1" max="120" type="number" name="surface_min" value=<%= params[:surface_min] if params[:surface_min].present? %> >
+      <input placeholder="Max" class="filter" data-apartments-target="secondSurfaceInput" data-action="keyup->apartments#validSurface" min="1" max="120" type="number" name="surface_max" value=<%= params[:surface_max] if params[:surface_max].present? && params[:surface_max].to_i >= params[:surface_min].to_i %> >
+
+    </div>
+    <input class="filter" data-action="keyup->apartments#search" type="text" placeholder="Search">
+  <% end %>
+
+  <h1>Apartments</h1>
+  <div class="apartment-cards" data-apartments-target="apartments">
+    <%= render 'apartments', apartments: @apartments %>
+  </div>
+</div>

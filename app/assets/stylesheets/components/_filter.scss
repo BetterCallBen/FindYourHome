@@ -1,0 +1,23 @@
+input[type=checkbox]{
+  display: none;
+}
+input[type=radio]{
+  display: none;
+}
+.tag {
+  padding: 2px 4px;
+  border-radius: 2px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.filter+.tag {
+    border: 1px solid red;
+    background-color: rgba(255, 0, 0, 0.508);
+}
+
+.filter:checked+.tag {
+    border: 1px solid green;
+    background-color: rgba(0, 128, 0, 0.468);
+}
