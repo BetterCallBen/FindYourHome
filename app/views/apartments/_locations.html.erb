@@ -1,0 +1,5 @@
+<% unless locations.nil? %>
+  <% locations.first(10).each do |location| %>
+    <p data-id="<%= location.id %>" data-action="click->apartments#addLocation"><%= location.name %></p>
+  <% end %>
+<% end %>
