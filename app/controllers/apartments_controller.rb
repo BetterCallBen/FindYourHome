@@ -30,6 +30,12 @@ class ApartmentsController < ApplicationController
       @apartments = @apartments.where("surface <= ? ", params[:surface_max].to_i)
     end
 
+    if params[:reviews].present?
+      @reviews = JSON.parse params[:reviews].map(&:id)
+    else
+      @reviews = Review.first(2).map(&:id)
+    end
+
     respond_to do |format|
       format.html
       format.text { render partial: 'apartments', locals: { apartments: @apartments }, formats: :html }
