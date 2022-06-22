@@ -1,7 +1,14 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput"]
+  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "reviews"]
+  static values = { reviews: Array }
+
+  connect() {
+    console.log(this.reviewsValue)
+    this.reviewsTarget.value = this.reviewsValue
+  }
+
 
   change() {
     this.formTarget.submit()
