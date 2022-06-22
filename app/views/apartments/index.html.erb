@@ -1,4 +1,7 @@
-<div class="container" data-controller="apartments">
+<div class="container"
+     data-controller="apartments"
+     data-apartments-reviews-value="<%= @reviews %>">
+
   <%= form_with(url: apartments_path, method: :get, data: { 'apartments-target': 'form'}) do |f| %>
     <div class="cities-filter">
       <h3>Cities</h3>
@@ -35,8 +38,16 @@
       <input placeholder="Min" class="filter" data-action="keyup->apartments#changeSurface"  min="1" max="120" type="number" name="surface_min" value=<%= params[:surface_min] if params[:surface_min].present? %> >
       <input placeholder="Max" class="filter" data-apartments-target="secondSurfaceInput" data-action="keyup->apartments#validSurface" min="1" max="120" type="number" name="surface_max" value=<%= params[:surface_max] if params[:surface_max].present? && params[:surface_max].to_i >= params[:surface_min].to_i %> >
 
+
     </div>
-    <input class="filter" data-action="keyup->apartments#search" type="text" placeholder="Search">
+    <input type="text">
+
+    <input class="filter d-none"  data-apartments-target="reviews"  name="reviews" value="<%= params[:reviews] if params[:reviews].present? %>">
+
+    <%= @reviews %>
+
+
+
   <% end %>
 
   <h1>Apartments</h1>
