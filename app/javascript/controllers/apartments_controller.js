@@ -1,16 +1,29 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "reviews"]
+  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "reviews", "reviewsInputs"]
   static values = { reviews: Array }
 
-  connect() {
-    console.log(this.reviewsValue)
-    this.reviewsTarget.value = this.reviewsValue
+  searchReviews(event) {
+    console.log(event.currentTarget.value)
+    fetch(`/apartments?search=${event.currentTarget.value}`,
+      { method: "GET",
+        headers: { "Accept": "text/plain" }
+      })
+      .then(response => response.text())
+      .then(text => this.reviewsInputsTarget.innerHTML = text)
+  }
+
+  addReview(event) {
+    const reviewIds = this.reviewsValue
+    console.log(event.currentTarget.dataset.id)
+    reviewIds.push(event.currentTarget.dataset.id)
+    this.reviewsTarget.value = reviewIds
+    this.submitForm()
   }
 
 
-  change() {
+  submitForm() {
     this.formTarget.submit()
   }
 
