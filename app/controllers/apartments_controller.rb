@@ -30,15 +30,14 @@ class ApartmentsController < ApplicationController
       @apartments = @apartments.where("surface <= ? ", params[:surface_max].to_i)
     end
 
-    if params[:reviews].present?
-      @reviews = JSON.parse params[:reviews].map(&:id)
-    else
-      @reviews = Review.first(2).map(&:id)
-    end
+    @reviews_ids = params[:reviews].split(",").map(&:to_i) if params[:reviews].present?
+    @reviews = Review.where(id: @reviews_ids) if @reviews_ids.present?
+
+    @result = Review.where("content ILIKE ? ", "%#{params[:search]}%") if params[:search].present?
 
     respond_to do |format|
       format.html
-      format.text { render partial: 'apartments', locals: { apartments: @apartments }, formats: :html }
+      format.text { render partial: 'reviews', locals: { reviews: @result }, formats: :html }
     end
   end
 
