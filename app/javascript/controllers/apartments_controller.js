@@ -1,26 +1,45 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "reviews", "reviewsInputs"]
-  static values = { reviews: Array }
+  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "locations", "locationResults"]
+  static values = { locations: Array }
 
-  searchReviews(event) {
-    console.log(event.currentTarget.value)
-    fetch(`/apartments?search=${event.currentTarget.value}`,
+  connect() {
+    this.locationIds = this.locationsValue
+    this.locationIdsArray = this.locationIds[0]
+  }
+
+
+  searchLocations(event) {
+    const baseUrl = document.location.href
+    if (baseUrl.includes("?")) {
+      this.url = `${baseUrl}&search=${event.currentTarget.value}`
+    } else {
+      this.url = `${baseUrl}?search=${event.currentTarget.value}`
+    }
+    fetch(this.url,
       { method: "GET",
         headers: { "Accept": "text/plain" }
       })
       .then(response => response.text())
-      .then(text => this.reviewsInputsTarget.innerHTML = text)
+      .then(text => this.locationResultsTarget.innerHTML = text)
   }
 
-  addReview(event) {
-    const reviewIds = this.reviewsValue
-    console.log(event.currentTarget.dataset.id)
-    reviewIds.push(event.currentTarget.dataset.id)
-    this.reviewsTarget.value = reviewIds
+  addLocation(event) {
+    this.locationIds.push(event.currentTarget.dataset.id)
+    this.locationsTarget.value = this.locationIds
     this.submitForm()
   }
+
+  removeLocation(event) {
+    const index = this.locationIdsArray.indexOf(parseInt(event.currentTarget.dataset.id))
+    if (index > -1) {
+      this.locationIdsArray.splice(index, 1)
+    }
+    this.locationsTarget.value = this.locationIdsArray
+    this.submitForm()
+  }
+
 
 
   submitForm() {
@@ -60,12 +79,7 @@ export default class extends Controller {
   }
 
   search(event) {
-    const baseUrl = document.location.href
-    if (baseUrl.includes("?")) {
-       this.url = `${baseUrl}&search=${event.currentTarget.value}`
-    } else {
-      this.url = `${baseUrl}?search=${event.currentTarget.value}`
-    }
+
 
     fetch(this.url,
       { method: "GET",
