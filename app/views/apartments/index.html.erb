@@ -1,14 +1,14 @@
 <div class="container"
      data-controller="apartments"
-     data-apartments-reviews-value="<%= @reviews %>">
+     data-apartments-reviews-value="<%= @reviews_ids.nil? ? [] : @reviews_ids.split(",") %>">
 
   <%= form_with(url: apartments_path, method: :get, data: { 'apartments-target': 'form'}) do |f| %>
     <div class="cities-filter">
       <h3>Cities</h3>
-      <input class="filter" data-action="input->apartments#change" type="checkbox" id="paris" name="paris" value="true" <%= 'checked' if params[:paris] == "true"%>>
+      <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="paris" name="paris" value="true" <%= 'checked' if params[:paris] == "true"%>>
       <label class="tag" for="paris">Paris</label>
 
-      <input class="filter" data-action="input->apartments#change" type="checkbox" id="lyon" name="lyon" value="true" <%= 'checked' if params[:lyon] == "true"%>>
+      <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="lyon" name="lyon" value="true" <%= 'checked' if params[:lyon] == "true"%>>
       <label class="tag" for="lyon">Lyon</label>
 
     </div>
@@ -16,10 +16,10 @@
     <div class="status-filter">
 
       <h3>Status</h3>
-      <input class="filter" data-action="input->apartments#change" type="radio" id="furnished" name="status" value="furnished" <%= 'checked' if params[:status] == "furnished"%>>
+      <input class="filter" data-action="input->apartments#submitForm" type="radio" id="furnished" name="status" value="furnished" <%= 'checked' if params[:status] == "furnished"%>>
       <label class="tag" for="furnished">Meublé</label>
 
-      <input class="filter" data-action="input->apartments#change" type="radio" id="unfurnished" name="status" value="unfurnished" <%= 'checked' if params[:status] == "unfurnished"%>>
+      <input class="filter" data-action="input->apartments#submitForm" type="radio" id="unfurnished" name="status" value="unfurnished" <%= 'checked' if params[:status] == "unfurnished"%>>
       <label class="tag" for="unfurnished">Non meublé</label>
 
     </div>
@@ -40,12 +40,16 @@
 
 
     </div>
-    <input type="text">
+    <input type="text" data-action="keyup->apartments#searchReviews">
 
-    <input class="filter d-none"  data-apartments-target="reviews"  name="reviews" value="<%= params[:reviews] if params[:reviews].present? %>">
+    <input class="filter d-none" data-apartments-target="reviews" name="reviews" value="<%= params[:reviews] if params[:reviews] %>">
+    <div class="reviews-inputs" data-apartments-target="reviewsInputs"></div>
 
-    <%= @reviews %>
-
+    <% unless @reviews.nil? %>
+      <% @reviews.each do |review| %>
+        <%= review.apartment.name %>
+      <% end %>
+    <% end %>
 
 
   <% end %>
