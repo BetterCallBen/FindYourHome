@@ -15,4 +15,11 @@ puts 'Creating Apartments...'
   )
 end
 
+20.times do
+  Review.create!(
+    content: Faker::Lorem.paragraph,
+    apartment: Apartment.all.sample
+  )
+end
+
 puts 'Finished!'
