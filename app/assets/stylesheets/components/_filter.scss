@@ -1,9 +1,7 @@
-input[type=checkbox]{
+input[type=checkbox], input[type=radio]{
   display: none;
 }
-input[type=radio]{
-  display: none;
-}
+
 .tag {
   padding: 2px 4px;
   border-radius: 2px;
@@ -11,13 +9,21 @@ input[type=radio]{
     cursor: pointer;
   }
 }
-
+.search-input {
+  width: 400px;
+  padding: 0.5rem;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+  &:focus {
+    outline: none;
+  }
+}
 .filter+.tag {
-    border: 1px solid red;
-    background-color: rgba(255, 0, 0, 0.508);
+    border: 1px solid rgba(0, 0, 0, 0.681);
 }
 
 .filter:checked+.tag {
-    border: 1px solid green;
-    background-color: rgba(0, 128, 0, 0.468);
+    border: 1px solid #03819E;
+    background-color: #03819E;
+    color: #fff;
 }

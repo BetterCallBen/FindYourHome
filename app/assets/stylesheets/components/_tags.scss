@@ -1,0 +1,22 @@
+.location-tags {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  .location-tag {
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #2388A4;
+    background-color: #D7EBEF;
+    font-size: 0.8rem;
+    .cross {
+
+      transition: 0.2s;
+    }
+    &:hover {
+      cursor: pointer;
+      .cross {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
