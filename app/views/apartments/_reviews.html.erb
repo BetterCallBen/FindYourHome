@@ -1,0 +1,5 @@
+<% unless reviews.nil? %>
+  <% reviews.each do |review| %>
+    <p data-id="<%= review.id%>" data-action="click->apartments#addReview"><%= review.id%></p>
+  <% end %>
+<% end %>
