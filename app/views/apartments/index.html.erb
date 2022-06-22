@@ -1,19 +1,10 @@
 <div class="container"
      data-controller="apartments"
-     data-apartments-reviews-value="<%= @reviews_ids.nil? ? [] : @reviews_ids.split(",") %>">
+     data-apartments-locations-value="<%= @locations_ids.nil? ? [] : @locations_ids.split(",") %>">
 
   <%= form_with(url: apartments_path, method: :get, data: { 'apartments-target': 'form'}) do |f| %>
-    <div class="cities-filter">
-      <h3>Cities</h3>
-      <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="paris" name="paris" value="true" <%= 'checked' if params[:paris] == "true"%>>
-      <label class="tag" for="paris">Paris</label>
 
-      <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="lyon" name="lyon" value="true" <%= 'checked' if params[:lyon] == "true"%>>
-      <label class="tag" for="lyon">Lyon</label>
-
-    </div>
-
-    <div class="status-filter">
+    <div class="status-filter div-filter">
 
       <h3>Status</h3>
       <input class="filter" data-action="input->apartments#submitForm" type="radio" id="furnished" name="status" value="furnished" <%= 'checked' if params[:status] == "furnished"%>>
@@ -24,31 +15,46 @@
 
     </div>
 
-    <div class="rooms-filter">
-      <h3>Rooms:</h3>
+    <div class="rooms-filter div-filter">
 
       <label class="tag">Nombre de pièce</label>
       <input placeholder="Min" class="filter" data-action="keyup->apartments#changeRooms" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %> >
       <input placeholder="Max" class="filter" data-apartments-target="secondRoomsInput" data-action="keyup->apartments#validRooms" min="1" max="120" type="number" name="rooms_max" value=<%= params[:rooms_max] if params[:rooms_max].present? && params[:rooms_max].to_i >= params[:rooms_min].to_i %> >
 
     </div>
-    <div class="surface-filter">
-      <h3>Surface:</h3>
+    <div class="surface-filter div-filter">
+      <label class="tag">Surface</label>
 
       <input placeholder="Min" class="filter" data-action="keyup->apartments#changeSurface"  min="1" max="120" type="number" name="surface_min" value=<%= params[:surface_min] if params[:surface_min].present? %> >
       <input placeholder="Max" class="filter" data-apartments-target="secondSurfaceInput" data-action="keyup->apartments#validSurface" min="1" max="120" type="number" name="surface_max" value=<%= params[:surface_max] if params[:surface_max].present? && params[:surface_max].to_i >= params[:surface_min].to_i %> >
 
 
     </div>
-    <input type="text" data-action="keyup->apartments#searchReviews">
 
-    <input class="filter d-none" data-apartments-target="reviews" name="reviews" value="<%= params[:reviews] if params[:reviews] %>">
-    <div class="reviews-inputs" data-apartments-target="reviewsInputs"></div>
+    <div class="cities-filter div-filter">
+      <h3>Critères</h3>
+      <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="balcony" name="balcony" value="true" <%= 'checked' if params[:balcony] == "true"%>>
+      <label class="tag" for="balcony">Balcon</label>
 
-    <% unless @reviews.nil? %>
-      <% @reviews.each do |review| %>
-        <%= review.apartment.name %>
-      <% end %>
+      <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="chimney" name="chimney" value="true" <%= 'checked' if params[:chimney] == "true"%>>
+      <label class="tag" for="chimney">Cheminée</label>
+
+      <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="elevator" name="elevator" value="true" <%= 'checked' if params[:elevator] == "true"%>>
+      <label class="tag" for="elevator">Ascenseur</label>
+
+    </div>
+
+    <input placeholder="Saisissez une ville ou un arrondissement" class="search-input" type="text" data-action="keyup->apartments#searchLocations">
+
+    <input class="filter d-none" data-apartments-target="locations" name="locations" value="<%= params[:locations] if params[:locations] %>">
+    <div class="locations-results" data-apartments-target="locationResults"></div>
+
+    <% unless @locations_tags.nil? %>
+      <div class="location-tags">
+        <% @locations_tags.each do |location_tag| %>
+          <p data-id="<%= location_tag.id %>" class="location-tag" data-action="click->apartments#removeLocation"><%= location_tag.name %> <i class="fa-solid fa-xmark cross"></i></p>
+        <% end %>
+      </div>
     <% end %>
 
 
