@@ -6,7 +6,9 @@ class CreateApartments < ActiveRecord::Migration[6.0]
       t.string :status
       t.integer :rooms
       t.integer :surface
-
+      t.boolean :balcony, default: false
+      t.boolean :chimney, default: false
+      t.boolean :elevator, default: false
       t.timestamps
     end
   end
