@@ -1,5 +1,17 @@
 <% unless locations.nil? %>
-  <% locations.first(10).each do |location| %>
-    <p data-id="<%= location.id %>" data-action="click->apartments#addLocation"><%= location.name %></p>
+  <% locations.first(7).each do |location| %>
+    <div data-insee-code="<%= location.insee_code %>" data-action="click->apartments#addLocation" class="location-result">
+      <p class="location-name"><%= location.name %></p>
+      <p class="location-type">
+        <% case location.class.name  %>
+        <% when "City" %>
+          <%= "Ville" %>
+        <% when "Borough"%>
+          <%= "Arrondissemnt" %>
+        <% end %>
+
+      </p>
+
+    </div>
   <% end %>
 <% end %>
