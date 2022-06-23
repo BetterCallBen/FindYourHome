@@ -5,8 +5,8 @@ export default class extends Controller {
   static values = { locations: Array }
 
   connect() {
-    this.locationIds = this.locationsValue
-    this.locationIdsArray = this.locationIds[0]
+    this.locationInsees = this.locationsValue
+    this.locationInseesArray = this.locationInsees[0]
   }
 
 
@@ -26,17 +26,19 @@ export default class extends Controller {
   }
 
   addLocation(event) {
-    this.locationIds.push(event.currentTarget.dataset.id)
-    this.locationsTarget.value = this.locationIds
+    console.log(event.currentTarget.dataset.inseeCode)
+    this.locationInsees.push(event.currentTarget.dataset.inseeCode)
+    this.locationsTarget.value = this.locationInsees
     this.submitForm()
   }
 
   removeLocation(event) {
-    const index = this.locationIdsArray.indexOf(parseInt(event.currentTarget.dataset.id))
+    const inseeCode = event.currentTarget.dataset.inseeCode
+    const index = this.locationInseesArray.indexOf(inseeCode)
     if (index > -1) {
-      this.locationIdsArray.splice(index, 1)
+      this.locationInseesArray.splice(index, 1)
     }
-    this.locationsTarget.value = this.locationIdsArray
+    this.locationsTarget.value = this.locationInseesArray
     this.submitForm()
   }
 
