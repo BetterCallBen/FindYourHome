@@ -1,60 +1,159 @@
 STATUS = ["furnished", "unfurnished"]
 RARE_BOOLEAN = [true, false, false]
 BOOLEAN = [true, false]
-CITY_NAME = ["Paris", "Lyon", "Marseille", "Nice", "Bordeaux"]
-
-LYON_BOROUGH_NAME = ["Lyon 1er", "Lyon 2e", "Lyon 3e", "Lyon 4e", "Lyon 5e", "Lyon 6e", "Lyon 7e", "Lyon 8e", "Lyon 9e"]
-PARIS_BOROUGH_NAME = ["Paris 1er", "Paris 2e", "Paris 3e", "Paris 4e", "Paris 5e", "Paris 6e", "Paris 7e", "Paris 8e",
-                      "Paris 9e", "Paris 10e", "Paris 11e", "Paris 12e", "Paris 13e", "Paris 14e", "Paris 15e",
-                      "Paris 16e", "Paris 17e", "Paris 18e", "Paris 19e", "Paris 20e"]
-MARSEILLE_BOROUGH_NAME = ["Marseille 1er", "Marseille 2e", "Marseille 3e", "Marseille 4e", "Marseille 5e",
-                          "Marseille 6e", "Marseille 7e", "Marseille 8e","Marseille 9e", "Marseille 10e",
-                          "Marseille 11e", "Marseille 12e", "Marseille 13e", "Marseille 14e", "Marseille 15e",
-                          "Marseille 16e"]
+CITY = [{ name: "Paris", insee_code: "75056" }, { name: "Lyon", insee_code: "69123" },
+        { name: "Marseille", insee_code: "13055" }, { name: "Nice", insee_code: "06088" },
+        { name: "Bordeaux", insee_code: "33063" }, { name: "Toulouse", insee_code: "31555" },
+        { name: "Nantes", insee_code: "44109" }, { name: "Lille", insee_code: "59350" }]
+LYON_BOROUGH = [{ name: "Lyon 1er", insee_code: "69381" }, { name: "Lyon 2ème", insee_code: "69382" },
+                { name: "Lyon 3ème", insee_code: "69383" }, { name: "Lyon 4ème", insee_code: "69384" },
+                { name: "Lyon 5ème", insee_code: "69385" }, { name: "Lyon 6ème", insee_code: "69386" },
+                { name: "Lyon 7ème", insee_code: "69387" }, { name: "Lyon 8ème", insee_code: "69388" },
+                { name: "Lyon 9ème", insee_code: "69389" }]
+PARIS_BOROUGH = [{ name: "Paris 1er", insee_code: "75101" }, { name: "Paris 2ème", insee_code: "75102" },
+                 { name: "Paris 3ème", insee_code: "75103" }, { name: "Paris 4ème", insee_code: "75104" },
+                 { name: "Paris 5ème", insee_code: "75105" }, { name: "Paris 6ème", insee_code: "75106" },
+                 { name: "Paris 7ème", insee_code: "75107" }, { name: "Paris 8ème", insee_code: "75108" },
+                 { name: "Paris 9ème", insee_code: "75109" }, { name: "Paris 10ème", insee_code: "75110" },
+                 { name: "Paris 11ème", insee_code: "75111" }, { name: "Paris 12ème", insee_code: "75112" },
+                 { name: "Paris 13ème", insee_code: "75113" }, { name: "Paris 14ème", insee_code: "75114" },
+                 { name: "Paris 15ème", insee_code: "75115" }, { name: "Paris 16ème", insee_code: "75116" },
+                 { name: "Paris 17ème", insee_code: "75117" }, { name: "Paris 18ème", insee_code: "75118" },
+                 { name: "Paris 19ème", insee_code: "75119" }, { name: "Paris 20ème", insee_code: "75120" }]
+MARSEILLE_BOROUGH = [{ name: "Marseille 1er", insee_code: "13201" }, { name: "Marseille 2ème", insee_code: "13202" },
+                     { name: "Marseille 3ème", insee_code: "13203" }, { name: "Marseille 4ème", insee_code: "13204" },
+                     { name: "Marseille 5ème", insee_code: "13205" }, { name: "Marseille 6ème", insee_code: "13206" },
+                     { name: "Marseille 7ème", insee_code: "13207" }, { name: "Marseille 8ème", insee_code: "13208" },
+                     { name: "Marseille 9ème", insee_code: "13209" }, { name: "Marseille 10ème", insee_code: "13210" },
+                     { name: "Marseille 11ème", insee_code: "13211" }, { name: "Marseille 12ème", insee_code: "13212" },
+                     { name: "Marseille 13ème", insee_code: "13213" }, { name: "Marseille 14ème", insee_code: "13214" },
+                     { name: "Marseille 15ème", insee_code: "13215" }, { name: "Marseille 16ème", insee_code: "13216" }]
 
 puts 'Destroy DB'
 City.destroy_all
 
 puts 'Creating Locations...'
 
-CITY_NAME.each do |city_name|
+CITY.each do |city|
   City.create!(
-    name: city_name
+    name: city[:name],
+    insee_code: city[:insee_code]
   )
 end
 
-LYON_BOROUGH_NAME.each do |lyon_borough_name|
+LYON_BOROUGH.each do |lyon_borough|
   Borough.create!(
-    name: lyon_borough_name,
+    name: lyon_borough[:name],
+    insee_code: lyon_borough[:insee_code],
     city: City.find_by(name: "Lyon")
   )
 end
-PARIS_BOROUGH_NAME.each do |paris_borough_name|
+PARIS_BOROUGH.each do |paris_borough|
   Borough.create!(
-    name: paris_borough_name,
+    name: paris_borough[:name],
+    insee_code: paris_borough[:insee_code],
     city: City.find_by(name: "Paris")
   )
 end
-MARSEILLE_BOROUGH_NAME.each do |marseille_borough_name|
+MARSEILLE_BOROUGH.each do |marseille_borough|
   Borough.create!(
-    name: marseille_borough_name,
+    name: marseille_borough[:name],
+    insee_code: marseille_borough[:insee_code],
     city: City.find_by(name: "Marseille")
   )
 end
 
 puts 'Creating Apartments...'
+lyon = City.find_by(name: "Lyon")
 
-100.times do
+## flats in Lyon
+200.times do
   Apartment.create!(
     name: Faker::Company.name,
+    description: Faker::Lorem.paragraph,
+    price: rand(100..1000),
+    apartment_type: "flat",
     address: Faker::Address.full_address,
     status: STATUS.sample,
     rooms: rand(1..5),
     surface: rand(15..120),
-    city: City.find_by(name: "Lyon"),
+    city: lyon,
     balcony: RARE_BOOLEAN.sample,
     chimney: RARE_BOOLEAN.sample,
-    elevator: BOOLEAN.sample
+    elevator: BOOLEAN.sample,
+    parking: BOOLEAN.sample,
+    cellar: false,
+    garden: false,
+    terrace: RARE_BOOLEAN.sample,
+    borough_id: Borough.where(city: lyon).sample.id
+  )
+end
+## houses in Lyon
+100.times do
+  Apartment.create!(
+    name: Faker::Company.name,
+    address: Faker::Address.full_address,
+    description: Faker::Lorem.paragraph,
+    price: rand(100_000..1_000_000),
+    apartment_type: "house",
+    status: STATUS.sample,
+    rooms: rand(3..9),
+    surface: rand(50..300),
+    city: lyon,
+    balcony: RARE_BOOLEAN.sample,
+    chimney: RARE_BOOLEAN.sample,
+    elevator: BOOLEAN.sample,
+    parking: BOOLEAN.sample,
+    cellar: RARE_BOOLEAN.sample,
+    garden: BOOLEAN.sample,
+    terrace: RARE_BOOLEAN.sample,
+    borough_id: Borough.where(city: lyon).sample.id
+  )
+end
+
+## flats not in Lyon
+300.times do
+  Apartment.create!(
+    name: Faker::Company.name,
+    address: Faker::Address.full_address,
+    description: Faker::Lorem.paragraph,
+    price: rand(100..1000),
+    apartment_type: "flat",
+    status: STATUS.sample,
+    rooms: rand(1..5),
+    surface: rand(15..120),
+    city: City.where.not(name: "Lyon").sample,
+    balcony: RARE_BOOLEAN.sample,
+    chimney: RARE_BOOLEAN.sample,
+    elevator: BOOLEAN.sample,
+    parking: BOOLEAN.sample,
+    cellar: false,
+    garden: false,
+    terrace: RARE_BOOLEAN.sample,
+    borough_id: Borough.where.not(city: lyon).sample.id
+  )
+end
+
+## houses not in Lyon
+100.times do
+  Apartment.create!(
+    name: Faker::Company.name,
+    address: Faker::Address.full_address,
+    description: Faker::Lorem.paragraph,
+    price: rand(100_000..1_000_000),
+    apartment_type: "house",
+    status: STATUS.sample,
+    rooms: rand(3..9),
+    surface: rand(50..300),
+    city: City.where.not(name: "Lyon").sample,
+    balcony: RARE_BOOLEAN.sample,
+    chimney: RARE_BOOLEAN.sample,
+    elevator: BOOLEAN.sample,
+    parking: BOOLEAN.sample,
+    cellar: RARE_BOOLEAN.sample,
+    garden: BOOLEAN.sample,
+    terrace: RARE_BOOLEAN.sample,
+    borough_id: Borough.where.not(city: lyon).sample.id
   )
 end
 

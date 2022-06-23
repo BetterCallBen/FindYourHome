@@ -17,13 +17,21 @@ ActiveRecord::Schema.define(version: 2022_06_22_210923) do
 
   create_table "apartments", force: :cascade do |t|
     t.string "name"
+    t.string "apartment_type"
+    t.text "description"
     t.string "address"
     t.string "status"
+    t.integer "price"
     t.integer "rooms"
     t.integer "surface"
+    t.integer "borough_id"
     t.boolean "balcony", default: false
     t.boolean "chimney", default: false
     t.boolean "elevator", default: false
+    t.boolean "cellar", default: false
+    t.boolean "parking", default: false
+    t.boolean "terrace", default: false
+    t.boolean "garden", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "city_id", null: false
@@ -32,6 +40,7 @@ ActiveRecord::Schema.define(version: 2022_06_22_210923) do
 
   create_table "boroughs", force: :cascade do |t|
     t.string "name"
+    t.string "insee_code"
     t.bigint "city_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -40,6 +49,7 @@ ActiveRecord::Schema.define(version: 2022_06_22_210923) do
 
   create_table "cities", force: :cascade do |t|
     t.string "name"
+    t.string "insee_code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
