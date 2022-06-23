@@ -2,7 +2,9 @@ class ApartmentsController < ApplicationController
   def index
     @apartments = Apartment.all
 
-    filter_by_criterias
+    filter_by_type
+    filter_by_checkbox_criterias
+    filter_by_radio_criterias
     ## rooms
     filter_by_rooms
     ## surface
@@ -12,7 +14,7 @@ class ApartmentsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.text { render partial: 'locations', locals: { locations: @result }, formats: :html }
+      format.text { render partial: 'locations', locals: { locations: @results }, formats: :html }
     end
   end
 
@@ -23,14 +25,35 @@ class ApartmentsController < ApplicationController
 
   private
 
-  def filter_by_criterias
+  def filter_by_type
+    if params[:flat].present? && params[:house].present?
+      @apartments = @apartments.where(apartment_type: params[:flat]).or(@apartments.where(apartment_type: params[:house]))
+    elsif params[:flat].present?
+      @apartments = @apartments.where(apartment_type: params[:flat])
+    elsif params[:house].present?
+      @apartments = @apartments.where(apartment_type: params[:house])
+    end
+  end
+
+  def filter_by_checkbox_criterias
     ## balcon
     @apartments = @apartments.where(balcony: true) if params[:balcony].present?
     ## cheminée
     @apartments = @apartments.where(chimney: true) if params[:chimney].present?
     ## ascenseur
     @apartments = @apartments.where(elevator: true) if params[:elevator].present?
-    ## meublé / non meublé
+    ## cellier
+    @apartments = @apartments.where(cellar: true) if params[:cellar].present?
+    ## parking
+    @apartments = @apartments.where(parking: true) if params[:parking].present?
+    ## terrasse
+    @apartments = @apartments.where(terrace: true) if params[:terrace].present?
+    ## jardin
+    @apartments = @apartments.where(garden: true) if params[:garden].present?
+  end
+
+  def filter_by_radio_criterias
+    # meublé / non meublé
     @apartments = @apartments.where("status ILIKE ? ", params[:status]) if params[:status].present?
   end
 
@@ -55,18 +78,26 @@ class ApartmentsController < ApplicationController
   end
 
   def filter_by_locations
-    @locations_ids = params[:locations].split(",").map(&:to_i) if params[:locations].present?
-    @locations_tags = Location.where(id: @locations_ids) if @locations_ids.present?
+    @locations_insees = params[:locations].split(",") if params[:locations].present?
+    if @locations_insees.present?
+      @cities = City.where(insee_code: @locations_insees)
+      @boroughs = Borough.where(insee_code: @locations_insees)
+      @locations_tags = @cities + @boroughs
+    end
 
-    @apartments = @apartments.where(location: @locations_tags) if @locations_tags.present?
+    if @cities.present? && @boroughs.present?
+      @apartments = (@apartments.where(city: @cities).or(@apartments.where(borough_id: @boroughs.map(&:id)))).uniq
+    elsif @cities.present?
+      @apartments = @apartments.where(city: @cities)
+    elsif @boroughs.present?
+      @apartments = @apartments.where(borough_id: @boroughs.map(&:id))
+    end
 
-    @result = Location.where("name ILIKE ? ", "%#{params[:search]}%") if params[:search].present?
-    @result = @result.where.not(id: @locations_ids) if @locations_ids.present? && @result.present?
-  end
-
-  def order_by_type(locations)
-    return if locations.nil?
-
-    locations.order(location_type: :desc)
+    ## les resultats affichés
+    @city_results = City.where("name ILIKE ? ", "%#{params[:search]}%") if params[:search].present?
+    @city_results = @city_results.where.not(insee_code: @locations_insees) if @locations_insees.present? && @city_results.present?
+    @borough_results = Borough.where("name ILIKE ? ", "%#{params[:search]}%") if params[:search].present?
+    @borough_results = @borough_results.where.not(insee_code: @locations_insees) if @locations_insees.present? && @borough_results.present?
+    @results = @city_results + @borough_results if @city_results.present? || @borough_results.present?
   end
 end
