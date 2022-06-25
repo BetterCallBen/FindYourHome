@@ -2,6 +2,7 @@ class ApartmentsController < ApplicationController
   def index
     @apartments = Apartment.all
 
+    filter_by_project
     filter_by_checkbox_criterias
     filter_by_radio_criterias
     filter_by_rooms
@@ -20,6 +21,10 @@ class ApartmentsController < ApplicationController
   end
 
   private
+
+  def filter_by_project
+    @apartments = @apartments.where(project: params[:project]) if params[:project].present?
+  end
 
   def filter_by_checkbox_criterias
     ## balcon
