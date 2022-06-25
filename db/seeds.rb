@@ -5,6 +5,11 @@ CITY = [{ name: "Paris", insee_code: "75056" }, { name: "Lyon", insee_code: "691
         { name: "Marseille", insee_code: "13055" }, { name: "Nice", insee_code: "06088" },
         { name: "Bordeaux", insee_code: "33063" }, { name: "Toulouse", insee_code: "31555" },
         { name: "Nantes", insee_code: "44109" }, { name: "Lille", insee_code: "59350" }]
+LYON_CITIES = [{name: "Lyon", insee_code: "69123"}, { name: "Charbonniere les bains", insee_code: "69044"},
+               {name: "Tassin la demi-lune", insee_code: "69244"}, { name: "Villefranche-sur-Saone", insee_code: "69264"},
+               {name: "Ecully", insee_code: "69081"}, { name: "Villeurbanne", insee_code: "69266"},
+               {name: "Albigny-sur-Saône", insee_code: "69003"}, { name: "Bron", insee_code: "69029"},
+               {name: "Caluire-et-Cuire", insee_code: "69034"}, { name: "Champagne-au-Mont-d'Or ", insee_code: "69040"}]
 LYON_BOROUGH = [{ name: "Lyon 1er", insee_code: "69381" }, { name: "Lyon 2ème", insee_code: "69382" },
                 { name: "Lyon 3ème", insee_code: "69383" }, { name: "Lyon 4ème", insee_code: "69384" },
                 { name: "Lyon 5ème", insee_code: "69385" }, { name: "Lyon 6ème", insee_code: "69386" },
@@ -34,10 +39,10 @@ City.destroy_all
 
 puts 'Creating Locations...'
 
-CITY.each do |city|
+LYON_CITIES.each do |lyon_city|
   City.create!(
-    name: city[:name],
-    insee_code: city[:insee_code]
+    name: lyon_city[:name],
+    insee_code: lyon_city[:insee_code]
   )
 end
 
@@ -48,26 +53,26 @@ LYON_BOROUGH.each do |lyon_borough|
     city: City.find_by(name: "Lyon")
   )
 end
-PARIS_BOROUGH.each do |paris_borough|
-  Borough.create!(
-    name: paris_borough[:name],
-    insee_code: paris_borough[:insee_code],
-    city: City.find_by(name: "Paris")
-  )
-end
-MARSEILLE_BOROUGH.each do |marseille_borough|
-  Borough.create!(
-    name: marseille_borough[:name],
-    insee_code: marseille_borough[:insee_code],
-    city: City.find_by(name: "Marseille")
-  )
-end
+# PARIS_BOROUGH.each do |paris_borough|
+#   Borough.create!(
+#     name: paris_borough[:name],
+#     insee_code: paris_borough[:insee_code],
+#     city: City.find_by(name: "Paris")
+#   )
+# end
+# MARSEILLE_BOROUGH.each do |marseille_borough|
+#   Borough.create!(
+#     name: marseille_borough[:name],
+#     insee_code: marseille_borough[:insee_code],
+#     city: City.find_by(name: "Marseille")
+#   )
+# end
 
 puts 'Creating Apartments...'
 lyon = City.find_by(name: "Lyon")
 
 ## flats in Lyon
-200.times do
+rand(200..220).times do
   Apartment.create!(
     name: Faker::Company.name,
     description: Faker::Lorem.paragraph,
@@ -89,7 +94,7 @@ lyon = City.find_by(name: "Lyon")
   )
 end
 ## houses in Lyon
-100.times do
+rand(120..150).times do
   Apartment.create!(
     name: Faker::Company.name,
     address: Faker::Address.full_address,
@@ -102,7 +107,7 @@ end
     city: lyon,
     balcony: RARE_BOOLEAN.sample,
     chimney: RARE_BOOLEAN.sample,
-    elevator: BOOLEAN.sample,
+    elevator: false,
     parking: BOOLEAN.sample,
     cellar: RARE_BOOLEAN.sample,
     garden: BOOLEAN.sample,
@@ -111,8 +116,8 @@ end
   )
 end
 
-## flats not in Lyon
-300.times do
+# flats not in Lyon
+rand(40..70).times do
   Apartment.create!(
     name: Faker::Company.name,
     address: Faker::Address.full_address,
@@ -129,8 +134,7 @@ end
     parking: BOOLEAN.sample,
     cellar: false,
     garden: false,
-    terrace: RARE_BOOLEAN.sample,
-    borough_id: Borough.where.not(city: lyon).sample.id
+    terrace: RARE_BOOLEAN.sample
   )
 end
 
@@ -148,12 +152,11 @@ end
     city: City.where.not(name: "Lyon").sample,
     balcony: RARE_BOOLEAN.sample,
     chimney: RARE_BOOLEAN.sample,
-    elevator: BOOLEAN.sample,
+    elevator: false,
     parking: BOOLEAN.sample,
     cellar: RARE_BOOLEAN.sample,
     garden: BOOLEAN.sample,
     terrace: RARE_BOOLEAN.sample,
-    borough_id: Borough.where.not(city: lyon).sample.id
   )
 end
 
