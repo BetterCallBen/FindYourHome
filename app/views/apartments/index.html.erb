@@ -1,15 +1,23 @@
 <div class="container"
      data-controller="apartments"
-     data-apartments-locations-value="<%= @locations_insees.nil? ? [] : @locations_insees.count === 1 ? [@locations_insees] : @locations_insees.split(",") %>">
+     data-apartments-location-insees-value="<%= @locations_insees.nil? ? [] : @locations_insees %>"
+     data-apartments-apartment-types-value="<%= @apartment_types.nil? ? [] : @apartment_types %>">
 
   <%= form_with(url: apartments_path, method: :get, data: { 'apartments-target': 'form'}) do |f| %>
 
     <div class="type-filter div-filter">
       <label class="tag">Type de bien</label>
-      <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="flat" name="flat" value="flat" <%= 'checked' if params[:flat] == "flat"%>>
+      <input class="filter" type="checkbox" id="flat" data-action="click->apartments#toggleType" value="flat" <%= 'checked' if params[:types].present? && params[:types].include?("flat")  %>>
       <label class="tag" for="flat">Appartement</label>
-      <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="house" name="house" value="house" <%= 'checked' if params[:house] == "house"%>>
+      <input class="filter" type="checkbox" id="house" data-action="click->apartments#toggleType" value="house" <%= 'checked' if params[:types].present? && params[:types].include?("house") %>>
       <label class="tag" for="house">Maison</label>
+      <input class="filter" type="checkbox" id="garage" data-action="click->apartments#toggleType" value="garage" <%= 'checked' if params[:types].present? && params[:types].include?("garage") %>>
+      <label class="tag" for="garage">Garage</label>
+      <input class="filter" type="checkbox" id="ground" data-action="click->apartments#toggleType" value="ground" <%= 'checked' if params[:types].present? && params[:types].include?("ground") %>>
+      <label class="tag" for="ground">Ground</label>
+
+      <input class="filter d-none" data-apartments-target="types" name="types" value="<%= params[:types] if params[:types] %>">
+
     </div>
 
     <div class="rooms-filter div-filter">
