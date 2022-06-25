@@ -1,12 +1,30 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "locations", "locationResults"]
-  static values = { locations: Array }
+  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "locations", "locationResults", "types"]
+  static values = { locationInsees: Array, apartmentTypes: Array }
 
   connect() {
-    this.locationInsees = this.locationsValue
-    this.locationInseesArray = this.locationInsees[0]
+    this.locationInsees = this.locationInseesValue
+    console.log(this.locationInsees)
+    this.apartmentTypes = this.apartmentTypesValue
+    console.log(this.apartmentTypes)
+  }
+
+  toggleType(event) {
+    const type = event.currentTarget.value
+
+    if (this.apartmentTypes.includes(type)) {
+      const index = this.apartmentTypes.indexOf(type)
+      if (index > -1) {
+        this.apartmentTypes.splice(index, 1)
+      }
+    } else {
+      this.apartmentTypes.push(type)
+    }
+    this.typesTarget.value = this.apartmentTypes
+
+    this.submitForm()
   }
 
 
@@ -26,23 +44,21 @@ export default class extends Controller {
   }
 
   addLocation(event) {
-    console.log(event.currentTarget.dataset.inseeCode)
     this.locationInsees.push(event.currentTarget.dataset.inseeCode)
     this.locationsTarget.value = this.locationInsees
+
     this.submitForm()
   }
 
   removeLocation(event) {
     const inseeCode = event.currentTarget.dataset.inseeCode
-    const index = this.locationInseesArray.indexOf(inseeCode)
+    const index = this.locationInsees.indexOf(inseeCode)
     if (index > -1) {
-      this.locationInseesArray.splice(index, 1)
+      this.locationInsees.splice(index, 1)
     }
-    this.locationsTarget.value = this.locationInseesArray
+    this.locationsTarget.value = this.locationInsees
     this.submitForm()
   }
-
-
 
   submitForm() {
     this.formTarget.submit()
@@ -78,16 +94,5 @@ export default class extends Controller {
     if (event.keyCode === 13 || event.currentTarget.value.length === 3) {
       this.formTarget.submit()
     }
-  }
-
-  search(event) {
-
-
-    fetch(this.url,
-      { method: "GET",
-        headers: { "Accept": "text/plain" }
-      })
-      .then(response => response.text())
-      .then(text => this.apartmentsTarget.innerHTML = text)
   }
 }
