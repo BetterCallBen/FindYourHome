@@ -6,9 +6,7 @@ export default class extends Controller {
 
   connect() {
     this.locationInsees = this.locationInseesValue
-    console.log(this.locationInsees)
     this.apartmentTypes = this.apartmentTypesValue
-    console.log(this.apartmentTypes)
   }
 
   toggleType(event) {
