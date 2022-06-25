@@ -5,6 +5,15 @@
 
   <%= form_with(url: apartments_path, method: :get, data: { 'apartments-target': 'form'}) do |f| %>
 
+    <div class="project">
+      <input class="filter" data-action="input->apartments#submitForm" type="radio" id="rent" name="project" value="rent" <%= 'checked' if params[:project] == "rent"%>>
+      <label class="tag" for="rent">Louer</label>
+
+      <input class="filter" data-action="input->apartments#submitForm" type="radio" id="buy" name="project" value="buy" <%= 'checked' if params[:project] == "buy"%>>
+      <label class="tag" for="buy">Acheter</label>
+    </div>
+
+
     <div class="type-filter div-filter">
       <label class="tag">Type de bien</label>
       <input class="filter" type="checkbox" id="flat" data-action="click->apartments#toggleType" value="flat" <%= 'checked' if params[:types].present? && params[:types].include?("flat")  %>>
@@ -14,7 +23,7 @@
       <input class="filter" type="checkbox" id="garage" data-action="click->apartments#toggleType" value="garage" <%= 'checked' if params[:types].present? && params[:types].include?("garage") %>>
       <label class="tag" for="garage">Garage</label>
       <input class="filter" type="checkbox" id="ground" data-action="click->apartments#toggleType" value="ground" <%= 'checked' if params[:types].present? && params[:types].include?("ground") %>>
-      <label class="tag" for="ground">Ground</label>
+      <label class="tag" for="ground">Terrain</label>
 
       <input class="filter d-none" data-apartments-target="types" name="types" value="<%= params[:types] if params[:types] %>">
 
