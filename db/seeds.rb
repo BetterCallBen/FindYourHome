@@ -71,12 +71,13 @@ end
 puts 'Creating Apartments...'
 lyon = City.find_by(name: "Lyon")
 
-## flats in Lyon
+## flats in Lyon to rent
 rand(200..220).times do
   Apartment.create!(
+    project: "rent",
     name: Faker::Company.name,
     description: Faker::Lorem.paragraph,
-    price: rand(100..1000),
+    price: rand(100..1200),
     apartment_type: "flat",
     address: Faker::Address.full_address,
     status: STATUS.sample,
@@ -93,9 +94,103 @@ rand(200..220).times do
     borough_id: Borough.where(city: lyon).sample.id
   )
 end
-## houses in Lyon
+## houses in Lyon to rent
 rand(120..150).times do
   Apartment.create!(
+    project: "rent",
+    name: Faker::Company.name,
+    address: Faker::Address.full_address,
+    description: Faker::Lorem.paragraph,
+    price: rand(700..2500),
+    apartment_type: "house",
+    status: STATUS.sample,
+    rooms: rand(3..9),
+    surface: rand(50..300),
+    city: lyon,
+    balcony: RARE_BOOLEAN.sample,
+    chimney: RARE_BOOLEAN.sample,
+    elevator: false,
+    parking: BOOLEAN.sample,
+    cellar: RARE_BOOLEAN.sample,
+    garden: BOOLEAN.sample,
+    terrace: RARE_BOOLEAN.sample,
+    borough_id: Borough.where(city: lyon).sample.id
+  )
+end
+
+# flats not in Lyon to rent
+rand(40..70).times do
+  Apartment.create!(
+    project: "rent",
+    name: Faker::Company.name,
+    address: Faker::Address.full_address,
+    description: Faker::Lorem.paragraph,
+    price: rand(756..2500),
+    apartment_type: "flat",
+    status: STATUS.sample,
+    rooms: rand(1..5),
+    surface: rand(15..120),
+    city: City.where.not(name: "Lyon").sample,
+    balcony: RARE_BOOLEAN.sample,
+    chimney: RARE_BOOLEAN.sample,
+    elevator: BOOLEAN.sample,
+    parking: BOOLEAN.sample,
+    cellar: false,
+    garden: false,
+    terrace: RARE_BOOLEAN.sample
+  )
+end
+
+## houses not in Lyon to rent
+100.times do
+  Apartment.create!(
+    project: "rent",
+    name: Faker::Company.name,
+    address: Faker::Address.full_address,
+    description: Faker::Lorem.paragraph,
+    price: rand(756..2500),
+    apartment_type: "house",
+    status: STATUS.sample,
+    rooms: rand(3..9),
+    surface: rand(50..300),
+    city: City.where.not(name: "Lyon").sample,
+    balcony: RARE_BOOLEAN.sample,
+    chimney: RARE_BOOLEAN.sample,
+    elevator: false,
+    parking: BOOLEAN.sample,
+    cellar: RARE_BOOLEAN.sample,
+    garden: BOOLEAN.sample,
+    terrace: RARE_BOOLEAN.sample,
+  )
+end
+
+## flats in Lyon to buy
+rand(200..220).times do
+  Apartment.create!(
+    project: "buy",
+    name: Faker::Company.name,
+    description: Faker::Lorem.paragraph,
+    price: rand(100_000..1_200_000),
+    apartment_type: "flat",
+    address: Faker::Address.full_address,
+    status: STATUS.sample,
+    rooms: rand(1..5),
+    surface: rand(15..120),
+    city: lyon,
+    balcony: RARE_BOOLEAN.sample,
+    chimney: RARE_BOOLEAN.sample,
+    elevator: BOOLEAN.sample,
+    parking: BOOLEAN.sample,
+    cellar: false,
+    garden: false,
+    terrace: RARE_BOOLEAN.sample,
+    borough_id: Borough.where(city: lyon).sample.id
+  )
+end
+## houses in Lyon to buy
+rand(120..150).times do
+  Apartment.create!(
+    project: "buy",
     name: Faker::Company.name,
     address: Faker::Address.full_address,
     description: Faker::Lorem.paragraph,
@@ -116,13 +211,14 @@ rand(120..150).times do
   )
 end
 
-# flats not in Lyon
+# flats not in Lyon to buy
 rand(40..70).times do
   Apartment.create!(
+    project: "buy",
     name: Faker::Company.name,
     address: Faker::Address.full_address,
     description: Faker::Lorem.paragraph,
-    price: rand(100..1000),
+    price: rand(75_600..2_500_000),
     apartment_type: "flat",
     status: STATUS.sample,
     rooms: rand(1..5),
@@ -138,13 +234,14 @@ rand(40..70).times do
   )
 end
 
-## houses not in Lyon
+## houses not in Lyon to buy
 100.times do
   Apartment.create!(
+    project: "buy",
     name: Faker::Company.name,
     address: Faker::Address.full_address,
     description: Faker::Lorem.paragraph,
-    price: rand(100_000..1_000_000),
+    price: rand(75_600..2_500_000),
     apartment_type: "house",
     status: STATUS.sample,
     rooms: rand(3..9),
