@@ -2,14 +2,11 @@ class ApartmentsController < ApplicationController
   def index
     @apartments = Apartment.all
 
-    filter_by_type
     filter_by_checkbox_criterias
     filter_by_radio_criterias
-    ## rooms
     filter_by_rooms
-    ## surface
     filter_by_surface
-    ## location
+    filter_by_apartment_type
     filter_by_locations
 
     respond_to do |format|
@@ -20,20 +17,9 @@ class ApartmentsController < ApplicationController
 
   def show
     @apartment = Apartment.find(params[:id])
-    @review = Review.new
   end
 
   private
-
-  def filter_by_type
-    if params[:flat].present? && params[:house].present?
-      @apartments = @apartments.where(apartment_type: params[:flat]).or(@apartments.where(apartment_type: params[:house]))
-    elsif params[:flat].present?
-      @apartments = @apartments.where(apartment_type: params[:flat])
-    elsif params[:house].present?
-      @apartments = @apartments.where(apartment_type: params[:house])
-    end
-  end
 
   def filter_by_checkbox_criterias
     ## balcon
@@ -77,27 +63,50 @@ class ApartmentsController < ApplicationController
     end
   end
 
+  def filter_by_apartment_type
+    @apartment_types = params[:types].split(",") if params[:types].present?
+
+    @apartments = @apartments.where(apartment_type: @apartment_types) if @apartment_types.present?
+  end
+
   def filter_by_locations
     @locations_insees = params[:locations].split(",") if params[:locations].present?
-    if @locations_insees.present?
-      @cities = City.where(insee_code: @locations_insees)
-      @boroughs = Borough.where(insee_code: @locations_insees)
-      @locations_tags = @cities + @boroughs
-    end
 
+    find_location_tags if @locations_insees.present?
+
+    filter_the_apartment
+
+    ## les resultats affichés
+    return unless params[:search].present?
+
+    find_results
+  end
+
+  def find_location_tags
+    @cities = City.where(insee_code: @locations_insees)
+    @boroughs = Borough.where(insee_code: @locations_insees)
+    @locations_tags = @cities + @boroughs
+  end
+
+  def filter_the_apartment
     if @cities.present? && @boroughs.present?
-      @apartments = (@apartments.where(city: @cities).or(@apartments.where(borough_id: @boroughs.map(&:id)))).uniq
+      @apartments = @apartments.where(city: @cities).or(@apartments.where(borough_id: @boroughs.map(&:id))).uniq
     elsif @cities.present?
       @apartments = @apartments.where(city: @cities)
     elsif @boroughs.present?
       @apartments = @apartments.where(borough_id: @boroughs.map(&:id))
     end
+  end
 
-    ## les resultats affichés
-    @city_results = City.where("name ILIKE ? ", "%#{params[:search]}%") if params[:search].present?
-    @city_results = @city_results.where.not(insee_code: @locations_insees) if @locations_insees.present? && @city_results.present?
-    @borough_results = Borough.where("name ILIKE ? ", "%#{params[:search]}%") if params[:search].present?
-    @borough_results = @borough_results.where.not(insee_code: @locations_insees) if @locations_insees.present? && @borough_results.present?
+  def find_results
+    @city_results = City.where("name ILIKE ? ", "%#{params[:search]}%")
+    if @locations_insees.present? && @city_results.present?
+      @city_results = @city_results.where.not(insee_code: @locations_insees)
+    end
+    @borough_results = Borough.where("name ILIKE ? ", "%#{params[:search]}%")
+    if @locations_insees.present? && @borough_results.present?
+      @borough_results = @borough_results.where.not(insee_code: @locations_insees)
+    end
     @results = @city_results + @borough_results if @city_results.present? || @borough_results.present?
   end
 end
