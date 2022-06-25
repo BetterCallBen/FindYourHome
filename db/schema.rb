@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2022_06_22_210923) do
   enable_extension "plpgsql"
 
   create_table "apartments", force: :cascade do |t|
+    t.string "project"
     t.string "name"
     t.string "apartment_type"
     t.text "description"
