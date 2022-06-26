@@ -1,20 +1,23 @@
 .apartment-cards {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   width: 100%;
   height: 100%;
   gap: 2vh;
   .apartment-card {
-    height: 26vh;
-    width: 90vh;
+    height: 35vh;
     text-decoration: none;
     .apartment-image {
-      height: 100%;
-      width: 40%;
+      height: 60%;
+      width: 100%;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       border-radius: 4px;
+    }
+    p {
+      margin: 0;
+      color: rgba(0, 0, 0, 0.806);
     }
     .apartment-content {
       display: flex;
@@ -22,17 +25,17 @@
       height: 100%;
       width: 100%;
       .apartment-infos {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         font-weight: bold;
-        margin-top: 1rem;
       }
       .apartment-location {
         font-size: 1rem;
-        margin-top: 1rem;
       }
       .apartment-price {
-        font-size: 1rem;
-        margin-top: 1rem;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #2487A4;
+
       }
     }
   }
