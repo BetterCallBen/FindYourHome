@@ -19,17 +19,7 @@ class ApartmentsController < ApplicationController
     end
 
     if params[:types].present? && params[:types].split(",").count == 1
-      @type = params[:types].split(",").first
-      case @type
-      when "flat"
-        @what = "appartement"
-      when "house"
-        @what = "maison"
-      when "garage"
-        @what = "garage"
-      when "ground"
-        @what = "terrain"
-      end
+      @what = params[:types].split(",").first
     end
 
     respond_to do |format|
