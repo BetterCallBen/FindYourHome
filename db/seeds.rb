@@ -77,7 +77,7 @@ rand(200..220).times do
     project: "rent",
     name: Faker::Company.name,
     description: Faker::Lorem.paragraph,
-    price: rand(100..1200),
+    price: rand(500..1200),
     apartment_type: "flat",
     address: Faker::Address.full_address,
     status: STATUS.sample,
