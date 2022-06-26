@@ -18,9 +18,7 @@ class ApartmentsController < ApplicationController
       @there = "à #{@location.name}"
     end
 
-    if params[:types].present? && params[:types].split(",").count == 1
-      @what = params[:types].split(",").first
-    end
+    @what = params[:types].split(",").first if params[:types].present? && params[:types].split(",").count == 1
 
     respond_to do |format|
       format.html
