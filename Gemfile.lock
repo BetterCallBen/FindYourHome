@@ -66,6 +66,7 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    amazing_print (1.0.0)
     autoprefixer-rails (10.2.5.0)
       execjs (< 2.8.0)
     bindex (0.8.1)
@@ -229,6 +230,7 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
+  amazing_print (~> 1.0.0)
   autoprefixer-rails (= 10.2.5)
   bootsnap (>= 1.4.2)
   byebug

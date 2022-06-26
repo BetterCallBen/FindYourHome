@@ -24,6 +24,8 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'nokogiri', '~> 1.8.0'
 
+gem 'amazing_print', '~> 1.0.0'
+
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
