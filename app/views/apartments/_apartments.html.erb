@@ -1,4 +1,19 @@
-<p><%= pluralize(apartments.count, what || "bien")%> <%= there %> </p>
 <% apartments.first(50).each do |apartment| %>
-  <p><%= link_to apartment.name, apartment_path(apartment) %></p>
+  <%= link_to apartment_path(apartment), class: "apartment-card" do %>
+    <%# <%= image_tag apartment.image_url, class: "apartment-image" %>
+    <div class="apartment-content">
+      <p class="apartment-infos">
+        <%= translate_type(apartment.apartment_type) %>
+        <%= pluralize(apartment.rooms, "pièce") %>
+        <%= apartment.surface %> m2</p>
+      <p class="apartment-location">
+        <% if apartment.borough_id %>
+          <%= Borough.find(apartment.borough_id).name %>
+        <% else %>
+          <%= apartment.city.name %>
+        <% end %>
+      </p>
+      <p class="apartment-price"><%= apartment.price %> €</p>
+    </div>
+  <% end %>
 <% end %>
