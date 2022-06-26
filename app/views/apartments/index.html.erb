@@ -96,11 +96,9 @@
       </div>
     <% end %>
 
-
   <% end %>
 
-  <h1>Apartments</h1>
   <div class="apartment-cards" data-apartments-target="apartments">
-    <%= render 'apartments', apartments: @apartments %>
+    <%= render 'apartments', apartments: @apartments, what: @what, there: @there %>
   </div>
 </div>
