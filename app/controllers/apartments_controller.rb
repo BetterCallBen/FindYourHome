@@ -10,6 +10,28 @@ class ApartmentsController < ApplicationController
     filter_by_apartment_type
     filter_by_locations
 
+    if params[:locations].present? && params[:locations].split(",").count == 1
+      insee_code = params[:locations].split(",").first
+      borough = Borough.find_by(insee_code: insee_code)
+      city = City.find_by(insee_code: insee_code)
+      @location = borough || city
+      @there = "à #{@location.name}"
+    end
+
+    if params[:types].present? && params[:types].split(",").count == 1
+      @type = params[:types].split(",").first
+      case @type
+      when "flat"
+        @what = "appartement"
+      when "house"
+        @what = "maison"
+      when "garage"
+        @what = "garage"
+      when "ground"
+        @what = "terrain"
+      end
+    end
+
     respond_to do |format|
       format.html
       format.text { render partial: 'locations', locals: { locations: @results }, formats: :html }
