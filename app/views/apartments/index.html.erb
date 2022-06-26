@@ -1,9 +1,9 @@
-<div class="container"
+<div class="contain"
      data-controller="apartments"
      data-apartments-location-insees-value="<%= @locations_insees.nil? ? [] : @locations_insees %>"
      data-apartments-apartment-types-value="<%= @apartment_types.nil? ? [] : @apartment_types %>">
 
-  <%= form_with(url: apartments_path, method: :get, data: { 'apartments-target': 'form'}) do |f| %>
+  <%= form_with(url: apartments_path, method: :get, data: { 'apartments-target': 'form'}, class: "filter-form") do |f| %>
 
     <div class="project-filter div-filter">
       <input class="filter" data-action="input->apartments#submitForm" type="radio" id="rent" name="project" value="rent" <%= 'checked' if params[:project] == "rent"%>>
@@ -97,10 +97,14 @@
     <% end %>
 
   <% end %>
+  <div>
+    <p>
+      <%= pluralize(@apartments.count, @what.nil? ? "bien" : translate_type(@what)) %>
+      <%= @there %>
+    </p>
 
-  <p><%= pluralize(@apartments.count, translate_type(@what) || "bien")%> <%= @there %> </p>
-
-  <div class="apartment-cards" data-apartments-target="apartments">
-    <%= render 'apartments', apartments: @apartments %>
+    <div class="apartment-cards" data-apartments-target="apartments">
+      <%= render 'apartments', apartments: @apartments %>
+    </div>
   </div>
 </div>
