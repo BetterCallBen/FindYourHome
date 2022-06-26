@@ -98,7 +98,9 @@
 
   <% end %>
 
+  <p><%= pluralize(@apartments.count, translate_type(@what) || "bien")%> <%= @there %> </p>
+
   <div class="apartment-cards" data-apartments-target="apartments">
-    <%= render 'apartments', apartments: @apartments, what: @what, there: @there %>
+    <%= render 'apartments', apartments: @apartments %>
   </div>
 </div>
