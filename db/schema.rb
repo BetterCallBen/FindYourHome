@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2022_06_22_210923) do
     t.string "name"
     t.string "apartment_type"
     t.text "description"
+    t.text "image_url"
     t.string "address"
     t.string "status"
     t.integer "price"
