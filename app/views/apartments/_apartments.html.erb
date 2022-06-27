@@ -1,6 +1,6 @@
 <% apartments.first(50).each do |apartment| %>
   <%= link_to apartment_path(apartment), class: "apartment-card" do %>
-    <%# <%= image_tag apartment.image_url, class: "apartment-image" %>
+    <%= image_tag apartment.image_url, class: "apartment-image" %>
     <div class="apartment-content">
       <p class="apartment-infos">
         <%= translate_type(apartment.apartment_type) %>
