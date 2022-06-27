@@ -10,7 +10,8 @@ input[type=checkbox], input[type=radio]{
   }
 }
 .search-input {
-  width: 400px;
+  width: 100%;
+  max-width: 500px;
   padding: 0.5rem;
   border-radius: 2px;
   border: 1px solid #ccc;
@@ -24,7 +25,7 @@ input[type=checkbox], input[type=radio]{
 }
 
 .filter:checked+.tag {
-    border: 1px solid #03819E;
-    background-color: #03819E;
+    border: 1px solid #2586A4;
+    background-color: #2586A4;
     color: #fff;
 }
