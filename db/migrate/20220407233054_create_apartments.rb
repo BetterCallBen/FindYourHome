@@ -5,6 +5,7 @@ class CreateApartments < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :apartment_type
       t.text :description
+      t.text :image_url
       t.string :address
       t.string :status
       t.integer :price
