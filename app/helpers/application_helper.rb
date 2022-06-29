@@ -17,8 +17,18 @@ module ApplicationHelper
     return hash[type.to_sym]
   end
 
+  def humanize_location(location)
+    hash = {
+      city: 'Ville',
+      borough: 'Arrondissement'
+    }
+    return hash[location.class.name.downcase.to_sym]
+  end
+
   def in_group_of(count, number)
-    if count == 4 || count == 5 || count == 6
+    if count == 1 || count == 2 || count == 3
+      return number
+    elsif count == 4 || count == 5 || count == 6
       number = number.to_s.chars
       last_part = number.pop(3).join
       return "#{number.join} #{last_part}"
