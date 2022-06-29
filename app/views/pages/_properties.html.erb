@@ -1,0 +1,61 @@
+<% properties.first(50).each do |apartment| %>
+  <% if apartment.class.name == "Apartment" %>
+    <%# flat %>
+    <%= link_to apartment_path(apartment), class: "apartment-card" do %>
+      <%= image_tag apartment.image_url, class: "apartment-image" %>
+      <div class="apartment-content">
+        <p class="apartment-infos">
+          Appartement
+          <%= pluralize(apartment.rooms, "pièce") %>
+          <%= apartment.surface %> m2
+        </p>
+        <p class="apartment-tags">
+          <%= "Balcon" if apartment.balcony %>
+          <%= "Cheminée" if apartment.chimney %>
+          <%= "Parking" if apartment.parking %>
+          <%= "Ascenseur" if apartment.elevator %>
+          <%= "Terrasse" if apartment.terrace %>
+          <%= "Cave" if apartment.cellar %>
+        </p>
+        <p class="apartment-location">
+          <% if apartment.borough_id %>
+            <%= Borough.find(apartment.borough_id).name %>
+          <% else %>
+            <%= apartment.city.name %>
+          <% end %>
+        </p>
+        <p class="apartment-price"><%= in_group_of(apartment.price.to_s.length, apartment.price) %> €</p>
+      </div>
+    <% end %>
+
+  <% elsif apartment.class.name == "House" %>
+    <%# house %>
+    <%= link_to apartment_path(apartment), class: "apartment-card" do %>
+      <%= image_tag apartment.image_url, class: "apartment-image" %>
+      <div class="apartment-content">
+        <p class="apartment-infos">
+          Maison
+          <%= pluralize(apartment.rooms, "pièce") %>
+          <%= apartment.surface %> m2</p>
+        <p class="apartment-tags">
+          <%= "Balcon" if apartment.balcony %>
+          <%= "Cheminée" if apartment.chimney %>
+          <%= "Parking" if apartment.parking %>
+          <%= "Jardin" if apartment.garden %>
+          <%= "Terrasse" if apartment.terrace %>
+          <%= "Cave" if apartment.cellar %>
+        </p>
+        <p class="apartment-location">
+          <% if apartment.borough_id %>
+            <%= Borough.find(apartment.borough_id).name %>
+          <% else %>
+            <%= apartment.city.name %>
+          <% end %>
+        </p>
+        <p class="apartment-price"><%= in_group_of(apartment.price.to_s.length, apartment.price) %> €</p>
+      </div>
+    <% end %>
+
+  <% end %>
+
+<% end %>

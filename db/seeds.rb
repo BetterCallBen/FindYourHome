@@ -33,6 +33,14 @@ MARSEILLE_BOROUGH = [{ name: "Marseille 1er", insee_code: "13201" }, { name: "Ma
                      { name: "Marseille 11ème", insee_code: "13211" }, { name: "Marseille 12ème", insee_code: "13212" },
                      { name: "Marseille 13ème", insee_code: "13213" }, { name: "Marseille 14ème", insee_code: "13214" },
                      { name: "Marseille 15ème", insee_code: "13215" }, { name: "Marseille 16ème", insee_code: "13216" }]
+APARTMENT_IMAGES = %w[https://images.ctfassets.net/pg6xj64qk0kh/2r4QaBLvhQFH1mPGljSdR9/39b737d93854060282f6b4a9b9893202/camden-paces-apartments-buckhead-ga-terraces-living-room-with-den_1.jpg
+                      https://cf.bstatic.com/xdata/images/hotel/max1024x768/72282092.jpg?k=5eeba7eb191652ce0c0988b4c7c042f1165b7064d865b096bb48b8c48bf191b9&o=&hp=1
+                      https://cdn.theblueground.com/website/static/img/paris-1-thumbnail.58117ea048647b0c1da0.jpg
+                      https://image.architonic.com/prj2-3/20116834/rua-141-apartment-in-sao-paulo-architonic-3629-01-arcit18.jpg
+                      https://www.aveliving.com/AVE/media/Property_Images/Florham%20Park/hero/flor-apt-living-(2)-hero.jpg?ext=.jpg
+                      https://cf.bstatic.com/xdata/images/hotel/max1024x768/267316381.jpg?k=86b64cf28cd12f4c6feb7b7be23c8bcce91b2cd1be7c48a7383c4297d8d695ce&o=&hp=1
+                      https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/2e/25/da/old-town-by-welcome-apartment.jpg?w=900&h=-1&s=1
+                      https://www.paris-housing.com/listings/140315/real_estate_image_big_682x455/big_0_20092211340655ruelecorbusier15.jpg]
 
 puts 'Destroy DB'
 City.destroy_all
@@ -77,9 +85,8 @@ rand(200..220).times do
     project: "rent",
     name: Faker::Company.name,
     description: Faker::Lorem.paragraph,
-    image_url: "https://images.ctfassets.net/pg6xj64qk0kh/2r4QaBLvhQFH1mPGljSdR9/39b737d93854060282f6b4a9b9893202/camden-paces-apartments-buckhead-ga-terraces-living-room-with-den_1.jpg",
+    image_url: APARTMENT_IMAGES.sample,
     price: rand(500..1200),
-    apartment_type: "flat",
     address: Faker::Address.full_address,
     status: STATUS.sample,
     rooms: rand(1..5),
@@ -90,32 +97,30 @@ rand(200..220).times do
     elevator: BOOLEAN.sample,
     parking: BOOLEAN.sample,
     cellar: false,
-    garden: false,
     terrace: RARE_BOOLEAN.sample,
     borough_id: Borough.where(city: lyon).sample.id
   )
 end
+
 ## houses in Lyon to rent
 rand(120..150).times do
-  Apartment.create!(
+  House.create!(
     project: "rent",
     name: Faker::Company.name,
     address: Faker::Address.full_address,
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
     price: rand(700..2500),
-    apartment_type: "house",
     status: STATUS.sample,
     rooms: rand(3..9),
     surface: rand(50..300),
     city: lyon,
     balcony: RARE_BOOLEAN.sample,
     chimney: RARE_BOOLEAN.sample,
-    elevator: false,
     parking: BOOLEAN.sample,
     cellar: RARE_BOOLEAN.sample,
-    garden: BOOLEAN.sample,
     terrace: RARE_BOOLEAN.sample,
+    garden: BOOLEAN.sample,
     borough_id: Borough.where(city: lyon).sample.id
   )
 end
@@ -127,9 +132,8 @@ rand(40..70).times do
     name: Faker::Company.name,
     address: Faker::Address.full_address,
     description: Faker::Lorem.paragraph,
-    image_url: "https://images.ctfassets.net/pg6xj64qk0kh/2r4QaBLvhQFH1mPGljSdR9/39b737d93854060282f6b4a9b9893202/camden-paces-apartments-buckhead-ga-terraces-living-room-with-den_1.jpg",
+    image_url: APARTMENT_IMAGES.sample,
     price: rand(756..2500),
-    apartment_type: "flat",
     status: STATUS.sample,
     rooms: rand(1..5),
     surface: rand(15..120),
@@ -139,32 +143,29 @@ rand(40..70).times do
     elevator: BOOLEAN.sample,
     parking: BOOLEAN.sample,
     cellar: false,
-    garden: false,
     terrace: RARE_BOOLEAN.sample
   )
 end
 
 ## houses not in Lyon to rent
 100.times do
-  Apartment.create!(
+  House.create!(
     project: "rent",
     name: Faker::Company.name,
     address: Faker::Address.full_address,
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
     price: rand(756..2500),
-    apartment_type: "house",
     status: STATUS.sample,
     rooms: rand(3..9),
     surface: rand(50..300),
     city: City.where.not(name: "Lyon").sample,
     balcony: RARE_BOOLEAN.sample,
     chimney: RARE_BOOLEAN.sample,
-    elevator: false,
     parking: BOOLEAN.sample,
     cellar: RARE_BOOLEAN.sample,
     garden: BOOLEAN.sample,
-    terrace: RARE_BOOLEAN.sample,
+    terrace: RARE_BOOLEAN.sample
   )
 end
 
@@ -174,11 +175,9 @@ rand(200..220).times do
     project: "buy",
     name: Faker::Company.name,
     description: Faker::Lorem.paragraph,
-    image_url: "https://images.ctfassets.net/pg6xj64qk0kh/2r4QaBLvhQFH1mPGljSdR9/39b737d93854060282f6b4a9b9893202/camden-paces-apartments-buckhead-ga-terraces-living-room-with-den_1.jpg",
+    image_url: APARTMENT_IMAGES.sample,
     price: rand(100_000..1_200_000),
-    apartment_type: "flat",
     address: Faker::Address.full_address,
-    status: STATUS.sample,
     rooms: rand(1..5),
     surface: rand(15..120),
     city: lyon,
@@ -187,28 +186,25 @@ rand(200..220).times do
     elevator: BOOLEAN.sample,
     parking: BOOLEAN.sample,
     cellar: false,
-    garden: false,
     terrace: RARE_BOOLEAN.sample,
     borough_id: Borough.where(city: lyon).sample.id
   )
 end
+
 ## houses in Lyon to buy
 rand(120..150).times do
-  Apartment.create!(
+  House.create!(
     project: "buy",
     name: Faker::Company.name,
     address: Faker::Address.full_address,
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
     price: rand(100_000..1_000_000),
-    apartment_type: "house",
-    status: STATUS.sample,
     rooms: rand(3..9),
     surface: rand(50..300),
     city: lyon,
     balcony: RARE_BOOLEAN.sample,
     chimney: RARE_BOOLEAN.sample,
-    elevator: false,
     parking: BOOLEAN.sample,
     cellar: RARE_BOOLEAN.sample,
     garden: BOOLEAN.sample,
@@ -217,17 +213,15 @@ rand(120..150).times do
   )
 end
 
-# flats not in Lyon to buy
+## flats not in Lyon to buy
 rand(40..70).times do
   Apartment.create!(
     project: "buy",
     name: Faker::Company.name,
     address: Faker::Address.full_address,
     description: Faker::Lorem.paragraph,
-    image_url: "https://images.ctfassets.net/pg6xj64qk0kh/2r4QaBLvhQFH1mPGljSdR9/39b737d93854060282f6b4a9b9893202/camden-paces-apartments-buckhead-ga-terraces-living-room-with-den_1.jpg",
+    image_url: APARTMENT_IMAGES.sample,
     price: rand(75_600..2_500_000),
-    apartment_type: "flat",
-    status: STATUS.sample,
     rooms: rand(1..5),
     surface: rand(15..120),
     city: City.where.not(name: "Lyon").sample,
@@ -235,33 +229,29 @@ rand(40..70).times do
     chimney: RARE_BOOLEAN.sample,
     elevator: BOOLEAN.sample,
     parking: BOOLEAN.sample,
-    cellar: false,
-    garden: false,
+    cellar: BOOLEAN.sample,
     terrace: RARE_BOOLEAN.sample
   )
 end
 
 ## houses not in Lyon to buy
 100.times do
-  Apartment.create!(
+  House.create!(
     project: "buy",
     name: Faker::Company.name,
     address: Faker::Address.full_address,
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
     price: rand(75_600..2_500_000),
-    apartment_type: "house",
-    status: STATUS.sample,
     rooms: rand(3..9),
     surface: rand(50..300),
     city: City.where.not(name: "Lyon").sample,
     balcony: RARE_BOOLEAN.sample,
     chimney: RARE_BOOLEAN.sample,
-    elevator: false,
     parking: BOOLEAN.sample,
     cellar: RARE_BOOLEAN.sample,
     garden: BOOLEAN.sample,
-    terrace: RARE_BOOLEAN.sample,
+    terrace: RARE_BOOLEAN.sample
   )
 end
 

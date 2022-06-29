@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_22_210923) do
+ActiveRecord::Schema.define(version: 2022_06_29_140644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 2022_06_22_210923) do
   create_table "apartments", force: :cascade do |t|
     t.string "project"
     t.string "name"
-    t.string "apartment_type"
     t.text "description"
     t.text "image_url"
     t.string "address"
@@ -33,7 +32,6 @@ ActiveRecord::Schema.define(version: 2022_06_22_210923) do
     t.boolean "cellar", default: false
     t.boolean "parking", default: false
     t.boolean "terrace", default: false
-    t.boolean "garden", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "city_id", null: false
@@ -56,6 +54,30 @@ ActiveRecord::Schema.define(version: 2022_06_22_210923) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "houses", force: :cascade do |t|
+    t.bigint "city_id", null: false
+    t.string "project"
+    t.string "name"
+    t.text "description"
+    t.text "image_url"
+    t.string "address"
+    t.string "status"
+    t.integer "price"
+    t.integer "rooms"
+    t.integer "surface"
+    t.integer "borough_id"
+    t.boolean "balcony", default: false
+    t.boolean "chimney", default: false
+    t.boolean "cellar", default: false
+    t.boolean "parking", default: false
+    t.boolean "terrace", default: false
+    t.boolean "garden", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["city_id"], name: "index_houses_on_city_id"
+  end
+
   add_foreign_key "apartments", "cities"
   add_foreign_key "boroughs", "cities"
+  add_foreign_key "houses", "cities"
 end

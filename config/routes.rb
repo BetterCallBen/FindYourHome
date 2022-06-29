@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
-  resources :apartments, only: %i[index show] do
-    resources :reviews, only: :create
-  end
+  get 'properties', to: 'pages#index', as: :properties
+
+  resources :apartments, only: %i[show]
+  resources :houses, only: %i[show]
 end
