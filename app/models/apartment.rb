@@ -1,5 +1,7 @@
 class Apartment < ApplicationRecord
   belongs_to :city
+  belongs_to :borough, optional: true
+
 
   validates :name, presence: true
   validates :address, presence: true
