@@ -4,16 +4,16 @@ class PagesController < ApplicationController
   end
 
   def index
-    @apartments = Apartment.includes(:city)
-    @houses = House.includes(:city)
+    @apartments = Apartment.includes(:city, :borough)
+    @houses = House.includes(:city, :borough)
 
-    filter_by_project
     filter_by_checkbox_criterias
     filter_by_radio_criterias
     filter_by_rooms
     filter_by_surface
     filter_by_locations
     filter_by_apartment_type
+    filter_by_project
 
     if params[:locations].present? && params[:locations].split(",").count == 1
       insee_code = params[:locations].split(",").first
@@ -28,8 +28,6 @@ class PagesController < ApplicationController
     @properties = @apartments + @houses
     if params[:sort].present? && params[:sort] == "price"
       @properties = @properties.sort_by(&:price)
-    else
-      @properties = @properties.shuffle
     end
 
     respond_to do |format|
@@ -63,12 +61,12 @@ class PagesController < ApplicationController
     ## cellier
     if params[:cellar].present?
       @apartments = @apartments.where(cellar: true)
-      @houses = @apartments.where(cellar: true)
+      @houses = @houses.where(cellar: true)
     end
-    ## parking
-    if params[:parking].present?
-      @apartments = @apartments.where(parking: true)
-      @houses = @houses.where(parking: true)
+    ## garage
+    if params[:garage].present?
+      @apartments = @apartments.where(garage: true)
+      @houses = @houses.where(garage: true)
     end
     ## terrasse
     if params[:terrace].present?
@@ -76,9 +74,7 @@ class PagesController < ApplicationController
       @houses = @houses.where(terrace: true)
     end
     ## jardin
-    if params[:garden].present?
-      @houses = @houses.where(garden: true)
-    end
+    @houses = @houses.where(garden: true) if params[:garden].present?
   end
 
   def filter_by_radio_criterias
@@ -115,9 +111,9 @@ class PagesController < ApplicationController
   def filter_by_apartment_type
     @apartment_types = params[:types].split(",") if params[:types].present?
     if @apartment_types.present? && !@apartment_types.include?("house")
-      @houses = House.first(0)
+      @houses = House.where(name: "toto")
     elsif @apartment_types.present? && !@apartment_types.include?("flat")
-      @apartments = Apartment.first(0)
+      @apartments = Apartment.where(name: "toto")
     end
   end
 
@@ -142,14 +138,14 @@ class PagesController < ApplicationController
 
   def filter_the_apartment
     if @cities.present? && @boroughs.present?
-      @apartments = @apartments.where(city: @cities).or(@apartments.where(borough_id: @boroughs.map(&:id))).uniq
-      @houses = @houses.where(city: @cities).or(@houses.where(borough_id: @boroughs.map(&:id))).uniq
+      @apartments = @apartments.where(city: @cities).or(@apartments.where(borough: @boroughs)).uniq
+      @houses = @houses.where(city: @cities).or(@houses.where(borough: @boroughs)).uniq
     elsif @cities.present?
       @apartments = @apartments.where(city: @cities)
       @houses = @houses.where(city: @cities)
     elsif @boroughs.present?
-      @apartments = @apartments.where(borough_id: @boroughs.map(&:id))
-      @houses = @houses.where(borough_id: @boroughs.map(&:id))
+      @apartments = @apartments.where(borough: @boroughs)
+      @houses = @houses.where(borough: @boroughs)
     end
   end
 
