@@ -19,8 +19,8 @@
       <label class="tag" for="flat">Appartement</label>
       <input class="filter" type="checkbox" id="house" data-action="click->apartments#toggleType" value="house" <%= 'checked' if params[:types].present? && params[:types].include?("house") %>>
       <label class="tag" for="house">Maison</label>
-      <input class="filter" type="checkbox" id="garage" data-action="click->apartments#toggleType" value="garage" <%= 'checked' if params[:types].present? && params[:types].include?("garage") %>>
-      <label class="tag" for="garage">Garage</label>
+      <input class="filter" type="checkbox" id="parking" data-action="click->apartments#toggleType" value="parking" <%= 'checked' if params[:types].present? && params[:types].include?("parking") %>>
+      <label class="tag" for="parking">Parking/Box</label>
       <input class="filter" type="checkbox" id="ground" data-action="click->apartments#toggleType" value="ground" <%= 'checked' if params[:types].present? && params[:types].include?("ground") %>>
       <label class="tag" for="ground">Terrain</label>
 
@@ -58,8 +58,8 @@
         <label class="tag" for="elevator">Ascenseur</label>
       <% end %>
 
-      <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="parking" name="parking" value="true" <%= 'checked' if params[:parking] == "true" %>>
-      <label class="tag" for="parking">Parking</label>
+      <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="garage" name="garage" value="true" <%= 'checked' if params[:garage] == "true" %>>
+      <label class="tag" for="garage">Garage</label>
 
       <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="terrace" name="terrace" value="true" <%= 'checked' if params[:terrace] == "true" %>>
       <label class="tag" for="terrace">Terrasse</label>
