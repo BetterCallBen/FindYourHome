@@ -1,12 +1,14 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "locations", "locationResults", "types"]
+  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "locations", "locationResults", "types", "inputLocations"]
   static values = { locationInsees: Array, apartmentTypes: Array }
 
   connect() {
     this.locationInsees = this.locationInseesValue
     this.apartmentTypes = this.apartmentTypesValue
+
+
   }
 
   toggleType(event) {
@@ -25,20 +27,33 @@ export default class extends Controller {
     this.submitForm()
   }
 
-
   searchLocations(event) {
-    const baseUrl = document.location.href
-    if (baseUrl.includes("?")) {
-      this.url = `${baseUrl}&search=${event.currentTarget.value}`
-    } else {
-      this.url = `${baseUrl}?search=${event.currentTarget.value}`
-    }
-    fetch(this.url,
-      { method: "GET",
-        headers: { "Accept": "text/plain" }
-      })
-      .then(response => response.text())
-      .then(text => this.locationResultsTarget.innerHTML = text)
+
+    clearTimeout(this.searching)
+
+    this.searching = setTimeout(() => {
+
+      if (event.target.value.length > 0) {
+
+        const baseUrl = document.location.href
+        if (baseUrl.includes("?")) {
+          this.url = `${baseUrl}&search=${event.target.value}`
+        } else {
+          this.url = `${baseUrl}?search=${event.target.value}`
+        }
+        fetch(this.url,
+          { method: "GET",
+            headers: { "Accept": "text/plain" }
+          })
+          .then(response => response.text())
+          .then(locations => this.locationResultsTarget.innerHTML = locations)
+
+      } else {
+        this.locationResultsTarget.innerHTML = ""
+      }
+
+    }, 350);
+
   }
 
   addLocation(event) {
