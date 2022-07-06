@@ -18,8 +18,8 @@
           <%= "Cave" if apartment.cellar %>
         </p>
         <p class="apartment-location">
-          <% if apartment.borough_id %>
-            <%= Borough.find(apartment.borough_id).name %>
+          <% if apartment.borough %>
+            <%= apartment.borough.name %>
           <% else %>
             <%= apartment.city.name %>
           <% end %>
@@ -46,8 +46,8 @@
           <%= "Cave" if apartment.cellar %>
         </p>
         <p class="apartment-location">
-          <% if apartment.borough_id %>
-            <%= Borough.find(apartment.borough_id).name %>
+          <% if apartment.borough %>
+            <%= apartment.borough.name %>
           <% else %>
             <%= apartment.city.name %>
           <% end %>
