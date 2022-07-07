@@ -91,7 +91,11 @@ class PagesController < ApplicationController
   def filter_by_floor
     return unless params[:ground_floor].present?
 
-    params[:ground_floor] ? @apartments = @apartments.where("floor == ?", 1) : @apartments = @apartments.where("floor > ?", 1)
+    if params[:ground_floor] == "true"
+      @apartments = @apartments.where("floor = ?", 1)
+    else
+      @apartments = @apartments.where("floor > ?", 1)
+    end
   end
 
   def filter_by_rooms
