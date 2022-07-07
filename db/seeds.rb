@@ -95,7 +95,7 @@ rand(200..220).times do
     balcony: RARE_BOOLEAN.sample,
     chimney: RARE_BOOLEAN.sample,
     elevator: BOOLEAN.sample,
-    parking: BOOLEAN.sample,
+    garage: BOOLEAN.sample,
     cellar: RARE_BOOLEAN.sample,
     terrace: RARE_BOOLEAN.sample,
     borough: Borough.find_by(name: LYON_BOROUGH.sample[:name])
@@ -117,11 +117,12 @@ rand(120..150).times do
     city: lyon,
     balcony: RARE_BOOLEAN.sample,
     chimney: RARE_BOOLEAN.sample,
-    parking: BOOLEAN.sample,
+    garage: BOOLEAN.sample,
     cellar: RARE_BOOLEAN.sample,
     terrace: RARE_BOOLEAN.sample,
     garden: BOOLEAN.sample,
-    borough: Borough.find_by(name: LYON_BOROUGH.sample[:name])
+    borough: Borough.find_by(name: LYON_BOROUGH.sample[:name]),
+    pool: RARE_BOOLEAN.sample
   )
 end
 
@@ -141,7 +142,7 @@ rand(40..70).times do
     balcony: RARE_BOOLEAN.sample,
     chimney: RARE_BOOLEAN.sample,
     elevator: BOOLEAN.sample,
-    parking: BOOLEAN.sample,
+    garage: BOOLEAN.sample,
     cellar: RARE_BOOLEAN.sample,
     terrace: RARE_BOOLEAN.sample
   )
@@ -162,10 +163,11 @@ end
     city: City.where.not(name: "Lyon").sample,
     balcony: RARE_BOOLEAN.sample,
     chimney: RARE_BOOLEAN.sample,
-    parking: BOOLEAN.sample,
+    garage: BOOLEAN.sample,
     cellar: RARE_BOOLEAN.sample,
     garden: BOOLEAN.sample,
-    terrace: RARE_BOOLEAN.sample
+    terrace: RARE_BOOLEAN.sample,
+    pool: RARE_BOOLEAN.sample
   )
 end
 
@@ -184,7 +186,7 @@ rand(200..220).times do
     balcony: RARE_BOOLEAN.sample,
     chimney: RARE_BOOLEAN.sample,
     elevator: BOOLEAN.sample,
-    parking: BOOLEAN.sample,
+    garage: BOOLEAN.sample,
     cellar: RARE_BOOLEAN.sample,
     terrace: RARE_BOOLEAN.sample,
     borough: Borough.find_by(name: LYON_BOROUGH.sample[:name])
@@ -205,11 +207,12 @@ rand(120..150).times do
     city: lyon,
     balcony: RARE_BOOLEAN.sample,
     chimney: RARE_BOOLEAN.sample,
-    parking: BOOLEAN.sample,
+    garage: BOOLEAN.sample,
     cellar: RARE_BOOLEAN.sample,
     garden: BOOLEAN.sample,
     terrace: RARE_BOOLEAN.sample,
-    borough: Borough.find_by(name: LYON_BOROUGH.sample[:name])
+    borough: Borough.find_by(name: LYON_BOROUGH.sample[:name]),
+    pool: RARE_BOOLEAN.sample
   )
 end
 
@@ -228,7 +231,7 @@ rand(40..70).times do
     balcony: RARE_BOOLEAN.sample,
     chimney: RARE_BOOLEAN.sample,
     elevator: BOOLEAN.sample,
-    parking: BOOLEAN.sample,
+    garage: BOOLEAN.sample,
     cellar: BOOLEAN.sample,
     terrace: RARE_BOOLEAN.sample
   )
@@ -248,10 +251,11 @@ end
     city: City.where.not(name: "Lyon").sample,
     balcony: RARE_BOOLEAN.sample,
     chimney: RARE_BOOLEAN.sample,
-    parking: BOOLEAN.sample,
+    garage: BOOLEAN.sample,
     cellar: RARE_BOOLEAN.sample,
     garden: BOOLEAN.sample,
-    terrace: RARE_BOOLEAN.sample
+    terrace: RARE_BOOLEAN.sample,
+    pool: RARE_BOOLEAN.sample
   )
 end
 
