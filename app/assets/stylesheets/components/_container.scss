@@ -8,3 +8,14 @@
 .div-filter {
   margin-bottom: 1rem;
 }
+
+.criterias-filter {
+  width: 36vw;
+  display: flex;
+  flex-wrap: wrap;
+  .preview {
+    margin: 0;
+    width: 30px;
+    height: 20px;
+  }
+}
