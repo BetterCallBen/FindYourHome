@@ -14,9 +14,10 @@ class CreateHouses < ActiveRecord::Migration[6.0]
       t.boolean :balcony, default: false
       t.boolean :chimney, default: false
       t.boolean :cellar, default: false
-      t.boolean :parking, default: false
+      t.boolean :garage, default: false
       t.boolean :terrace, default: false
       t.boolean :garden, default: false
+      t.boolean :pool, default: false
 
       t.timestamps
     end
