@@ -12,7 +12,7 @@
         <p class="apartment-tags">
           <%= "Balcon" if apartment.balcony %>
           <%= "Cheminée" if apartment.chimney %>
-          <%= "Parking" if apartment.parking %>
+          <%= "Garage" if apartment.garage %>
           <%= "Ascenseur" if apartment.elevator %>
           <%= "Terrasse" if apartment.terrace %>
           <%= "Cave" if apartment.cellar %>
@@ -37,13 +37,14 @@
           Maison
           <%= pluralize(apartment.rooms, "pièce") %>
           <%= apartment.surface %> m2</p>
-        <p class="apartment-tags">
+        <p class="apartment-tags">Garage
           <%= "Balcon" if apartment.balcony %>
           <%= "Cheminée" if apartment.chimney %>
-          <%= "Parking" if apartment.parking %>
+          <%= "Garage" if apartment.garage %>
           <%= "Jardin" if apartment.garden %>
           <%= "Terrasse" if apartment.terrace %>
           <%= "Cave" if apartment.cellar %>
+          <%= "Piscine" if apartment.pool %>
         </p>
         <p class="apartment-location">
           <% if apartment.borough %>
