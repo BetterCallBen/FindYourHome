@@ -6,9 +6,11 @@ class PagesController < ApplicationController
   def index
     @apartments = Apartment.includes(:city, :borough)
     @houses = House.includes(:city, :borough)
+    @properties = @apartments + @houses
 
     filter_by_checkbox_criterias
-    filter_by_radio_criterias
+    filter_by_status
+    filter_by_floor
     filter_by_rooms
     filter_by_surface
     filter_by_locations
@@ -26,13 +28,15 @@ class PagesController < ApplicationController
     @what = params[:types].split(",").first if params[:types].present? && params[:types].split(",").count == 1
 
     @properties = @apartments + @houses
-    if params[:sort].present? && params[:sort] == "price"
-      @properties = @properties.sort_by(&:price)
-    end
+
+    # if params[:sort].present? && params[:sort] == "price"
+    #   @properties = @properties.sort_by(&:price)
+    # end
 
     respond_to do |format|
       format.html
       format.text { render partial: 'locations', locals: { locations: @results }, formats: :html }
+      format.json { render json: @properties.count }
     end
   end
 
@@ -75,11 +79,19 @@ class PagesController < ApplicationController
     end
     ## jardin
     @houses = @houses.where(garden: true) if params[:garden].present?
+    ## piscine
+    @houses = @houses.where(pool: true) if params[:pool].present?
   end
 
-  def filter_by_radio_criterias
+  def filter_by_status
     # meublé / non meublé
     @apartments = @apartments.where("status ILIKE ? ", params[:status]) if params[:status].present?
+  end
+
+  def filter_by_floor
+    return unless params[:ground_floor].present?
+
+    params[:ground_floor] ? @apartments = @apartments.where("floor == ?", 1) : @apartments = @apartments.where("floor > ?", 1)
   end
 
   def filter_by_rooms
@@ -111,9 +123,9 @@ class PagesController < ApplicationController
   def filter_by_apartment_type
     @apartment_types = params[:types].split(",") if params[:types].present?
     if @apartment_types.present? && !@apartment_types.include?("house")
-      @houses = House.where(name: "toto")
+      @properties -= @houses
     elsif @apartment_types.present? && !@apartment_types.include?("flat")
-      @apartments = Apartment.where(name: "toto")
+      @properties -= @apartments
     end
   end
 
