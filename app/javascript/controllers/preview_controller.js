@@ -6,7 +6,6 @@ export default class extends Controller {
   connect() {
     const baseUrl = document.location.href
     this.previewInputTargets.forEach(input => {
-      console.log(input.name)
       if (baseUrl.includes("?")) {
         this.url = `${baseUrl}&${input.name}=${input.value}`
       } else {
@@ -18,7 +17,6 @@ export default class extends Controller {
         })
         .then(response => response.json())
         .then(data => {
-          console.log(document.getElementById(`preview-${input.name}`))
           document.getElementById(`preview-${input.name}`).innerText = `(${data})`
         })
     });
