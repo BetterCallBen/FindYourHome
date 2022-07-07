@@ -106,4 +106,8 @@ export default class extends Controller {
       this.formTarget.submit()
     }
   }
+
+  resetForm() {
+    window.location = document.location.pathname
+  }
 }
