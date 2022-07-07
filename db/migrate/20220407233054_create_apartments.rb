@@ -7,6 +7,7 @@ class CreateApartments < ActiveRecord::Migration[6.0]
       t.text :image_url
       t.string :address
       t.string :status
+      t.integer :floor
       t.integer :price
       t.integer :rooms
       t.integer :surface
@@ -14,7 +15,7 @@ class CreateApartments < ActiveRecord::Migration[6.0]
       t.boolean :chimney, default: false
       t.boolean :elevator, default: false
       t.boolean :cellar, default: false
-      t.boolean :parking, default: false
+      t.boolean :garage, default: false
       t.boolean :terrace, default: false
       t.timestamps
     end
