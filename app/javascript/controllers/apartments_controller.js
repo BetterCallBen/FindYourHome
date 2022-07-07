@@ -7,8 +7,6 @@ export default class extends Controller {
   connect() {
     this.locationInsees = this.locationInseesValue
     this.apartmentTypes = this.apartmentTypesValue
-
-
   }
 
   toggleType(event) {
@@ -52,7 +50,7 @@ export default class extends Controller {
         this.locationResultsTarget.innerHTML = ""
       }
 
-    }, 350);
+    }, 200);
 
   }
 
