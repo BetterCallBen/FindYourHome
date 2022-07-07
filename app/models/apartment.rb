@@ -6,7 +6,6 @@ class Apartment < ApplicationRecord
   validates :address, presence: true
   validates :surface, presence: true
   validates :floor, presence: true
-  validates :status, presence: true
   validates :rooms, presence: true
   validates :price, presence: true, numericality: { only_integer: true }
   validates :description, presence: true
