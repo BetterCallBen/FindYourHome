@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2022_07_06_085047) do
     t.text "image_url"
     t.string "address"
     t.string "status"
+    t.integer "floor"
     t.integer "price"
     t.integer "rooms"
     t.integer "surface"
@@ -29,7 +30,7 @@ ActiveRecord::Schema.define(version: 2022_07_06_085047) do
     t.boolean "chimney", default: false
     t.boolean "elevator", default: false
     t.boolean "cellar", default: false
-    t.boolean "parking", default: false
+    t.boolean "garage", default: false
     t.boolean "terrace", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -69,9 +70,10 @@ ActiveRecord::Schema.define(version: 2022_07_06_085047) do
     t.boolean "balcony", default: false
     t.boolean "chimney", default: false
     t.boolean "cellar", default: false
-    t.boolean "parking", default: false
+    t.boolean "garage", default: false
     t.boolean "terrace", default: false
     t.boolean "garden", default: false
+    t.boolean "pool", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "borough_id"
