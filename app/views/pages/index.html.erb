@@ -145,8 +145,13 @@
       <input class="filter" data-action="input->apartments#submitForm" type="radio" id="ground_floor" name="ground_floor" value="true" <%= 'checked' if params[:ground_floor] == "true" %>>
       <label class="tag" for="ground_floor">Rez de chaussée</label>
 
+
       <input class="filter" data-action="input->apartments#submitForm" type="radio" id="no_ground_floor" name="ground_floor" value="false" <%= 'checked' if params[:ground_floor] == "false" %>>
       <label class="tag" for="no_ground_floor">Éviter le Rez de chaussée</label>
+
+
+      <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="last_floor" name="last_floor" value="true" <%= 'checked' if params[:last_floor] == "true" %>>
+      <label class="tag" for="last_floor">Dernier étage</label>
 
     </div>
 
