@@ -8,6 +8,7 @@ class CreateApartments < ActiveRecord::Migration[6.0]
       t.string :address
       t.string :status
       t.integer :floor
+      t.integer :building_floor
       t.integer :price
       t.integer :rooms
       t.integer :surface
