@@ -142,11 +142,24 @@
 
     <div class="criterias-filter div-filter">
 
-      <input class="filter" data-action="input->apartments#submitForm" type="radio" id="ground_floor" name="ground_floor" value="true" <%= 'checked' if params[:ground_floor] == "true" %>>
+      <input class="filter"
+             <%= 'checked' if params[:ground_floor] == "true" %>
+             data-apartments-target="groundFloor"
+             type="checkbox"
+             data-action="input->apartments#toggleGroundFloor"
+             id="ground_floor"
+             name="ground_floor" value="true">
       <label class="tag" for="ground_floor">Rez de chaussée</label>
 
 
-      <input class="filter" data-action="input->apartments#submitForm" type="radio" id="no_ground_floor" name="ground_floor" value="false" <%= 'checked' if params[:ground_floor] == "false" %>>
+      <input class="filter"
+             <%= 'checked' if params[:ground_floor] == "false" %>
+             data-action="input->apartments#toggleGroundFloor"
+             data-apartments-target="groundFloor"
+             type="checkbox"
+             id="no_ground_floor"
+             name="ground_floor"
+             value="false">
       <label class="tag" for="no_ground_floor">Éviter le Rez de chaussée</label>
 
 
@@ -159,11 +172,11 @@
         <p class="bold">Type de location</p>
       <div class="criterias-filter div-filter">
 
-        <input class="filter" data-action="input->apartments#submitForm" type="radio" id="furnished" name="status" value="furnished" <%= 'checked' if params[:status] == "furnished" %>>
+        <input class="filter" data-action="input->apartments#toggleStatus" data-apartments-target="status" type="checkbox" id="furnished" name="status" value="furnished" <%= 'checked' if params[:status] == "furnished" %>>
         <label class="tag" for="furnished">Meublé</label>
 
 
-        <input class="filter" data-action="input->apartments#submitForm" type="radio" id="unfurnished" name="status" value="unfurnished" <%= 'checked' if params[:status] == "unfurnished" %>>
+        <input class="filter" data-action="input->apartments#toggleStatus" data-apartments-target="status" type="checkbox" id="unfurnished" name="status" value="unfurnished" <%= 'checked' if params[:status] == "unfurnished" %>>
         <label class="tag" for="unfurnished">Non meublé</label>
       </div>
 
