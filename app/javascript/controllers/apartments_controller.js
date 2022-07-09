@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "locations", "locationResults", "types", "groundFloor", "status"]
+  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "locations", "locationResults", "types", "groundFloor", "status", "sort"]
   static values = { locationInsees: Array, apartmentTypes: Array }
 
   connect() {
@@ -137,5 +137,10 @@ export default class extends Controller {
 
   resetForm() {
     window.location = document.location.pathname
+  }
+
+  displaySort() {
+    console.log("displaySort")
+    this.sortTarget.classList.toggle("d-none")
   }
 }
