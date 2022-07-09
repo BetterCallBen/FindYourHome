@@ -6,7 +6,6 @@ class PagesController < ApplicationController
   def index
     @apartments = Apartment.includes(:city, :borough)
     @houses = House.includes(:city, :borough)
-    # @properties = @apartments + @houses
 
     filter_by_checkbox_criterias
     filter_by_status
@@ -124,13 +123,8 @@ class PagesController < ApplicationController
     return unless params[:types].present?
 
     @apartment_types = params[:types].split(",")
-    if !@apartment_types.include?("house")
-      @houses = @houses.none
-    end
-
-    if !@apartment_types.include?("flat")
-      @apartments = @apartments.none
-    end
+    @houses = @houses.none unless @apartment_types.include?("house")
+    @apartments = @apartments.none unless @apartment_types.include?("flat")
   end
 
   def filter_by_locations
