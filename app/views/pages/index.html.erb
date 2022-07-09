@@ -147,9 +147,9 @@
 
         <input class="filter"
               <%= 'checked' if params[:ground_floor] == "true" %>
+              data-action="input->apartments#toggleGroundFloor"
               data-apartments-target="groundFloor"
               type="checkbox"
-              data-action="input->apartments#toggleGroundFloor"
               id="ground_floor"
               name="ground_floor" value="true">
         <label class="tag" for="ground_floor">Rez de chaussée</label>
