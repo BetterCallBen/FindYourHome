@@ -6,10 +6,10 @@
   .filter-form {
     display: flex;
     flex-direction: column;
-    width: 36%;
+    width: 40%;
   }
   .apartments {
-    width: 64%;
+    width: 60%;
     .apartment-infos {
       display: flex;
       justify-content: space-between;
@@ -23,7 +23,7 @@
 }
 
 .criterias-filter {
-  width: 36vw;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   .preview {
