@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   def index
     @apartments = Apartment.includes(:city, :borough)
     @houses = House.includes(:city, :borough)
-    @properties = @apartments + @houses
+    # @properties = @apartments + @houses
 
     filter_by_checkbox_criterias
     filter_by_status
@@ -17,17 +17,9 @@ class PagesController < ApplicationController
     filter_by_apartment_type
     filter_by_project
 
-    if params[:locations].present? && params[:locations].split(",").count == 1
-      insee_code = params[:locations].split(",").first
-      borough = Borough.find_by(insee_code: insee_code)
-      city = City.find_by(insee_code: insee_code)
-      @location = borough || city
-      @there = "à #{@location.name}"
-    end
-
     @what = params[:types].split(",").first if params[:types].present? && params[:types].split(",").count == 1
 
-    @properties = @apartments + @houses
+    @properties = (@apartments + @houses).uniq
 
     # if params[:sort].present? && params[:sort] == "price"
     #   @properties = @properties.sort_by(&:price)
@@ -125,10 +117,12 @@ class PagesController < ApplicationController
   end
 
   def filter_by_apartment_type
-    @apartment_types = params[:types].split(",") if params[:types].present?
-    if @apartment_types.present? && !@apartment_types.include?("house")
+    return unless params[:types].present?
+
+    @apartment_types = params[:types].split(",")
+    if !@apartment_types.include?("house")
       @houses = @houses.none
-    elsif @apartment_types.present? && !@apartment_types.include?("flat")
+    elsif !@apartment_types.include?("flat")
       @apartments = @apartments.none
     end
   end
@@ -150,12 +144,13 @@ class PagesController < ApplicationController
     @cities = City.where(insee_code: @locations_insees)
     @boroughs = Borough.where(insee_code: @locations_insees)
     @locations_tags = @cities + @boroughs
+    @there = "à #{@locations_tags.map(&:name).join(' ou ')}" if @locations_tags.count <= 2
   end
 
   def filter_the_apartment
     if @cities.present? && @boroughs.present?
-      @apartments = @apartments.where(city: @cities).or(@apartments.where(borough: @boroughs)).uniq
-      @houses = @houses.where(city: @cities).or(@houses.where(borough: @boroughs)).uniq
+      @apartments = @apartments.where(city: @cities).or(@apartments.where(borough: @boroughs))
+      @houses = @houses.where(city: @cities).or(@houses.where(borough: @boroughs))
     elsif @cities.present?
       @apartments = @apartments.where(city: @cities)
       @houses = @houses.where(city: @cities)
