@@ -62,7 +62,7 @@
 
     </div>
 
-    <p class="bold">Critères populaire</p>
+    <p class="bold">Critères populaires</p>
 
     <div class="criterias-filter div-filter">
 
@@ -185,15 +185,39 @@
         <label class="tag" for="unfurnished">Non meublé</label>
       </div>
 
-    <% end %>
 
     <%# <button data-action="click->apartments#resetForm">reset</button> %>
-  <% end %>
+    <% end %>
+
   <div>
-    <p>
-      <%= pluralize(@properties.count, @what.nil? ? "bien" : translate_type(@what)) %>
-      <%= @there %>
-    </p>
+    <div class="apartment-infos">
+      <p>
+        <%= pluralize(@properties.count, @what.nil? ? "bien" : translate_type(@what)) %>
+        <%= @there %>
+      </p>
+      <div>
+
+        <label>Trier par</label>
+        <div class="sort-div">
+          <div class="sort-input" type="button" data-action="click->apartments#displaySort">
+            <p class="sort-value" ><%= params[:sort] %></p>
+            <i class="fa-solid fa-bars"></i>
+          </div>
+          <div class="sort-tags d-none" data-apartments-target="sort">
+            <input class="sort-tag" data-action="click->apartments#submitForm" type="radio" id="Pertinence" name="sort" value="Pertinence" <%= 'checked' if params[:sort] == "Pertinence" %>>
+            <label class="sort-tag" for="Pertinence">Pertinence</label>
+            <input class="sort-tag" data-action="click->apartments#submitForm" type="radio" id="Prix" name="sort" value="Prix" <%= 'checked' if params[:sort] == "Prix" %>>
+            <label class="sort-tag" for="Prix">Prix</label>
+            <input class="sort-tag" data-action="click->apartments#submitForm" type="radio" id="Surface" name="sort" value="Surface" <%= 'checked' if params[:sort] == "Surface" %>>
+            <label class="sort-tag" for="Surface">Surface</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+
+
 
     <div class="apartment-cards" data-apartments-target="apartments">
       <%= render 'properties', properties: @properties %>
