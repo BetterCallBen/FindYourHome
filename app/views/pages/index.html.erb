@@ -138,35 +138,40 @@
       </div>
     </div>
 
+    <% if !params[:types].present? || params[:types].present? && params[:types].include?("flat") %>
+
+
     <p class="bold">Critère d'étage</p>
 
-    <div class="criterias-filter div-filter">
+      <div class="criterias-filter div-filter">
 
-      <input class="filter"
-             <%= 'checked' if params[:ground_floor] == "true" %>
-             data-apartments-target="groundFloor"
-             type="checkbox"
-             data-action="input->apartments#toggleGroundFloor"
-             id="ground_floor"
-             name="ground_floor" value="true">
-      <label class="tag" for="ground_floor">Rez de chaussée</label>
-
-
-      <input class="filter"
-             <%= 'checked' if params[:ground_floor] == "false" %>
-             data-action="input->apartments#toggleGroundFloor"
-             data-apartments-target="groundFloor"
-             type="checkbox"
-             id="no_ground_floor"
-             name="ground_floor"
-             value="false">
-      <label class="tag" for="no_ground_floor">Éviter le Rez de chaussée</label>
+        <input class="filter"
+              <%= 'checked' if params[:ground_floor] == "true" %>
+              data-apartments-target="groundFloor"
+              type="checkbox"
+              data-action="input->apartments#toggleGroundFloor"
+              id="ground_floor"
+              name="ground_floor" value="true">
+        <label class="tag" for="ground_floor">Rez de chaussée</label>
 
 
-      <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="last_floor" name="last_floor" value="true" <%= 'checked' if params[:last_floor] == "true" %>>
-      <label class="tag" for="last_floor">Dernier étage</label>
+        <input class="filter"
+              <%= 'checked' if params[:ground_floor] == "false" %>
+              data-action="input->apartments#toggleGroundFloor"
+              data-apartments-target="groundFloor"
+              type="checkbox"
+              id="no_ground_floor"
+              name="ground_floor"
+              value="false">
+        <label class="tag" for="no_ground_floor">Éviter le Rez de chaussée</label>
 
-    </div>
+
+        <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="last_floor" name="last_floor" value="true" <%= 'checked' if params[:last_floor] == "true" %>>
+        <label class="tag" for="last_floor">Dernier étage</label>
+
+      </div>
+    <% end %>
+
 
     <% if params[:project].present? && params[:project] == "rent" %>
         <p class="bold">Type de location</p>
@@ -182,8 +187,7 @@
 
     <% end %>
 
-    <button data-action="click->apartments#resetForm">reset</button>
-
+    <%# <button data-action="click->apartments#resetForm">reset</button> %>
   <% end %>
   <div>
     <p>
