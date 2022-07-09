@@ -140,7 +140,6 @@ export default class extends Controller {
   }
 
   displaySort() {
-    console.log("displaySort")
     this.sortTarget.classList.toggle("d-none")
   }
 }
