@@ -14,13 +14,14 @@ class PagesController < ApplicationController
     filter_by_rooms
     filter_by_surface
     filter_by_locations
-    filter_by_property_type
+    filter_by_apartment_type
     filter_by_project
+    @what = params[:types].split(",").first if params[:types].present? && params[:types].split(",").count == 1
 
     @properties = (@apartments + @houses).uniq
-    if @apartments.count.zero?
+    if @apartments.count.zero? && @houses.count.positive?
       @what = "house"
-    elsif @houses.count.zero?
+    elsif @houses.count.zero? && @apartments.count.positive?
       @what = "flat"
     end
 
@@ -119,13 +120,15 @@ class PagesController < ApplicationController
     end
   end
 
-  def filter_by_property_type
+  def filter_by_apartment_type
     return unless params[:types].present?
 
-    @property_types = params[:types].split(",")
-    if !@property_types.include?("house")
+    @apartment_types = params[:types].split(",")
+    if !@apartment_types.include?("house")
       @houses = @houses.none
-    elsif !@property.include?("flat")
+    end
+
+    if !@apartment_types.include?("flat")
       @apartments = @apartments.none
     end
   end
