@@ -1,226 +1,227 @@
-<div class="contain"
-     data-controller="apartments preview"
-     data-apartments-location-insees-value="<%= @locations_insees.nil? ? [] : @locations_insees %>"
-     data-apartments-apartment-types-value="<%= @apartment_types.nil? ? [] : @apartment_types %>">
+<%= form_with(url: properties_path, method: :get,
+              data: {
+                'apartments-target': 'form',
+                'controller': 'apartments preview',
+                'apartments-location-insees-value': @locations_insees.nil? ? [] : @locations_insees,
+                'apartments-apartment-types-value': @apartment_types.nil? ? [] : @apartment_types
+              }) do |f| %>
+  <div class="contain">
 
-  <%= form_with(url: properties_path, method: :get, data: { 'apartments-target': 'form' }, class: "filter-form") do |f| %>
+    <div class="filter-form">
+      <div class="project-filter div-filter">
+        <input class="filter" data-action="input->apartments#submitForm" type="radio" id="rent" name="project" value="rent" <%= 'checked' if params[:project] == "rent"%>>
+        <label class="tag" for="rent">Louer</label>
 
-    <div class="project-filter div-filter">
-      <input class="filter" data-action="input->apartments#submitForm" type="radio" id="rent" name="project" value="rent" <%= 'checked' if params[:project] == "rent"%>>
-      <label class="tag" for="rent">Louer</label>
+        <input class="filter" data-action="input->apartments#submitForm" type="radio" id="buy" name="project" value="buy" <%= 'checked' if params[:project] == "buy"%>>
+        <label class="tag" for="buy">Acheter</label>
+      </div>
 
-      <input class="filter" data-action="input->apartments#submitForm" type="radio" id="buy" name="project" value="buy" <%= 'checked' if params[:project] == "buy"%>>
-      <label class="tag" for="buy">Acheter</label>
-    </div>
+      <div class="type-filter div-filter">
+        <label class="tag">Type de bien</label>
+        <input class="filter" type="checkbox" id="flat" data-action="click->apartments#toggleType" value="flat" <%= 'checked' if params[:types].present? && params[:types].include?("flat")  %>>
+        <label class="tag" for="flat">Appartement</label>
+        <input class="filter" type="checkbox" id="house" data-action="click->apartments#toggleType" value="house" <%= 'checked' if params[:types].present? && params[:types].include?("house") %>>
+        <label class="tag" for="house">Maison</label>
+        <input class="filter" type="checkbox" id="parking" data-action="click->apartments#toggleType" value="parking" <%= 'checked' if params[:types].present? && params[:types].include?("parking") %>>
+        <label class="tag" for="parking">Parking/Box</label>
+        <input class="filter" type="checkbox" id="ground" data-action="click->apartments#toggleType" value="ground" <%= 'checked' if params[:types].present? && params[:types].include?("ground") %>>
+        <label class="tag" for="ground">Terrain</label>
 
-    <div class="type-filter div-filter">
-      <label class="tag">Type de bien</label>
-      <input class="filter" type="checkbox" id="flat" data-action="click->apartments#toggleType" value="flat" <%= 'checked' if params[:types].present? && params[:types].include?("flat")  %>>
-      <label class="tag" for="flat">Appartement</label>
-      <input class="filter" type="checkbox" id="house" data-action="click->apartments#toggleType" value="house" <%= 'checked' if params[:types].present? && params[:types].include?("house") %>>
-      <label class="tag" for="house">Maison</label>
-      <input class="filter" type="checkbox" id="parking" data-action="click->apartments#toggleType" value="parking" <%= 'checked' if params[:types].present? && params[:types].include?("parking") %>>
-      <label class="tag" for="parking">Parking/Box</label>
-      <input class="filter" type="checkbox" id="ground" data-action="click->apartments#toggleType" value="ground" <%= 'checked' if params[:types].present? && params[:types].include?("ground") %>>
-      <label class="tag" for="ground">Terrain</label>
+        <input class="filter d-none" data-apartments-target="types" name="types" value="<%= params[:types] if params[:types] %>">
 
-      <input class="filter d-none" data-apartments-target="types" name="types" value="<%= params[:types] if params[:types] %>">
+      </div>
 
-    </div>
+      <div class="locations">
 
-    <div class="locations">
+        <input placeholder="Saisissez une ville ou un arrondissement" class="search-input" type="text" data-action="keyup->apartments#searchLocations">
 
-      <input placeholder="Saisissez une ville ou un arrondissement" class="search-input" type="text" data-action="keyup->apartments#searchLocations">
+        <input class="filter d-none" data-apartments-target="locations" name="locations" value="<%= params[:locations] if params[:locations] %>">
 
-      <input class="filter d-none" data-apartments-target="locations" name="locations" value="<%= params[:locations] if params[:locations] %>">
+        <div class="location-results" data-apartments-target="locationResults"></div>
+      </div>
 
-      <div class="location-results" data-apartments-target="locationResults"></div>
-    </div>
+      <% unless @locations_tags.nil? %>
+        <div class="location-tags">
+          <% @locations_tags.each do |location_tag| %>
+            <p data-insee-code="<%= location_tag.insee_code %>" class="location-tag" data-action="click->apartments#removeLocation"><%= location_tag.name %> <i class="fa-solid fa-xmark cross"></i></p>
+          <% end %>
+        </div>
+      <% end %>
 
-    <% unless @locations_tags.nil? %>
-      <div class="location-tags">
-        <% @locations_tags.each do |location_tag| %>
-          <p data-insee-code="<%= location_tag.insee_code %>" class="location-tag" data-action="click->apartments#removeLocation"><%= location_tag.name %> <i class="fa-solid fa-xmark cross"></i></p>
+      <div class="rooms-filter div-filter">
+
+        <label class="tag">Nombre de pièce</label>
+        <input placeholder="Min" class="filter" data-action="keyup->apartments#changeRooms" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %> >
+        <input placeholder="Max" class="filter" data-apartments-target="secondRoomsInput" data-action="keyup->apartments#validRooms" min="1" max="120" type="number" name="rooms_max" value=<%= params[:rooms_max] if params[:rooms_max].present? && params[:rooms_max].to_i >= params[:rooms_min].to_i %> >
+
+      </div>
+
+      <div class="surface-filter div-filter">
+        <label class="tag">Surface</label>
+
+        <input placeholder="Min" class="filter" data-action="keyup->apartments#changeSurface"  min="1" max="120" type="number" name="surface_min" value=<%= params[:surface_min] if params[:surface_min].present? %> >
+        <input placeholder="Max" class="filter" data-apartments-target="secondSurfaceInput" data-action="keyup->apartments#validSurface" min="1" max="120" type="number" name="surface_max" value=<%= params[:surface_max] if params[:surface_max].present? && params[:surface_max].to_i >= params[:surface_min].to_i %> >
+
+
+      </div>
+
+      <p class="bold">Critères populaires</p>
+
+      <div class="criterias-filter div-filter">
+
+        <div class="input">
+          <div>
+            <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="balcony" name="balcony" value="true" <%= 'checked' if params[:balcony] == "true" %>>
+            <label class="tag" for="balcony">Balcon</label>
+          </div>
+          <p class="preview" id="preview-balcony"></p>
+        </div>
+
+
+        <div class="input">
+          <div>
+            <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="chimney" name="chimney" value="true" <%= 'checked' if params[:chimney] == "true" %>>
+            <label class="tag" for="chimney">Cheminée</label>
+          </div>
+        </div>
+        <p class="preview" id="preview-chimney"></p>
+
+        <% if params[:types].present? && params[:types].include?("flat") %>
+          <div>
+            <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="elevator" name="elevator" value="true" <%= 'checked' if params[:elevator] == "true" %>>
+            <label class="tag" for="elevator">Ascenseur</label>
+          </div>
+          <p class="preview" id="preview-elevator"></p>
         <% end %>
-      </div>
-    <% end %>
-
-    <div class="rooms-filter div-filter">
-
-      <label class="tag">Nombre de pièce</label>
-      <input placeholder="Min" class="filter" data-action="keyup->apartments#changeRooms" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %> >
-      <input placeholder="Max" class="filter" data-apartments-target="secondRoomsInput" data-action="keyup->apartments#validRooms" min="1" max="120" type="number" name="rooms_max" value=<%= params[:rooms_max] if params[:rooms_max].present? && params[:rooms_max].to_i >= params[:rooms_min].to_i %> >
-
-    </div>
-
-    <div class="surface-filter div-filter">
-      <label class="tag">Surface</label>
-
-      <input placeholder="Min" class="filter" data-action="keyup->apartments#changeSurface"  min="1" max="120" type="number" name="surface_min" value=<%= params[:surface_min] if params[:surface_min].present? %> >
-      <input placeholder="Max" class="filter" data-apartments-target="secondSurfaceInput" data-action="keyup->apartments#validSurface" min="1" max="120" type="number" name="surface_max" value=<%= params[:surface_max] if params[:surface_max].present? && params[:surface_max].to_i >= params[:surface_min].to_i %> >
-
-
-    </div>
-
-    <p class="bold">Critères populaires</p>
-
-    <div class="criterias-filter div-filter">
-
-      <div class="input">
-        <div>
-          <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="balcony" name="balcony" value="true" <%= 'checked' if params[:balcony] == "true" %>>
-          <label class="tag" for="balcony">Balcon</label>
-        </div>
-        <p class="preview" id="preview-balcony"></p>
-      </div>
-
-
-      <div class="input">
-        <div>
-          <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="chimney" name="chimney" value="true" <%= 'checked' if params[:chimney] == "true" %>>
-          <label class="tag" for="chimney">Cheminée</label>
-        </div>
-      </div>
-      <p class="preview" id="preview-chimney"></p>
-
-      <% if params[:types].present? && params[:types].include?("flat") %>
-        <div>
-          <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="elevator" name="elevator" value="true" <%= 'checked' if params[:elevator] == "true" %>>
-          <label class="tag" for="elevator">Ascenseur</label>
-        </div>
-        <p class="preview" id="preview-elevator"></p>
-      <% end %>
-
-      <div class="input">
-        <div>
-          <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="garage" name="garage" value="true" <%= 'checked' if params[:garage] == "true" %>>
-          <label class="tag" for="garage">Garage</label>
-        </div>
-        <p class="preview" id="preview-garage"></p>
-      </div>
-
-
-      <div class="input">
-        <div>
-          <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="terrace" name="terrace" value="true" <%= 'checked' if params[:terrace] == "true" %>>
-          <label class="tag" for="terrace">Terrasse</label>
-        </div>
-      <p class="preview" id="preview-terrace"></p>
-      </div>
-
-      <% if params[:types].present? && params[:types].include?("house") %>
 
         <div class="input">
           <div>
-            <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="garden" name="garden" value="true" <%= 'checked' if params[:garden] == "true" %>>
-            <label class="tag" for="garden">Jardin</label>
+            <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="garage" name="garage" value="true" <%= 'checked' if params[:garage] == "true" %>>
+            <label class="tag" for="garage">Garage</label>
           </div>
-        <p class="preview" id="preview-garden"></p>
+          <p class="preview" id="preview-garage"></p>
         </div>
 
 
         <div class="input">
           <div>
-            <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="pool" name="pool" value="true" <%= 'checked' if params[:pool] == "true" %>>
-            <label class="tag" for="pool">Piscine</label>
+            <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="terrace" name="terrace" value="true" <%= 'checked' if params[:terrace] == "true" %>>
+            <label class="tag" for="terrace">Terrasse</label>
           </div>
-        <p class="preview" id="preview-pool"></p>
+        <p class="preview" id="preview-terrace"></p>
+        </div>
+
+        <% if params[:types].present? && params[:types].include?("house") %>
+
+          <div class="input">
+            <div>
+              <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="garden" name="garden" value="true" <%= 'checked' if params[:garden] == "true" %>>
+              <label class="tag" for="garden">Jardin</label>
+            </div>
+          <p class="preview" id="preview-garden"></p>
+          </div>
+
+
+          <div class="input">
+            <div>
+              <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="pool" name="pool" value="true" <%= 'checked' if params[:pool] == "true" %>>
+              <label class="tag" for="pool">Piscine</label>
+            </div>
+          <p class="preview" id="preview-pool"></p>
+          </div>
+        <% end %>
+
+
+        <div class="input">
+          <div>
+            <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="cellar" name="cellar" value="true" <%= 'checked' if params[:cellar] == "true" %>>
+            <label class="tag" for="cellar">Cave</label>
+          </div>
+          <p class="preview" id="preview-cellar"></p>
+        </div>
+      </div>
+
+      <% if !params[:types].present? || params[:types].present? && params[:types].include?("flat") %>
+
+
+        <p class="bold">Critère d'étage</p>
+
+        <div class="criterias-filter div-filter">
+
+          <input class="filter"
+                <%= 'checked' if params[:ground_floor] == "true" %>
+                data-action="input->apartments#toggleGroundFloor"
+                data-apartments-target="groundFloor"
+                type="checkbox"
+                id="ground_floor"
+                name="ground_floor" value="true">
+          <label class="tag" for="ground_floor">Rez de chaussée</label>
+
+
+          <input class="filter"
+                <%= 'checked' if params[:ground_floor] == "false" %>
+                data-action="input->apartments#toggleGroundFloor"
+                data-apartments-target="groundFloor"
+                type="checkbox"
+                id="no_ground_floor"
+                name="ground_floor"
+                value="false">
+          <label class="tag" for="no_ground_floor">Éviter le Rez de chaussée</label>
+
+
+          <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="last_floor" name="last_floor" value="true" <%= 'checked' if params[:last_floor] == "true" %>>
+          <label class="tag" for="last_floor">Dernier étage</label>
+
         </div>
       <% end %>
 
 
-      <div class="input">
+      <% if params[:project].present? && params[:project] == "rent" %>
+          <p class="bold">Type de location</p>
+        <div class="criterias-filter div-filter">
+
+          <input class="filter" data-action="input->apartments#toggleStatus" data-apartments-target="status" type="checkbox" id="furnished" name="status" value="furnished" <%= 'checked' if params[:status] == "furnished" %>>
+          <label class="tag" for="furnished">Meublé</label>
+
+
+          <input class="filter" data-action="input->apartments#toggleStatus" data-apartments-target="status" type="checkbox" id="unfurnished" name="status" value="unfurnished" <%= 'checked' if params[:status] == "unfurnished" %>>
+          <label class="tag" for="unfurnished">Non meublé</label>
+        </div>
+
+
+      <%# <button data-action="click->apartments#resetForm">reset</button> %>
+      <% end %>
+
+    </div>
+
+    <div class="apartments">
+      <div class="apartment-infos">
+        <p>
+          <%= pluralize(@properties.count, @what.nil? ? "bien" : translate_type(@what)) %>
+          <%= @there %>
+        </p>
         <div>
-          <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="cellar" name="cellar" value="true" <%= 'checked' if params[:cellar] == "true" %>>
-          <label class="tag" for="cellar">Cave</label>
-        </div>
-        <p class="preview" id="preview-cellar"></p>
-      </div>
-    </div>
-
-    <% if !params[:types].present? || params[:types].present? && params[:types].include?("flat") %>
-
-
-    <p class="bold">Critère d'étage</p>
-
-      <div class="criterias-filter div-filter">
-
-        <input class="filter"
-              <%= 'checked' if params[:ground_floor] == "true" %>
-              data-action="input->apartments#toggleGroundFloor"
-              data-apartments-target="groundFloor"
-              type="checkbox"
-              id="ground_floor"
-              name="ground_floor" value="true">
-        <label class="tag" for="ground_floor">Rez de chaussée</label>
-
-
-        <input class="filter"
-              <%= 'checked' if params[:ground_floor] == "false" %>
-              data-action="input->apartments#toggleGroundFloor"
-              data-apartments-target="groundFloor"
-              type="checkbox"
-              id="no_ground_floor"
-              name="ground_floor"
-              value="false">
-        <label class="tag" for="no_ground_floor">Éviter le Rez de chaussée</label>
-
-
-        <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="last_floor" name="last_floor" value="true" <%= 'checked' if params[:last_floor] == "true" %>>
-        <label class="tag" for="last_floor">Dernier étage</label>
-
-      </div>
-    <% end %>
-
-
-    <% if params[:project].present? && params[:project] == "rent" %>
-        <p class="bold">Type de location</p>
-      <div class="criterias-filter div-filter">
-
-        <input class="filter" data-action="input->apartments#toggleStatus" data-apartments-target="status" type="checkbox" id="furnished" name="status" value="furnished" <%= 'checked' if params[:status] == "furnished" %>>
-        <label class="tag" for="furnished">Meublé</label>
-
-
-        <input class="filter" data-action="input->apartments#toggleStatus" data-apartments-target="status" type="checkbox" id="unfurnished" name="status" value="unfurnished" <%= 'checked' if params[:status] == "unfurnished" %>>
-        <label class="tag" for="unfurnished">Non meublé</label>
-      </div>
-
-
-    <%# <button data-action="click->apartments#resetForm">reset</button> %>
-    <% end %>
-
-  <div>
-    <div class="apartment-infos">
-      <p>
-        <%= pluralize(@properties.count, @what.nil? ? "bien" : translate_type(@what)) %>
-        <%= @there %>
-      </p>
-      <div>
-
-        <label>Trier par</label>
-        <div class="sort-div">
-          <div class="sort-input" type="button" data-action="click->apartments#displaySort">
-            <p class="sort-value" ><%= params[:sort] %></p>
-            <i class="fa-solid fa-bars"></i>
-          </div>
-          <div class="sort-tags d-none" data-apartments-target="sort">
-            <input class="sort-tag" data-action="click->apartments#submitForm" type="radio" id="Pertinence" name="sort" value="Pertinence" <%= 'checked' if params[:sort] == "Pertinence" %>>
-            <label class="sort-tag" for="Pertinence">Pertinence</label>
-            <input class="sort-tag" data-action="click->apartments#submitForm" type="radio" id="Prix" name="sort" value="Prix" <%= 'checked' if params[:sort] == "Prix" %>>
-            <label class="sort-tag" for="Prix">Prix</label>
-            <input class="sort-tag" data-action="click->apartments#submitForm" type="radio" id="Surface" name="sort" value="Surface" <%= 'checked' if params[:sort] == "Surface" %>>
-            <label class="sort-tag" for="Surface">Surface</label>
+          <label>Trier par</label>
+          <div class="sort-div">
+            <div class="sort-input" type="button" data-action="click->apartments#displaySort">
+              <p class="sort-value" ><%= params[:sort] %></p>
+              <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="sort-tags d-none" data-apartments-target="sort">
+              <input class="sort-tag" data-action="click->apartments#submitForm" type="radio" id="Pertinence" name="sort" value="Pertinence" <%= 'checked' if params[:sort] == "Pertinence" %>>
+              <label class="sort-tag" for="Pertinence">Pertinence</label>
+              <input class="sort-tag" data-action="click->apartments#submitForm" type="radio" id="Prix" name="sort" value="Prix" <%= 'checked' if params[:sort] == "Prix" %>>
+              <label class="sort-tag" for="Prix">Prix</label>
+              <input class="sort-tag" data-action="click->apartments#submitForm" type="radio" id="Surface" name="sort" value="Surface" <%= 'checked' if params[:sort] == "Surface" %>>
+              <label class="sort-tag" for="Surface">Surface</label>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-  <% end %>
-
-
-
-    <div class="apartment-cards" data-apartments-target="apartments">
-      <%= render 'properties', properties: @properties %>
+      <div class="apartment-cards" data-apartments-target="apartments">
+        <%= render 'properties', properties: @properties %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>
