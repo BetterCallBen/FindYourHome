@@ -24,9 +24,17 @@ class PagesController < ApplicationController
       @what = "flat"
     end
 
-    # if params[:sort].present? && params[:sort] == "price"
-    #   @properties = @properties.sort_by(&:price)
-    # end
+    if params[:sort].present? && params[:sort] == "Prix"
+      @properties = @properties.sort_by(&:price)
+    elsif params[:sort].present? && params[:sort] == "Surface"
+      @properties = @properties.sort_by(&:surface)
+    elsif params[:sort].present? && params[:sort] == "rooms"
+      @properties = @properties.sort_by(&:rooms)
+    elsif params[:sort].present? && params[:sort] == "floor"
+      @properties = @properties.sort_by(&:floor)
+    elsif params[:sort].present? && params[:sort] == "price_per_m2"
+      @properties = @properties.sort_by(&:price_per_m2)
+    end
 
     respond_to do |format|
       format.html
