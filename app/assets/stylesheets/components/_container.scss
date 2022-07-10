@@ -3,17 +3,27 @@
   width: 96vw;
   margin: 20px auto;
   gap: 2vh;
-  .filter-form {
-    display: flex;
-    flex-direction: column;
+  .form-div {
     width: 40%;
+    position: relative;
+    .filter-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 2vh;
+    }
   }
   .apartments {
     width: 60%;
     .apartment-infos {
       display: flex;
       justify-content: space-between;
+      align-items: flex-end;
       margin-bottom: 2vh;
+      p {
+        margin: 3px;
+      }
     }
   }
 }
