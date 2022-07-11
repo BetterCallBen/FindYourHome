@@ -241,7 +241,7 @@
           <label>Trier par</label>
           <div class="sort-div">
             <div class="sort-input" data-action="click->apartments#displaySort">
-              <p class="sort-value"><%= params[:sort] %></p>
+              <p class="sort-value"><%= params[:sort].present? ? params[:sort] : "Pertinence" %></p>
               <i class="fa-solid fa-bars"></i>
             </div>
             <div class="sort-tags d-none" data-apartments-target="sort">
