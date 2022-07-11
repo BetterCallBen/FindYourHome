@@ -1,4 +1,7 @@
 <%= form_with(url: properties_path, method: :get,
+              html: {
+                autocomplete: "off"
+              },
               data: {
                 'apartments-target': 'form',
                 'controller': 'apartments preview',
@@ -49,23 +52,41 @@
           </div>
         <% end %>
 
-        <p >Nombre de pièce</p>
+        <p>Nombre de pièce</p>
 
         <div class="rooms-filter div-filter">
 
           <div class="min-room-div">
-            <input placeholder="Min" class="min-room-input filter" data-apartments-target="minRoomsInput" data-action="keyup->apartments#changeRooms click->apartments#displayPropositions" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %>>
+            <input placeholder="Min" class="min-room-input filter" data-apartments-target="minRoomsInput" data-action="keyup->apartments#changeRooms click->apartments#displayMinPropositions" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %>>
             <div class="propositions d-none" data-apartments-target="minRoomsPropositions">
-              <input type="radio" name="rooms_min" data-apartments-target="minRooms" data-action="click->apartments#roomsMin" value="1" id="studio" <%= 'checked' if params[:rooms_min] == "1" %>>
-              <label for="studio" class="proposition">Studio</label>
-              <input type="radio" name="rooms_min" data-apartments-target="minRooms" data-action="click->apartments#roomsMin" value="2" id="2_rooms" <%= 'checked' if params[:rooms_min] == "2" %>>
-              <label for="2_rooms" class="proposition" >2</label>
+              <input type="radio" data-action="click->apartments#selectMinRooms" value="1" id="studio_min">
+              <label for="studio_min" class="proposition">1</label>
+              <input type="radio" data-action="click->apartments#selectMinRooms" value="2" id="2_rooms_min">
+              <label for="2_rooms_min" class="proposition">2</label>
+              <input type="radio" data-action="click->apartments#selectMinRooms" value="3" id="3_rooms_min">
+              <label for="3_rooms_min" class="proposition">3</label>
+              <input type="radio" data-action="click->apartments#selectMinRooms" value="4" id="4_rooms_min">
+              <label for="4_rooms_min" class="proposition">4</label>
+              <input type="radio" data-action="click->apartments#selectMinRooms" value="5" id="5_rooms_min">
+              <label for="5_rooms_min" class="proposition">5</label>
             </div>
           </div>
 
+          <div class="min-room-div">
+            <input placeholder="Max" class="min-room-input filter" data-apartments-target="secondRoomsInput" data-action="keyup->apartments#validRooms click->apartments#displayMaxPropositions" min="1" max="120" type="number" name="rooms_max" value=<%= params[:rooms_max] if params[:rooms_max].present? && params[:rooms_max].to_i >= params[:rooms_min].to_i %> >
 
-          <div>
-            <input placeholder="Max" class="filter" data-apartments-target="secondRoomsInput" data-action="keyup->apartments#validRooms" min="1" max="120" type="number" name="rooms_max" value=<%= params[:rooms_max] if params[:rooms_max].present? && params[:rooms_max].to_i >= params[:rooms_min].to_i %> >
+            <div class="propositions d-none" data-apartments-target="maxRoomsPropositions">
+              <input type="radio" data-action="click->apartments#selectMaxRooms" value="1" id="studio_max">
+              <label for="studio_max" class="proposition">1</label>
+              <input type="radio" data-action="click->apartments#selectMaxRooms" value="2" id="2_rooms_max">
+              <label for="2_rooms_max" class="proposition">2</label>
+              <input type="radio" data-action="click->apartments#selectMaxRooms" value="3" id="3_rooms_max">
+              <label for="3_rooms_max" class="proposition">3</label>
+              <input type="radio" data-action="click->apartments#selectMaxRooms" value="4" id="4_rooms_max">
+              <label for="4_rooms_max" class="proposition">4</label>
+              <input type="radio" data-action="click->apartments#selectMaxRooms" value="5" id="5_rooms_max">
+              <label for="5_rooms_max" class="proposition">5</label>
+            </div>
           </div>
 
         </div>
