@@ -9,7 +9,6 @@
     background-color: #D7EBEF;
     font-size: 0.8rem;
     .cross {
-
       transition: 0.2s;
     }
     &:hover {
@@ -20,6 +19,7 @@
     }
   }
 }
+
 .sort-div {
   width: 200px;
   display: flex;
@@ -52,6 +52,7 @@
     .sort-tag {
       width: 100%;
       padding: 0 8px;
+      transition: background-color 0.1s;
       &:hover {
         cursor: pointer;
         background-color: #D7EBEF;
