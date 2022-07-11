@@ -57,7 +57,7 @@
         <div class="rooms-filter div-filter">
 
           <div class="min-room-div">
-            <input placeholder="Min" class="min-room-input filter" data-apartments-target="minRoomsInput" data-action="keyup->apartments#changeRooms click->apartments#displayMinPropositions" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %>>
+            <input placeholder="Min" class="min-room-input filter" data-apartments-target="minRoomsInput" data-action="keyup->apartments#selectMinRooms click->apartments#displayMinPropositions" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %>>
             <div class="propositions d-none" data-apartments-target="minRoomsPropositions">
               <input type="radio" data-action="click->apartments#selectMinRooms" value="1" id="studio_min">
               <label for="studio_min" class="proposition">1</label>
@@ -73,7 +73,7 @@
           </div>
 
           <div class="min-room-div">
-            <input placeholder="Max" class="min-room-input filter" data-apartments-target="secondRoomsInput" data-action="keyup->apartments#validRooms click->apartments#displayMaxPropositions" min="1" max="120" type="number" name="rooms_max" value=<%= params[:rooms_max] if params[:rooms_max].present? && params[:rooms_max].to_i >= params[:rooms_min].to_i %> >
+            <input placeholder="Max" class="min-room-input filter" data-apartments-target="secondRoomsInput" data-action="keyup->apartments#selectMaxRooms click->apartments#displayMaxPropositions" min="1" max="120" type="number" name="rooms_max" value=<%= params[:rooms_max] if params[:rooms_max].present? && params[:rooms_max].to_i >= params[:rooms_min].to_i %> >
 
             <div class="propositions d-none" data-apartments-target="maxRoomsPropositions">
               <input type="radio" data-action="click->apartments#selectMaxRooms" value="1" id="studio_max">
@@ -244,7 +244,7 @@
               <p class="sort-value"><%= params[:sort].present? ? params[:sort] : "Pertinence" %></p>
               <i class="fa-solid fa-bars"></i>
             </div>
-            <div class="sort-tags d-none" data-apartments-target="sort">
+            <div class="sort-tags d-none" data-apartments-target="sortPropositions">
               <input data-action="click->apartments#submitForm" type="radio" id="Pertinence" name="sort" value="Pertinence" <%= 'checked' if params[:sort] == "Pertinence" %>>
               <label class="sort-tag first" for="Pertinence"><p>Pertinence</p></label>
               <input data-action="click->apartments#submitForm" type="radio" id="Prix" name="sort" value="Prix" <%= 'checked' if params[:sort] == "Prix" %>>
