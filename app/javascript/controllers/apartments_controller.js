@@ -16,21 +16,11 @@ export default class extends Controller {
     this.sortPropositionsTarget.classList.add("d-none")
   }
 
-  toggleType(event) {
-    const type = event.currentTarget.value
-
-    if (this.apartmentTypes.includes(type)) {
-      const index = this.apartmentTypes.indexOf(type)
-      if (index > -1) {
-        this.apartmentTypes.splice(index, 1)
-      }
-    } else {
-      this.apartmentTypes.push(type)
-    }
-    this.typesTarget.value = this.apartmentTypes
-
-    this.submitForm()
+  submitForm() {
+    this.formTarget.submit()
   }
+
+  // Locations
 
   searchLocations(event) {
 
@@ -78,9 +68,25 @@ export default class extends Controller {
     this.submitForm()
   }
 
-  submitForm() {
-    this.formTarget.submit()
+  // Apartment types
+
+  toggleType(event) {
+    const type = event.currentTarget.value
+
+    if (this.apartmentTypes.includes(type)) {
+      const index = this.apartmentTypes.indexOf(type)
+      if (index > -1) {
+        this.apartmentTypes.splice(index, 1)
+      }
+    } else {
+      this.apartmentTypes.push(type)
+    }
+    this.typesTarget.value = this.apartmentTypes
+
+    this.submitForm()
   }
+
+  // Floors
 
   toggleGroundFloor(event) {
     if (!event.target.checked) {
@@ -96,6 +102,8 @@ export default class extends Controller {
     this.submitForm()
   }
 
+  // Status
+
   toggleStatus(event) {
     if (!event.target.checked) {
       this.statusTargets.forEach(status => {
@@ -110,13 +118,7 @@ export default class extends Controller {
     this.submitForm()
   }
 
-  selectMinRooms(event) {
-    event.stopPropagation()
-    this.minRoomsInputTarget.value = event.target.value
-    if (this.minRoomsInputTarget.value !== "" || event.keyCode === 13) {
-      this.MinToMaxRooms()
-    }
-  }
+  // Rooms
 
   MinToMaxRooms() {
     if (this.secondRoomsInputTarget.value !== "") {
@@ -140,12 +142,22 @@ export default class extends Controller {
     this.minRoomsPropositionsTarget.classList.add("d-none")
   }
 
+  selectMinRooms(event) {
+    event.stopPropagation()
+    this.minRoomsInputTarget.value = event.target.value
+    if (this.minRoomsInputTarget.value !== "" || event.keyCode === 13) {
+      this.MinToMaxRooms()
+    }
+  }
+
   selectMaxRooms(event) {
     this.secondRoomsInputTarget.value = event.target.value
     if (this.secondRoomsInputTarget.value !== "" || event.keyCode === 13) {
       this.formTarget.submit()
     }
   }
+
+  // Surface
 
   changeSurface(event) {
     if (event.keyCode === 13 || event.currentTarget.value.length === 3) {
