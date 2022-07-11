@@ -15,14 +15,10 @@ class PagesController < ApplicationController
     filter_by_locations
     filter_by_apartment_type
     filter_by_project
+
     @what = params[:types].split(",").first if params[:types].present? && params[:types].split(",").count == 1
 
     @properties = (@apartments + @houses).uniq
-    if @apartments.count.zero? && @houses.count.positive?
-      @what = "house"
-    elsif @houses.count.zero? && @apartments.count.positive?
-      @what = "flat"
-    end
 
     if params[:sort].present? && params[:sort] == "Prix"
       @properties = @properties.sort_by(&:price)
