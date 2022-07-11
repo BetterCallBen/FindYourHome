@@ -3,13 +3,12 @@
                 autocomplete: "off"
               },
               data: {
-                'apartments-target': 'form',
-                'controller': 'apartments preview',
-                'apartments-location-insees-value': @locations_insees.nil? ? [] : @locations_insees,
+                'controller': 'apartments preview locations',
+                'locations-insees-value': @locations_insees.nil? ? [] : @locations_insees,
                 'apartments-apartment-types-value': @apartment_types.nil? ? [] : @apartment_types
               }) do |f| %>
   <div class="contain"
-       data-action="click->apartments#hideAll">
+       data-action="click->apartments#hideAll click->locations#hideLocations">
     <div class="form-div">
       <div class="filter-form">
         <div class="project-filter div-filter">
@@ -37,17 +36,17 @@
 
         <div class="locations">
 
-          <input placeholder="Saisissez une ville ou un arrondissement" class="search-input" type="text" data-action="keyup->apartments#searchLocations click->apartments#displayLocations">
+          <input placeholder="Saisissez une ville ou un arrondissement" class="search-input" type="text" data-action="keyup->locations#searchLocations click->locations#displayLocations">
 
-          <input class="filter d-none" data-apartments-target="locations" name="locations" value="<%= params[:locations] if params[:locations] %>">
+          <input class="filter d-none" data-locations-target="locations" name="locations" value="<%= params[:locations] if params[:locations] %>">
 
-          <div class="location-results d-none" data-apartments-target="locationResults"></div>
+          <div class="location-results d-none" data-locations-target="locationResults"></div>
         </div>
 
         <% unless @locations_tags.nil? %>
           <div class="location-tags">
             <% @locations_tags.each do |location_tag| %>
-              <p data-insee-code="<%= location_tag.insee_code %>" class="location-tag" data-action="click->apartments#removeLocation"><%= location_tag.name %> <i class="fa-solid fa-xmark cross"></i></p>
+              <p data-insee-code="<%= location_tag.insee_code %>" class="location-tag" data-action="click->locations#removeLocation"><%= location_tag.name %> <i class="fa-solid fa-xmark cross"></i></p>
             <% end %>
           </div>
         <% end %>
@@ -91,16 +90,15 @@
 
         </div>
 
+        <p>Surface</p>
         <div class="surface-filter div-filter">
-          <label class="tag">Surface</label>
 
           <input placeholder="Min" class="filter" data-action="keyup->apartments#changeSurface"  min="1" max="120" type="number" name="surface_min" value=<%= params[:surface_min] if params[:surface_min].present? %> >
           <input placeholder="Max" class="filter" data-apartments-target="secondSurfaceInput" data-action="keyup->apartments#validSurface" min="1" max="120" type="number" name="surface_max" value=<%= params[:surface_max] if params[:surface_max].present? && params[:surface_max].to_i >= params[:surface_min].to_i %> >
 
-
         </div>
-
         <p class="bold">Critères populaires</p>
+
 
         <div class="criterias-filter div-filter">
 
