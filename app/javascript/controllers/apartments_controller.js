@@ -9,6 +9,8 @@ export default class extends Controller {
     this.apartmentTypes = this.apartmentTypesValue
   }
 
+  // General methods
+
   hideAll() {
     console.log("hide")
     this.minRoomsPropositionsTarget.classList.add("d-none")
@@ -18,6 +20,10 @@ export default class extends Controller {
 
   submitForm() {
     this.formTarget.submit()
+  }
+
+  resetForm() {
+    window.location = document.location.pathname
   }
 
   // Locations
@@ -175,9 +181,7 @@ export default class extends Controller {
     }
   }
 
-  resetForm() {
-    window.location = document.location.pathname
-  }
+  // Sort
 
   displaySort(event) {
     event.stopPropagation()
