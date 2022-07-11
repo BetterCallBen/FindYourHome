@@ -33,3 +33,9 @@ input[type=checkbox], input[type=radio]{
 .input {
   display: flex;
 }
+
+input {
+  &:focus-visible {
+    outline: none;
+  }
+}
