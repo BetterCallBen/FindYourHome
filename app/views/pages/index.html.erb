@@ -5,7 +5,8 @@
                 'apartments-location-insees-value': @locations_insees.nil? ? [] : @locations_insees,
                 'apartments-apartment-types-value': @apartment_types.nil? ? [] : @apartment_types
               }) do |f| %>
-  <div class="contain">
+  <div class="contain"
+       data-action="click->apartments#hideAll">
     <div class="form-div">
       <div class="filter-form">
         <div class="project-filter div-filter">
@@ -53,8 +54,8 @@
         <div class="rooms-filter div-filter">
 
           <div class="min-room-div">
-            <input placeholder="Min" class="min-room-input filter" data-action="keyup->apartments#changeRooms" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %>>
-            <div class="propositions">
+            <input placeholder="Min" class="min-room-input filter" data-apartments-target="minRoomsInput" data-action="keyup->apartments#changeRooms click->apartments#displayPropositions" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %>>
+            <div class="propositions d-none" data-apartments-target="minRoomsPropositions">
               <input type="radio" name="rooms_min" data-apartments-target="minRooms" data-action="click->apartments#roomsMin" value="1" id="studio" <%= 'checked' if params[:rooms_min] == "1" %>>
               <label for="studio" class="proposition">Studio</label>
               <input type="radio" name="rooms_min" data-apartments-target="minRooms" data-action="click->apartments#roomsMin" value="2" id="2_rooms" <%= 'checked' if params[:rooms_min] == "2" %>>
