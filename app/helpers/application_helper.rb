@@ -11,7 +11,7 @@ module ApplicationHelper
     hash = {
       flat: 'Appartement',
       house: 'Maison',
-      garage: 'Garage',
+      parking: 'Parking/Box',
       ground: 'Terrain'
     }
     return hash[type.to_sym]
