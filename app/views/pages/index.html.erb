@@ -51,7 +51,13 @@
         <div class="rooms-filter div-filter">
 
           <label class="tag">Nombre de pièce</label>
-          <input placeholder="Min" class="filter" data-action="keyup->apartments#changeRooms" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %> >
+          <input placeholder="Min" class="filter" data-action="keyup->apartments#changeRooms" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %>>
+          <input type="radio" name="rooms_min" value="1" id="studio">
+          <label for="studio">Studio</label>
+          <input type="radio" name="rooms_min" value="2">
+
+
+
           <input placeholder="Max" class="filter" data-apartments-target="secondRoomsInput" data-action="keyup->apartments#validRooms" min="1" max="120" type="number" name="rooms_max" value=<%= params[:rooms_max] if params[:rooms_max].present? && params[:rooms_max].to_i >= params[:rooms_min].to_i %> >
 
         </div>
