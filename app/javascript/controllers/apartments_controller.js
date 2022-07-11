@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "locations", "locationResults", "types", "groundFloor", "status", "sort", "minRooms", "minRoomsPropositions"]
+  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "locations", "locationResults", "types", "groundFloor", "status", "sort", "minRooms", "minRoomsPropositions", "maxRoomsPropositions", "minRoomsInput" ]
   static values = { locationInsees: Array, apartmentTypes: Array }
 
   connect() {
@@ -12,6 +12,7 @@ export default class extends Controller {
   hideAll() {
     console.log("hide")
     this.minRoomsPropositionsTarget.classList.add("d-none")
+    this.maxRoomsPropositionsTarget.classList.add("d-none")
   }
 
   toggleType(event) {
@@ -109,31 +110,46 @@ export default class extends Controller {
   }
 
   changeRooms(event) {
-    this.minRoomsTargets.forEach(minRoom => {
-      minRoom.checked = false
-    });
-    if (event.currentTarget.value !== "" || event.keyCode === 13) {
-      if (this.secondRoomsInputTarget.value !== "") {
-        this.formTarget.submit()
-      } else {
-        this.secondRoomsInputTarget.select()
-      }
+    if (event.target.value !== "" || event.keyCode === 13) {
+      this.MinToMaxRooms()
     }
   }
 
-  displayPropositions(event) {
-    event.stopPropagation()
-    console.log("show")
-    this.minRoomsPropositionsTarget.classList.remove("d-none")
+  MinToMaxRooms() {
+    if (this.secondRoomsInputTarget.value !== "") {
+      this.formTarget.submit()
+    } else {
+      this.secondRoomsInputTarget.select()
+    }
+    this.minRoomsPropositionsTarget.classList.add("d-none")
+    this.maxRoomsPropositionsTarget.classList.remove("d-none")
   }
+
+  displayMinPropositions(event) {
+    event.stopPropagation()
+    this.minRoomsPropositionsTarget.classList.remove("d-none")
+    this.maxRoomsPropositionsTarget.classList.add("d-none")
+  }
+
+  displayMaxPropositions(event) {
+    event.stopPropagation()
+    this.maxRoomsPropositionsTarget.classList.remove("d-none")
+    this.minRoomsPropositionsTarget.classList.add("d-none")
+  }
+
   validRooms(event) {
-    if (event.currentTarget.value !== "" || event.keyCode === 13) {
+    if (event.target.value !== "" || event.keyCode === 13) {
       this.formTarget.submit()
     }
   }
 
-  roomsMin(event) {
-    event.target.checked
+  selectMinRooms(event) {
+    this.minRoomsInputTarget.value = event.target.value
+    this.MinToMaxRooms()
+  }
+
+  selectMaxRooms(event) {
+    this.secondRoomsInputTarget.value = event.target.value
     this.submitForm()
   }
 
