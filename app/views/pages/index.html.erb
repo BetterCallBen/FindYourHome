@@ -206,16 +206,16 @@
           <label>Trier par</label>
           <div class="sort-div">
             <div class="sort-input" type="button" data-action="click->apartments#displaySort">
-              <p class="sort-value" ><%= params[:sort] %></p>
+              <p class="sort-value"><%= params[:sort] %></p>
               <i class="fa-solid fa-bars"></i>
             </div>
             <div class="sort-tags d-none" data-apartments-target="sort">
-              <input class="sort-tag" data-action="click->apartments#submitForm" type="radio" id="Pertinence" name="sort" value="Pertinence" <%= 'checked' if params[:sort] == "Pertinence" %>>
-              <label class="sort-tag" for="Pertinence">Pertinence</label>
-              <input class="sort-tag" data-action="click->apartments#submitForm" type="radio" id="Prix" name="sort" value="Prix" <%= 'checked' if params[:sort] == "Prix" %>>
-              <label class="sort-tag" for="Prix">Prix</label>
-              <input class="sort-tag" data-action="click->apartments#submitForm" type="radio" id="Surface" name="sort" value="Surface" <%= 'checked' if params[:sort] == "Surface" %>>
-              <label class="sort-tag" for="Surface">Surface</label>
+              <input data-action="click->apartments#submitForm" type="radio" id="Pertinence" name="sort" value="Pertinence" <%= 'checked' if params[:sort] == "Pertinence" %>>
+              <label class="sort-tag first" for="Pertinence"><p>Pertinence</p></label>
+              <input data-action="click->apartments#submitForm" type="radio" id="Prix" name="sort" value="Prix" <%= 'checked' if params[:sort] == "Prix" %>>
+              <label class="sort-tag" for="Prix"><p class="middle">Prix</p></label>
+              <input data-action="click->apartments#submitForm" type="radio" id="Surface" name="sort" value="Surface" <%= 'checked' if params[:sort] == "Surface" %>>
+              <label class="sort-tag last" for="Surface"><p>Surface</p></label>
             </div>
           </div>
         </div>
