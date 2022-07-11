@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "locations", "locationResults", "types", "groundFloor", "status", "sort"]
+  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "locations", "locationResults", "types", "groundFloor", "status", "sort", "minRooms"]
   static values = { locationInsees: Array, apartmentTypes: Array }
 
   connect() {
@@ -104,6 +104,9 @@ export default class extends Controller {
   }
 
   changeRooms(event) {
+    this.minRoomsTargets.forEach(minRoom => {
+      minRoom.checked = false
+    });
     if (event.currentTarget.value !== "" || event.keyCode === 13) {
       if (this.secondRoomsInputTarget.value !== "") {
         this.formTarget.submit()
@@ -117,6 +120,11 @@ export default class extends Controller {
     if (event.currentTarget.value !== "" || event.keyCode === 13) {
       this.formTarget.submit()
     }
+  }
+
+  roomsMin(event) {
+    event.target.checked
+    this.submitForm()
   }
 
   changeSurface(event) {
@@ -142,4 +150,5 @@ export default class extends Controller {
   displaySort() {
     this.sortTarget.classList.toggle("d-none")
   }
+
 }
