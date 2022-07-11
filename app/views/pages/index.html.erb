@@ -49,14 +49,17 @@
         <% end %>
 
         <p >Nombre de pièce</p>
+
         <div class="rooms-filter div-filter">
 
-
           <div class="min-room-div">
-            <input placeholder="Min" class="filter" data-action="keyup->apartments#changeRooms" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %>>
-            <input type="radio" name="rooms_min" value="1" id="studio">
-            <label for="studio">Studio</label>
-            <input type="radio" name="rooms_min" value="2">
+            <input placeholder="Min" class="min-room-input filter" data-action="keyup->apartments#changeRooms" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %>>
+            <div class="propositions">
+              <input type="radio" name="rooms_min" data-apartments-target="minRooms" data-action="click->apartments#roomsMin" value="1" id="studio" <%= 'checked' if params[:rooms_min] == "1" %>>
+              <label for="studio" class="proposition">Studio</label>
+              <input type="radio" name="rooms_min" data-apartments-target="minRooms" data-action="click->apartments#roomsMin" value="2" id="2_rooms" <%= 'checked' if params[:rooms_min] == "2" %>>
+              <label for="2_rooms" class="proposition" >2</label>
+            </div>
           </div>
 
 
@@ -215,7 +218,7 @@
         <div>
           <label>Trier par</label>
           <div class="sort-div">
-            <div class="sort-input" type="button" data-action="click->apartments#displaySort">
+            <div class="sort-input" data-action="click->apartments#displaySort">
               <p class="sort-value"><%= params[:sort] %></p>
               <i class="fa-solid fa-bars"></i>
             </div>
