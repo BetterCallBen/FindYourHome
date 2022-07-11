@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "locations", "locationResults", "types", "groundFloor", "status", "sort", "minRooms", "minRoomsPropositions", "maxRoomsPropositions", "minRoomsInput" ]
+  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "locations", "locationResults", "types", "groundFloor", "status", "sortPropositions", "minRooms", "minRoomsPropositions", "maxRoomsPropositions", "minRoomsInput" ]
   static values = { locationInsees: Array, apartmentTypes: Array }
 
   connect() {
@@ -13,6 +13,7 @@ export default class extends Controller {
     console.log("hide")
     this.minRoomsPropositionsTarget.classList.add("d-none")
     this.maxRoomsPropositionsTarget.classList.add("d-none")
+    this.sortPropositionsTarget.classList.add("d-none")
   }
 
   toggleType(event) {
@@ -109,8 +110,10 @@ export default class extends Controller {
     this.submitForm()
   }
 
-  changeRooms(event) {
-    if (event.target.value !== "" || event.keyCode === 13) {
+  selectMinRooms(event) {
+    event.stopPropagation()
+    this.minRoomsInputTarget.value = event.target.value
+    if (this.minRoomsInputTarget.value !== "" || event.keyCode === 13) {
       this.MinToMaxRooms()
     }
   }
@@ -137,21 +140,11 @@ export default class extends Controller {
     this.minRoomsPropositionsTarget.classList.add("d-none")
   }
 
-  validRooms(event) {
-    if (event.target.value !== "" || event.keyCode === 13) {
-      this.formTarget.submit()
-    }
-  }
-
-  selectMinRooms(event) {
-    event.stopPropagation()
-    this.minRoomsInputTarget.value = event.target.value
-    this.MinToMaxRooms()
-  }
-
   selectMaxRooms(event) {
     this.secondRoomsInputTarget.value = event.target.value
-    this.submitForm()
+    if (this.secondRoomsInputTarget.value !== "" || event.keyCode === 13) {
+      this.formTarget.submit()
+    }
   }
 
   changeSurface(event) {
@@ -174,8 +167,9 @@ export default class extends Controller {
     window.location = document.location.pathname
   }
 
-  displaySort() {
-    this.sortTarget.classList.toggle("d-none")
+  displaySort(event) {
+    event.stopPropagation()
+    this.sortPropositionsTarget.classList.toggle("d-none")
   }
 
 }
