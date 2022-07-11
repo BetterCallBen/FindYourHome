@@ -1,12 +1,17 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "locations", "locationResults", "types", "groundFloor", "status", "sort", "minRooms"]
+  static targets = ["form", "apartments", "secondRoomsInput", "secondSurfaceInput", "locations", "locationResults", "types", "groundFloor", "status", "sort", "minRooms", "minRoomsPropositions"]
   static values = { locationInsees: Array, apartmentTypes: Array }
 
   connect() {
     this.locationInsees = this.locationInseesValue
     this.apartmentTypes = this.apartmentTypesValue
+  }
+
+  hideAll() {
+    console.log("hide")
+    this.minRoomsPropositionsTarget.classList.add("d-none")
   }
 
   toggleType(event) {
@@ -116,6 +121,11 @@ export default class extends Controller {
     }
   }
 
+  displayPropositions(event) {
+    event.stopPropagation()
+    console.log("show")
+    this.minRoomsPropositionsTarget.classList.remove("d-none")
+  }
   validRooms(event) {
     if (event.currentTarget.value !== "" || event.keyCode === 13) {
       this.formTarget.submit()
