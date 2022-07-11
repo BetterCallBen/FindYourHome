@@ -144,6 +144,7 @@ export default class extends Controller {
   }
 
   selectMinRooms(event) {
+    event.stopPropagation()
     this.minRoomsInputTarget.value = event.target.value
     this.MinToMaxRooms()
   }
