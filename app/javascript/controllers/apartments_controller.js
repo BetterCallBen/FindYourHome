@@ -16,6 +16,7 @@ export default class extends Controller {
     this.minRoomsPropositionsTarget.classList.add("d-none")
     this.maxRoomsPropositionsTarget.classList.add("d-none")
     this.sortPropositionsTarget.classList.add("d-none")
+    this.locationResultsTarget.classList.add("d-none")
   }
 
   submitForm() {
@@ -27,6 +28,11 @@ export default class extends Controller {
   }
 
   // Locations
+
+  displayLocations(event) {
+    event.stopPropagation()
+    this.locationResultsTarget.classList.remove("d-none")
+  }
 
   searchLocations(event) {
 
