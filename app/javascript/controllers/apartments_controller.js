@@ -11,7 +11,6 @@ export default class extends Controller {
   // General methods
 
   hideAll() {
-    console.log("hide")
     this.minRoomsPropositionsTarget.classList.add("d-none")
     this.maxRoomsPropositionsTarget.classList.add("d-none")
     this.sortPropositionsTarget.classList.add("d-none")

@@ -39,3 +39,24 @@ input {
     outline: none;
   }
 }
+.bed-tag {
+  border-radius: 50%;
+  border: 1px solid #2586A4;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p {
+    margin: 0;
+  }
+}
+
+.bed-filter+.bed-tag {
+  color: #2586A4;
+}
+
+.bed-filter:checked+.bed-tag {
+  background-color: #2586A4;
+  color: #fff;
+}

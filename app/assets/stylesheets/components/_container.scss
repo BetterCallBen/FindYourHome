@@ -42,3 +42,21 @@
     height: 20px;
   }
 }
+
+.bedroom-filter {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  .filling {
+    margin: 0;
+    background-color: #2586A4;
+    width: 40px;
+    height: 20px;
+    opacity: 0;
+    transition: opacity 0.1s;
+    &.active {
+      opacity: 1;
+    }
+  }
+}
