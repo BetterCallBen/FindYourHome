@@ -42,11 +42,13 @@ input {
 .bed-tag {
   border-radius: 50%;
   border: 1px solid #2586A4;
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background-color 0.1s;
+  cursor: pointer;
   p {
     margin: 0;
   }

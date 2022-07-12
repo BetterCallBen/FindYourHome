@@ -47,16 +47,24 @@
   width: 300px;
   display: flex;
   align-items: center;
+  gap: 5px;
   margin: 0;
-  .filling {
-    margin: 0;
-    background-color: #2586A4;
-    width: 40px;
-    height: 20px;
-    opacity: 0;
-    transition: opacity 0.1s;
-    &.active {
-      opacity: 1;
+  .filling-div {
+    position: relative;
+    .filling {
+      margin: 0;
+      background-color: #2586A4;
+      width: 45px;
+      height: 40px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      position: absolute;
+      top: 0;
+      left: 20px;
+      z-index: -1;
+      &.active {
+        opacity: 1;
+      }
     }
   }
 }
