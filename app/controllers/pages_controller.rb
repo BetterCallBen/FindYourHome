@@ -20,16 +20,15 @@ class PagesController < ApplicationController
 
     @properties = (@apartments + @houses).uniq
 
-    if params[:sort].present? && params[:sort] == "Prix"
-      @properties = @properties.sort_by(&:price)
-    elsif params[:sort].present? && params[:sort] == "Surface"
-      @properties = @properties.sort_by(&:surface)
-    elsif params[:sort].present? && params[:sort] == "rooms"
-      @properties = @properties.sort_by(&:rooms)
-    elsif params[:sort].present? && params[:sort] == "floor"
-      @properties = @properties.sort_by(&:floor)
-    elsif params[:sort].present? && params[:sort] == "price_per_m2"
-      @properties = @properties.sort_by(&:price_per_m2)
+    if params[:sort].present?
+      case params[:sort]
+      when "Prix"
+        @properties = @properties.sort_by(&:price)
+      when "Surface"
+        @properties = @properties.sort_by(&:surface)
+      when "Pertinence"
+        @properties = @properties.shuffle
+      end
     end
 
     respond_to do |format|
