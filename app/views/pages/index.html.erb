@@ -35,21 +35,26 @@
         </div>
 
         <div class="locations">
-
-          <input placeholder="Saisissez une ville ou un arrondissement" class="search-input" type="text" data-action="keyup->locations#searchLocations click->locations#displayLocations">
+          <div class="location-input">
+            <% unless @locations_tags.nil? %>
+              <div class="location-tags">
+                <% @locations_tags.each do |location_tag| %>
+                  <div data-insee-code="<%= location_tag.insee_code %>" class="location-tag" data-action="click->locations#removeLocation">
+                    <p class="location"><%= location_tag.name %></p>
+                    <i class="fa-solid fa-xmark cross"></i>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+            <input class="input" type="text" data-action="keyup->locations#searchLocations click->locations#displayLocations">
+          </div>
 
           <input class="filter d-none" data-locations-target="locations" name="locations" value="<%= params[:locations] if params[:locations] %>">
 
           <div class="location-results d-none" data-locations-target="locationResults"></div>
         </div>
 
-        <% unless @locations_tags.nil? %>
-          <div class="location-tags">
-            <% @locations_tags.each do |location_tag| %>
-              <p data-insee-code="<%= location_tag.insee_code %>" class="location-tag" data-action="click->locations#removeLocation"><%= location_tag.name %> <i class="fa-solid fa-xmark cross"></i></p>
-            <% end %>
-          </div>
-        <% end %>
+
 
         <p>Nombre de pièce</p>
 
@@ -59,7 +64,7 @@
             <input placeholder="Min" class="room-input filter" data-apartments-target="minRoomsInput" data-action="keyup->apartments#selectMinRooms click->apartments#displayMinPropositions" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %>>
             <div class="propositions d-none" data-apartments-target="minRoomsPropositions">
               <input type="radio" data-action="click->apartments#selectMinRooms" value="1" id="studio_min">
-              <label for="studio_min" class="proposition">1</label>
+              <label for="studio_min" class="proposition">Studio</label>
               <input type="radio" data-action="click->apartments#selectMinRooms" value="2" id="2_rooms_min">
               <label for="2_rooms_min" class="proposition">2</label>
               <input type="radio" data-action="click->apartments#selectMinRooms" value="3" id="3_rooms_min">
@@ -76,7 +81,7 @@
 
             <div class="propositions d-none" data-apartments-target="maxRoomsPropositions">
               <input type="radio" data-action="click->apartments#selectMaxRooms" value="1" id="studio_max">
-              <label for="studio_max" class="proposition">1</label>
+              <label for="studio_max" class="proposition">Studio</label>
               <input type="radio" data-action="click->apartments#selectMaxRooms" value="2" id="2_rooms_max">
               <label for="2_rooms_max" class="proposition">2</label>
               <input type="radio" data-action="click->apartments#selectMaxRooms" value="3" id="3_rooms_max">
