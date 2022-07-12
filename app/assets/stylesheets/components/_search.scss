@@ -35,7 +35,6 @@
 
         &:hover {
           cursor: pointer;
-
           .cross {
             transform: rotate(90deg);
           }
@@ -44,6 +43,7 @@
     }
     .input {
       height: 2rem;
+      flex-grow: 2;
       padding: 0;
       outline: none;
       border: none;
@@ -58,6 +58,17 @@
     flex-direction: column;
     position: absolute;
     top: 3rem;
+    .placehold {
+      background-color: white;
+      border-radius: 4px;
+      padding: .6rem .5rem;
+      p {
+        color: rgb(162, 162, 162);
+        font-style: italic;
+        margin: 0;
+        padding: 0;
+      }
+    }
     .location-result {
       &:first-child {
         border-radius: 4px 4px 0 0;
