@@ -7,16 +7,6 @@ module ApplicationHelper
     end
   end
 
-  def translate_type(type)
-    hash = {
-      flat: 'Appartement',
-      house: 'Maison',
-      parking: 'Parking/Box',
-      ground: 'Terrain'
-    }
-    return hash[type.to_sym]
-  end
-
   def humanize_location(location)
     hash = {
       city: 'Ville',
@@ -26,13 +16,13 @@ module ApplicationHelper
   end
 
   def in_group_of(count, number)
-    if count == 1 || count == 2 || count == 3
-      return number
-    elsif count == 4 || count == 5 || count == 6
+    return number if [1, 2, 3].include?(count)
+
+    if [4, 5, 6].include?(count)
       number = number.to_s.chars
       last_part = number.pop(3).join
       return "#{number.join} #{last_part}"
-    elsif count == 7 || count == 8 || count == 9
+    elsif [7, 8, 9].include?(count)
       number = number.to_s.chars
       last_part = number.pop(3).join
       middle_part = number.pop(3).join
