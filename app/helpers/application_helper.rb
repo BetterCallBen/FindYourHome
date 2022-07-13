@@ -18,6 +18,10 @@ module ApplicationHelper
   def in_group_of(count, number)
     return number if [1, 2, 3].include?(count)
 
+    humanize_price(count, number)
+  end
+
+  def humanize_price(count, number)
     if [4, 5, 6].include?(count)
       number = number.to_s.chars
       last_part = number.pop(3).join
