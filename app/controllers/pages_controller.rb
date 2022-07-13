@@ -20,6 +20,14 @@ class PagesController < ApplicationController
 
     @properties = (@apartments + @houses).uniq
 
+    if @properties.count == @properties.select { |p| p.instance_of?(Apartment) }.count
+      @what = "appartement"
+    elsif @properties.count == @properties.select { |p| p.instance_of?(House) }.count
+      @what = "maison"
+    else
+      @what = "bien"
+    end
+
     if params[:sort].present?
       case params[:sort]
       when "Prix"
@@ -32,6 +40,7 @@ class PagesController < ApplicationController
     end
 
     @bedrooms = params[:bedrooms].split(",") if params[:bedrooms].present?
+    @rooms = params[:rooms].split(",") if params[:rooms].present?
 
     respond_to do |format|
       format.html
