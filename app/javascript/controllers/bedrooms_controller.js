@@ -1,18 +1,12 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["filling", "filling1", "filling2", "filling3", "filling4"]
-  static values = {}
+  static targets = ["bedrooms", "filling", "filling1", "filling2", "filling3", "filling4"]
+  static values = { bedrooms: Array }
 
   connect() {
-    console.log("coucou toi")
-    this.bedrooms = []
-  }
-
-  // General methods
-
-  submitForm() {
-    this.element.submit()
+    this.bedrooms = this.bedroomsValue.map(bedroom => parseInt(bedroom));
+    console.log(this.bedrooms);
   }
 
   toto(event) {
@@ -25,15 +19,20 @@ export default class extends Controller {
     } else {
       this.bedrooms.push(targetValue)
     }
-    console.log(this.bedrooms)
+
     this.fillingTargets.forEach(filling => {
       const fillingValue = parseInt(filling.dataset.value)
       if (this.bedrooms.includes(fillingValue) && this.bedrooms.includes(fillingValue + 1)) {
-        console.log("good")
         filling.classList.add("active")
       } else {
         filling.classList.remove("active")
       }
     });
+
   }
-}
+
+  tata() {
+    this.bedroomsTarget.value = this.bedrooms
+    this.element.submit()
+  }
+  }
