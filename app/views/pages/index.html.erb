@@ -6,7 +6,8 @@
                 'controller': 'apartments preview locations bedrooms',
                 'locations-insees-value': @locations_insees.nil? ? [] : @locations_insees,
                 'apartments-apartment-types-value': @apartment_types.nil? ? [] : @apartment_types,
-                'bedrooms-bedrooms-value': @bedrooms.nil? ? [] : @bedrooms
+                'bedrooms-bedrooms-value': @bedrooms.nil? ? [] : @bedrooms,
+                'bedrooms-rooms-value': @rooms.nil? ? [] : @rooms
               }) do |f| %>
   <div class="contain"
        data-action="click->apartments#hideAll click->locations#hideLocations">
@@ -59,115 +60,80 @@
           </div>
         </div>
 
+        <p>Nombre de pièce</p>
+
+        <div class="room-filter div-filter">
+
+          <div class="filling-div">
+            <input id="1_rooms" class="bed-filter" type="checkbox" value="1" data-action="click->bedrooms#selectRoom" <%= 'checked' if params[:rooms].present? && params[:rooms].include?("1") %>>
+            <label for="1_rooms" class="bed-tag"><p>1</p></label>
+            <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?("1") && params[:rooms].include?("2")%>" data-bedrooms-target="roomFilling1 roomFilling" data-value="1"></div>
+          </div>
+
+          <div class="filling-div">
+            <input id="2_rooms" class="bed-filter" type="checkbox" value="2" data-action="click->bedrooms#selectRoom" <%= 'checked' if params[:rooms].present? && params[:rooms].include?("2") %>>
+            <label for="2_rooms" class="bed-tag"><p>2</p></label>
+            <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?("2") && params[:rooms].include?("3")%>" data-bedrooms-target="roomFilling2 roomFilling" data-value="2"></div>
+          </div>
+
+          <div class="filling-div">
+            <input id="3_rooms" class="bed-filter" type="checkbox" value="3" data-action="click->bedrooms#selectRoom" <%= 'checked' if params[:rooms].present? && params[:rooms].include?("3") %>>
+            <label for="3_rooms" class="bed-tag"><p>3</p></label>
+            <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?("3") && params[:rooms].include?("4")%>" data-bedrooms-target="roomFilling3 roomFilling" data-value="3"></div>
+          </div>
+
+          <div class="filling-div">
+            <input id="4_rooms" class="bed-filter" type="checkbox" value="4" data-action="click->bedrooms#selectRoom" <%= 'checked' if params[:rooms].present? && params[:rooms].include?("4") %>>
+            <label for="4_rooms" class="bed-tag"><p>4</p></label>
+            <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?("4") && params[:rooms].include?("5")%>" data-bedrooms-target="roomFilling4 roomFilling" data-value="4"></div>
+          </div>
+
+          <input id="5_rooms" class="bed-filter" type="checkbox" value="5" data-action="click->bedrooms#selectRoom" <%= 'checked' if params[:rooms].present? && params[:rooms].include?("5") %>>
+          <label for="5_rooms" class="bed-tag"><p>5</p></label>
+
+          <button data-action="click->bedrooms#validRooms"> valider</button>
+
+          <input type="hidden" name="rooms" data-bedrooms-target="rooms" value="<%= params[:rooms] %>" >
+
+        </div>
+
         <p>Nombre de chambre</p>
 
         <div class="bedroom-filter div-filter">
 
           <div class="filling-div">
-            <input id="1_bedrooms" class="bed-filter" type="checkbox" value="1" data-action="click->bedrooms#toto" <%= 'checked' if params[:bedrooms].present? && params[:bedrooms].include?("1") %>>
+            <input id="1_bedrooms" class="bed-filter" type="checkbox" value="1" data-action="click->bedrooms#selectBedroom" <%= 'checked' if params[:bedrooms].present? && params[:bedrooms].include?("1") %>>
             <label for="1_bedrooms" class="bed-tag"><p>1</p></label>
-            <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("1") && params[:bedrooms].include?("2")%>" data-bedrooms-target="filling1 filling" data-value="1"></div>
+            <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("1") && params[:bedrooms].include?("2")%>" data-bedrooms-target="bedroomFilling1 bedroomFilling" data-value="1"></div>
           </div>
 
           <div class="filling-div">
-            <input id="2_bedrooms" class="bed-filter" type="checkbox" value="2" data-action="click->bedrooms#toto" <%= 'checked' if params[:bedrooms].present? && params[:bedrooms].include?("2") %>>
+            <input id="2_bedrooms" class="bed-filter" type="checkbox" value="2" data-action="click->bedrooms#selectBedroom" <%= 'checked' if params[:bedrooms].present? && params[:bedrooms].include?("2") %>>
             <label for="2_bedrooms" class="bed-tag"><p>2</p></label>
-            <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("2") && params[:bedrooms].include?("3")%>" data-bedrooms-target="filling2 filling" data-value="2"></div>
+            <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("2") && params[:bedrooms].include?("3")%>" data-bedrooms-target="bedroomFilling2 bedroomFilling" data-value="2"></div>
           </div>
 
           <div class="filling-div">
-            <input id="3_bedrooms" class="bed-filter" type="checkbox" value="3" data-action="click->bedrooms#toto" <%= 'checked' if params[:bedrooms].present? && params[:bedrooms].include?("3") %>>
+            <input id="3_bedrooms" class="bed-filter" type="checkbox" value="3" data-action="click->bedrooms#selectBedroom" <%= 'checked' if params[:bedrooms].present? && params[:bedrooms].include?("3") %>>
             <label for="3_bedrooms" class="bed-tag"><p>3</p></label>
-            <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("3") && params[:bedrooms].include?("4")%>" data-bedrooms-target="filling3 filling" data-value="3"></div>
+            <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("3") && params[:bedrooms].include?("4")%>" data-bedrooms-target="bedroomFilling3 bedroomFilling" data-value="3"></div>
           </div>
 
           <div class="filling-div">
-            <input id="4_bedrooms" class="bed-filter" type="checkbox" value="4" data-action="click->bedrooms#toto" <%= 'checked' if params[:bedrooms].present? && params[:bedrooms].include?("4") %>>
+            <input id="4_bedrooms" class="bed-filter" type="checkbox" value="4" data-action="click->bedrooms#selectBedroom" <%= 'checked' if params[:bedrooms].present? && params[:bedrooms].include?("4") %>>
             <label for="4_bedrooms" class="bed-tag"><p>4</p></label>
-            <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("4") && params[:bedrooms].include?("5")%>" data-bedrooms-target="filling4 filling" data-value="4"></div>
+            <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("4") && params[:bedrooms].include?("5")%>" data-bedrooms-target="bedroomFilling4 bedroomFilling" data-value="4"></div>
           </div>
 
-          <input id="5_bedrooms" class="bed-filter" type="checkbox" value="5" data-action="click->bedrooms#toto" <%= 'checked' if params[:bedrooms].present? && params[:bedrooms].include?("5") %>>
+          <input id="5_bedrooms" class="bed-filter" type="checkbox" value="5" data-action="click->bedrooms#selectBedroom" <%= 'checked' if params[:bedrooms].present? && params[:bedrooms].include?("5") %>>
           <label for="5_bedrooms" class="bed-tag"><p>5</p></label>
 
-          <button data-action="click->bedrooms#tata"> valider</button>
+          <button data-action="click->bedrooms#validBedrooms"> valider</button>
 
           <input type="hidden" name="bedrooms" data-bedrooms-target="bedrooms" value="<%= params[:bedrooms] %>" >
 
         </div>
-        <div class="room-filter div-filter">
 
-          <div class="filling-div">
-            <input id="1_rooms" class="bed-filter" type="checkbox" value="1" data-action="click->bedrooms#toto" <%= 'checked' if params[:rooms].present? && params[:rooms].include?("1") %>>
-            <label for="1_rooms" class="bed-tag"><p>1</p></label>
-            <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?("1") && params[:rooms].include?("2")%>" data-bedrooms-target="filling1 filling" data-value="1"></div>
-          </div>
-
-          <div class="filling-div">
-            <input id="2_rooms" class="bed-filter" type="checkbox" value="2" data-action="click->bedrooms#toto" <%= 'checked' if params[:rooms].present? && params[:rooms].include?("2") %>>
-            <label for="2_rooms" class="bed-tag"><p>2</p></label>
-            <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?("2") && params[:rooms].include?("3")%>" data-bedrooms-target="filling2 filling" data-value="2"></div>
-          </div>
-
-          <div class="filling-div">
-            <input id="3_rooms" class="bed-filter" type="checkbox" value="3" data-action="click->bedrooms#toto" <%= 'checked' if params[:rooms].present? && params[:rooms].include?("3") %>>
-            <label for="3_rooms" class="bed-tag"><p>3</p></label>
-            <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?("3") && params[:rooms].include?("4")%>" data-bedrooms-target="filling3 filling" data-value="3"></div>
-          </div>
-
-          <div class="filling-div">
-            <input id="4_rooms" class="bed-filter" type="checkbox" value="4" data-action="click->bedrooms#toto" <%= 'checked' if params[:rooms].present? && params[:rooms].include?("4") %>>
-            <label for="4_rooms" class="bed-tag"><p>4</p></label>
-            <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?("4") && params[:rooms].include?("5")%>" data-bedrooms-target="filling4 filling" data-value="4"></div>
-          </div>
-
-          <input id="5_rooms" class="bed-filter" type="checkbox" value="5" data-action="click->bedrooms#toto" <%= 'checked' if params[:rooms].present? && params[:rooms].include?("5") %>>
-          <label for="5_rooms" class="bed-tag"><p>5</p></label>
-
-          <button data-action="click->bedrooms#tata"> valider</button>
-
-          <input type="hidden" name="bedrooms" data-bedrooms-target="bedrooms" value="<%= params[:rooms] %>" >
-
-        </div>
-
-        <p>Nombre de pièce</p>
-
-        <div class="rooms-filter div-filter">
-
-          <div class="room-div">
-            <input placeholder="Min" class="room-input filter" data-apartments-target="minRoomsInput" data-action="keyup->apartments#selectMinRooms click->apartments#displayMinPropositions" min="1" max="120" type="number" name="rooms_min" value=<%= params[:rooms_min] if params[:rooms_min].present? %>>
-            <div class="propositions d-none" data-apartments-target="minRoomsPropositions">
-              <input type="radio" data-action="click->apartments#selectMinRooms" value="1" id="studio_min">
-              <label for="studio_min" class="proposition">Studio</label>
-              <input type="radio" data-action="click->apartments#selectMinRooms" value="2" id="2_rooms_min">
-              <label for="2_rooms_min" class="proposition">2</label>
-              <input type="radio" data-action="click->apartments#selectMinRooms" value="3" id="3_rooms_min">
-              <label for="3_rooms_min" class="proposition">3</label>
-              <input type="radio" data-action="click->apartments#selectMinRooms" value="4" id="4_rooms_min">
-              <label for="4_rooms_min" class="proposition">4</label>
-              <input type="radio" data-action="click->apartments#selectMinRooms" value="5" id="5_rooms_min">
-              <label for="5_rooms_min" class="proposition">5</label>
-            </div>
-          </div>
-
-          <div class="room-div">
-            <input placeholder="Max" class="room-input filter" data-apartments-target="secondRoomsInput" data-action="keyup->apartments#selectMaxRooms click->apartments#displayMaxPropositions" min="1" max="120" type="number" name="rooms_max" value=<%= params[:rooms_max] if params[:rooms_max].present? && params[:rooms_max].to_i >= params[:rooms_min].to_i %> >
-
-            <div class="propositions d-none" data-apartments-target="maxRoomsPropositions">
-              <input type="radio" data-action="click->apartments#selectMaxRooms" value="1" id="studio_max">
-              <label for="studio_max" class="proposition">Studio</label>
-              <input type="radio" data-action="click->apartments#selectMaxRooms" value="2" id="2_rooms_max">
-              <label for="2_rooms_max" class="proposition">2</label>
-              <input type="radio" data-action="click->apartments#selectMaxRooms" value="3" id="3_rooms_max">
-              <label for="3_rooms_max" class="proposition">3</label>
-              <input type="radio" data-action="click->apartments#selectMaxRooms" value="4" id="4_rooms_max">
-              <label for="4_rooms_max" class="proposition">4</label>
-              <input type="radio" data-action="click->apartments#selectMaxRooms" value="5" id="5_rooms_max">
-              <label for="5_rooms_max" class="proposition">5</label>
-            </div>
-          </div>
-
-        </div>
 
 
 
@@ -313,7 +279,7 @@
     <div class="apartments">
       <div class="apartment-infos">
         <p>
-          <%= pluralize(@properties.count, @what.nil? ? "bien" : translate_type(@what)) %>
+          <%= pluralize(@properties.count, @what) %>
           <%= @there %>
         </p>
         <div>
