@@ -39,7 +39,7 @@ export default class extends Controller {
     }
     this.typesTarget.value = this.apartmentTypes
 
-    this.submitForm()
+    this.element.submit()
   }
 
   // Floors
@@ -55,7 +55,7 @@ export default class extends Controller {
       });
       event.target.checked = true
     }
-    this.submitForm()
+    this.element.submit()
   }
 
   // Status
@@ -71,14 +71,14 @@ export default class extends Controller {
       });
       event.target.checked = true
     }
-    this.submitForm()
+    this.element.submit()
   }
 
   // Rooms
 
   MinToMaxRooms() {
     if (this.secondRoomsInputTarget.value !== "") {
-      this.submitForm()
+      this.element.submit()
     } else {
       this.secondRoomsInputTarget.select()
     }
@@ -109,7 +109,7 @@ export default class extends Controller {
   selectMaxRooms(event) {
     this.secondRoomsInputTarget.value = event.target.value
     if (this.secondRoomsInputTarget.value !== "" || event.keyCode === 13) {
-      this.submitForm()
+      this.element.submit()
     }
   }
 
@@ -118,7 +118,7 @@ export default class extends Controller {
   changeSurface(event) {
     if (event.keyCode === 13 || event.currentTarget.value.length === 3) {
       if (this.secondSurfaceInputTarget.value !== "") {
-        this.submitForm()
+        this.element.submit()
       } else {
         this.secondSurfaceInputTarget.select()
       }
@@ -127,7 +127,7 @@ export default class extends Controller {
 
   validSurface(event) {
     if (event.keyCode === 13 || event.currentTarget.value.length === 3) {
-      this.submitForm()
+      this.element.submit()
     }
   }
 
