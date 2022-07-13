@@ -55,12 +55,8 @@ export default class extends Controller {
 
   }
 
-  validBedrooms() {
+  valid() {
     this.bedroomsTarget.value = this.bedrooms
-    this.element.submit()
-  }
-
-  validRooms() {
     this.roomsTarget.value = this.rooms
     this.element.submit()
   }
