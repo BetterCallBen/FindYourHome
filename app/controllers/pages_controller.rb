@@ -31,6 +31,8 @@ class PagesController < ApplicationController
       end
     end
 
+    @bedrooms = params[:bedrooms].split(",") if params[:bedrooms].present?
+
     respond_to do |format|
       format.html
       format.text { render partial: 'locations', locals: { locations: @results }, formats: :html }
