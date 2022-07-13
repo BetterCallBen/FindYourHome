@@ -48,7 +48,7 @@
                 <% end %>
               </div>
             <% end %>
-            <input class="input" type="text" data-action="keyup->locations#searchLocations click->locations#displayLocations">
+            <input class="input" placeholder="<%= "Saisissez une ville ou un arrondissement" if @locations_tags.nil?%>" type="text" data-action="keyup->locations#searchLocations click->locations#displayLocations">
           </div>
 
           <input class="filter d-none" data-locations-target="locations" name="locations" value="<%= params[:locations] if params[:locations] %>">
