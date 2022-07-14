@@ -11,6 +11,7 @@ class CreateApartments < ActiveRecord::Migration[6.0]
       t.integer :building_floor
       t.integer :price
       t.integer :rooms
+      t.integer :bedrooms
       t.integer :surface
       t.boolean :balcony, default: false
       t.boolean :chimney, default: false
