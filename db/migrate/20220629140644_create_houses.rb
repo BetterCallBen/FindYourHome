@@ -10,6 +10,7 @@ class CreateHouses < ActiveRecord::Migration[6.0]
       t.string :status
       t.integer :price
       t.integer :rooms
+      t.integer :bedrooms
       t.integer :surface
       t.boolean :balcony, default: false
       t.boolean :chimney, default: false
