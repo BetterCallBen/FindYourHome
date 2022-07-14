@@ -11,12 +11,11 @@ class PagesController < ApplicationController
     filter_by_status
     filter_by_floor
     filter_by_rooms
+    filter_by_bedrooms
     filter_by_surface
     filter_by_locations
     filter_by_apartment_type
     filter_by_project
-
-    @what = params[:types].split(",").first if params[:types].present? && params[:types].split(",").count == 1
 
     @properties = (@apartments + @houses).uniq
 
@@ -38,9 +37,6 @@ class PagesController < ApplicationController
         @properties = @properties.shuffle
       end
     end
-
-    @bedrooms = params[:bedrooms].split(",") if params[:bedrooms].present?
-    @rooms = params[:rooms].split(",") if params[:rooms].present?
 
     respond_to do |format|
       format.html
@@ -107,19 +103,6 @@ class PagesController < ApplicationController
     @apartments = @apartments.where("floor = building_floor")
   end
 
-  def filter_by_rooms
-    if params[:rooms_min].present? && params[:rooms_max].present? && params[:rooms_max].to_i >= params[:rooms_min].to_i
-      @apartments = @apartments.where(rooms: params[:rooms_min].to_i..params[:rooms_max].to_i)
-      @houses = @houses.where(rooms: params[:rooms_min].to_i..params[:rooms_max].to_i)
-    elsif params[:rooms_min].present?
-      @apartments = @apartments.where("rooms >= ? ", params[:rooms_min].to_i)
-      @houses = @houses.where("rooms >= ? ", params[:rooms_min].to_i)
-    elsif params[:rooms_max].present?
-      @apartments = @apartments.where("rooms <= ? ", params[:rooms_max].to_i)
-      @houses = @houses.where("rooms <= ? ", params[:rooms_max].to_i)
-    end
-  end
-
   def filter_by_surface
     if params[:surface_min].present? && params[:surface_max].present? && params[:surface_max].to_i >= params[:surface_min].to_i
       @apartments = @apartments.where(surface: params[:surface_min].to_i..params[:surface_max].to_i)
@@ -152,6 +135,20 @@ class PagesController < ApplicationController
     return unless params[:search].present?
 
     find_results
+  end
+
+  def filter_by_rooms
+    return unless params[:rooms].present?
+
+    @rooms = params[:rooms].split(",")
+    @apartments = @apartments.where(rooms: @rooms)
+  end
+
+  def filter_by_bedrooms
+    return unless params[:bedrooms].present?
+
+    @bedrooms = params[:bedrooms].split(",")
+    @apartments = @apartments.where(bedrooms: @bedrooms)
   end
 
   def find_location_tags
