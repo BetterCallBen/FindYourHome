@@ -6,6 +6,7 @@ class House < ApplicationRecord
   validates :address, presence: true
   validates :surface, presence: true
   validates :rooms, presence: true
+  validates :bedrooms, presence: true
   validates :price, presence: true, numericality: { only_integer: true }
   validates :description, presence: true
 end
