@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2022_07_06_085047) do
     t.integer "building_floor"
     t.integer "price"
     t.integer "rooms"
+    t.integer "bedrooms"
     t.integer "surface"
     t.boolean "balcony", default: false
     t.boolean "chimney", default: false
@@ -67,6 +68,7 @@ ActiveRecord::Schema.define(version: 2022_07_06_085047) do
     t.string "status"
     t.integer "price"
     t.integer "rooms"
+    t.integer "bedrooms"
     t.integer "surface"
     t.boolean "balcony", default: false
     t.boolean "chimney", default: false
