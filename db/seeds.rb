@@ -1,10 +1,6 @@
 STATUS = ["furnished", "unfurnished"]
 RARE_BOOLEAN = [true, false, false]
 BOOLEAN = [true, false]
-CITY = [{ name: "Paris", insee_code: "75056" }, { name: "Lyon", insee_code: "69123" },
-        { name: "Marseille", insee_code: "13055" }, { name: "Nice", insee_code: "06088" },
-        { name: "Bordeaux", insee_code: "33063" }, { name: "Toulouse", insee_code: "31555" },
-        { name: "Nantes", insee_code: "44109" }, { name: "Lille", insee_code: "59350" }]
 LYON_CITIES = [{name: "Lyon", insee_code: "69123"}, { name: "Charbonniere les bains", insee_code: "69044"},
                {name: "Tassin la demi-lune", insee_code: "69244"}, { name: "Villefranche-sur-Saone", insee_code: "69264"},
                {name: "Ecully", insee_code: "69081"}, { name: "Villeurbanne", insee_code: "69266"},
@@ -15,24 +11,6 @@ LYON_BOROUGH = [{ name: "Lyon 1er", insee_code: "69381" }, { name: "Lyon 2ème",
                 { name: "Lyon 5ème", insee_code: "69385" }, { name: "Lyon 6ème", insee_code: "69386" },
                 { name: "Lyon 7ème", insee_code: "69387" }, { name: "Lyon 8ème", insee_code: "69388" },
                 { name: "Lyon 9ème", insee_code: "69389" }]
-PARIS_BOROUGH = [{ name: "Paris 1er", insee_code: "75101" }, { name: "Paris 2ème", insee_code: "75102" },
-                 { name: "Paris 3ème", insee_code: "75103" }, { name: "Paris 4ème", insee_code: "75104" },
-                 { name: "Paris 5ème", insee_code: "75105" }, { name: "Paris 6ème", insee_code: "75106" },
-                 { name: "Paris 7ème", insee_code: "75107" }, { name: "Paris 8ème", insee_code: "75108" },
-                 { name: "Paris 9ème", insee_code: "75109" }, { name: "Paris 10ème", insee_code: "75110" },
-                 { name: "Paris 11ème", insee_code: "75111" }, { name: "Paris 12ème", insee_code: "75112" },
-                 { name: "Paris 13ème", insee_code: "75113" }, { name: "Paris 14ème", insee_code: "75114" },
-                 { name: "Paris 15ème", insee_code: "75115" }, { name: "Paris 16ème", insee_code: "75116" },
-                 { name: "Paris 17ème", insee_code: "75117" }, { name: "Paris 18ème", insee_code: "75118" },
-                 { name: "Paris 19ème", insee_code: "75119" }, { name: "Paris 20ème", insee_code: "75120" }]
-MARSEILLE_BOROUGH = [{ name: "Marseille 1er", insee_code: "13201" }, { name: "Marseille 2ème", insee_code: "13202" },
-                     { name: "Marseille 3ème", insee_code: "13203" }, { name: "Marseille 4ème", insee_code: "13204" },
-                     { name: "Marseille 5ème", insee_code: "13205" }, { name: "Marseille 6ème", insee_code: "13206" },
-                     { name: "Marseille 7ème", insee_code: "13207" }, { name: "Marseille 8ème", insee_code: "13208" },
-                     { name: "Marseille 9ème", insee_code: "13209" }, { name: "Marseille 10ème", insee_code: "13210" },
-                     { name: "Marseille 11ème", insee_code: "13211" }, { name: "Marseille 12ème", insee_code: "13212" },
-                     { name: "Marseille 13ème", insee_code: "13213" }, { name: "Marseille 14ème", insee_code: "13214" },
-                     { name: "Marseille 15ème", insee_code: "13215" }, { name: "Marseille 16ème", insee_code: "13216" }]
 APARTMENT_IMAGES = %w[https://images.ctfassets.net/pg6xj64qk0kh/2r4QaBLvhQFH1mPGljSdR9/39b737d93854060282f6b4a9b9893202/camden-paces-apartments-buckhead-ga-terraces-living-room-with-den_1.jpg
                       https://cf.bstatic.com/xdata/images/hotel/max1024x768/72282092.jpg?k=5eeba7eb191652ce0c0988b4c7c042f1165b7064d865b096bb48b8c48bf191b9&o=&hp=1
                       https://cdn.theblueground.com/website/static/img/paris-1-thumbnail.58117ea048647b0c1da0.jpg
@@ -61,20 +39,6 @@ LYON_BOROUGH.each do |lyon_borough|
     city: City.find_by(name: "Lyon")
   )
 end
-# PARIS_BOROUGH.each do |paris_borough|
-#   Borough.create!(
-#     name: paris_borough[:name],
-#     insee_code: paris_borough[:insee_code],
-#     city: City.find_by(name: "Paris")
-#   )
-# end
-# MARSEILLE_BOROUGH.each do |marseille_borough|
-#   Borough.create!(
-#     name: marseille_borough[:name],
-#     insee_code: marseille_borough[:insee_code],
-#     city: City.find_by(name: "Marseille")
-#   )
-# end
 
 puts 'Creating Apartments...'
 lyon = City.find_by(name: "Lyon")
@@ -91,7 +55,8 @@ rand(200..220).times do
     status: STATUS.sample,
     floor: rand(1..6),
     building_floor: rand(3..6),
-    rooms: rand(1..5),
+    rooms: a = rand(1..5),
+    bedrooms: a - 1,
     surface: rand(15..120),
     city: lyon,
     balcony: RARE_BOOLEAN.sample,
@@ -114,7 +79,8 @@ rand(120..150).times do
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
     price: rand(700..2500),
     status: STATUS.sample,
-    rooms: rand(3..9),
+    rooms: rooms = rand(3..9),
+    bedrooms: rooms - rand(1..2),
     surface: rand(50..300),
     city: lyon,
     balcony: RARE_BOOLEAN.sample,
@@ -140,7 +106,8 @@ rand(40..70).times do
     status: STATUS.sample,
     floor: rand(1..6),
     building_floor: rand(3..6),
-    rooms: rand(1..5),
+    rooms: a = rand(1..5),
+    bedrooms: a - 1,
     surface: rand(15..120),
     city: City.where.not(name: "Lyon").sample,
     balcony: RARE_BOOLEAN.sample,
@@ -162,7 +129,8 @@ end
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
     price: rand(756..2500),
     status: STATUS.sample,
-    rooms: rand(3..9),
+    rooms: rooms = rand(3..9),
+    bedrooms: rooms - rand(1..2),
     surface: rand(50..300),
     city: City.where.not(name: "Lyon").sample,
     balcony: RARE_BOOLEAN.sample,
@@ -186,7 +154,8 @@ rand(200..220).times do
     address: Faker::Address.full_address,
     floor: rand(1..6),
     building_floor: rand(3..6),
-    rooms: rand(1..5),
+    rooms: a = rand(1..5),
+    bedrooms: a - 1,
     surface: rand(15..120),
     city: lyon,
     balcony: RARE_BOOLEAN.sample,
@@ -208,7 +177,8 @@ rand(120..150).times do
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
     price: rand(100_000..1_000_000),
-    rooms: rand(3..9),
+    rooms: rooms = rand(3..9),
+    bedrooms: rooms - rand(1..2),
     surface: rand(50..300),
     city: lyon,
     balcony: RARE_BOOLEAN.sample,
@@ -233,7 +203,8 @@ rand(40..70).times do
     price: rand(75_600..2_500_000),
     floor: rand(1..6),
     building_floor: rand(3..6),
-    rooms: rand(1..5),
+    rooms: a = rand(1..5),
+    bedrooms: a - 1,
     surface: rand(15..120),
     city: City.where.not(name: "Lyon").sample,
     balcony: RARE_BOOLEAN.sample,
@@ -254,7 +225,8 @@ end
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
     price: rand(75_600..2_500_000),
-    rooms: rand(3..9),
+    rooms: rooms = rand(3..9),
+    bedrooms: rooms - rand(1..2),
     surface: rand(50..300),
     city: City.where.not(name: "Lyon").sample,
     balcony: RARE_BOOLEAN.sample,
