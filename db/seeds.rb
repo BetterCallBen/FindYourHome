@@ -1,11 +1,17 @@
 STATUS = ["furnished", "unfurnished"]
 RARE_BOOLEAN = [true, false, false]
 BOOLEAN = [true, false]
-LYON_CITIES = [{name: "Lyon", insee_code: "69123"}, { name: "Charbonniere les bains", insee_code: "69044"},
-               {name: "Tassin la demi-lune", insee_code: "69244"}, { name: "Villefranche-sur-Saone", insee_code: "69264"},
-               {name: "Ecully", insee_code: "69081"}, { name: "Villeurbanne", insee_code: "69266"},
-               {name: "Albigny-sur-Saône", insee_code: "69003"}, { name: "Bron", insee_code: "69029"},
-               {name: "Caluire-et-Cuire", insee_code: "69034"}, { name: "Champagne-au-Mont-d'Or ", insee_code: "69040"}]
+LYON_CITIES = [{ name: "Lyon", insee_code: "69123" }, { name: "Charbonniere les bains", insee_code: "69044" },
+               { name: "Tassin la demi-lune", insee_code: "69244" }, { name: "Villefranche-sur-Saone", insee_code: "69264" },
+               { name: "Ecully", insee_code: "69081" }, { name: "Villeurbanne", insee_code: "69266" },
+               { name: "Albigny-sur-Saône", insee_code: "69003" }, { name: "Bron", insee_code: "69029" },
+               { name: "Caluire-et-Cuire", insee_code: "69034" }, { name: "Champagne-au-Mont-d'Or ", insee_code: "69040" },
+               { name: "Sainte-foy-lès-lyons", insee_code: "69202" }, { name: "Dardilly", insee_code: "69072" },
+               { name: "Saint-Cyr-Au-Mont-d'Or", insee_code: "69191" }, { name: "Saint-Didier-Au-Mont-d'Or", insee_code: "69194" },
+               { name: "Collonge-Au-Mont-d'Or", insee_code: "69063" }, { name: "Saint-Cyr-Au-Mont-d'Or", insee_code: "69068" },
+               { name: "Curis-Au-Mont-d'Or", insee_code: "69071" }, { name: "Saint-Germain-Au-Mont-d'Or", insee_code: "69207" },
+               { name: "Saint-Genis-Laval", insee_code: "69204" }, { name: "Saint-Genis-Les-Oillères", insee_code: "69205" },
+               { name: "Oullins", insee_code: "69149" }]
 LYON_BOROUGH = [{ name: "Lyon 1er", insee_code: "69381" }, { name: "Lyon 2ème", insee_code: "69382" },
                 { name: "Lyon 3ème", insee_code: "69383" }, { name: "Lyon 4ème", insee_code: "69384" },
                 { name: "Lyon 5ème", insee_code: "69385" }, { name: "Lyon 6ème", insee_code: "69386" },
