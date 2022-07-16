@@ -49,6 +49,10 @@ input {
   align-items: center;
   transition: background-color 0.1s;
   cursor: pointer;
+  &.studio {
+    width: 80px;
+    border-radius: 20px;
+  }
   p {
     margin: 0;
   }
