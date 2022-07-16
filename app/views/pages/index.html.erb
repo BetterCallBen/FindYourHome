@@ -66,8 +66,8 @@
 
           <div class="filling-div">
             <input id="1_rooms" class="bed-filter" type="checkbox" value="1" data-action="click->bedrooms#selectRoom" <%= 'checked' if params[:rooms].present? && params[:rooms].include?("1") %>>
-            <label for="1_rooms" class="bed-tag"><p>1</p></label>
-            <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?("1") && params[:rooms].include?("2")%>" data-bedrooms-target="roomFilling1 roomFilling" data-value="1"></div>
+            <label for="1_rooms" class="bed-tag studio"><p>Studio</p></label>
+            <div class="filling studio <%= 'active' if params[:rooms].present? && params[:rooms].include?("1") && params[:rooms].include?("2")%>" data-bedrooms-target="roomFilling1 roomFilling" data-value="1"></div>
           </div>
 
           <div class="filling-div">
@@ -89,7 +89,7 @@
           </div>
 
           <input id="5_rooms" class="bed-filter" type="checkbox" value="5" data-action="click->bedrooms#selectRoom" <%= 'checked' if params[:rooms].present? && params[:rooms].include?("5") %>>
-          <label for="5_rooms" class="bed-tag"><p>5</p></label>
+          <label for="5_rooms" class="bed-tag"><p>5+</p></label>
 
           <input type="hidden" name="rooms" data-bedrooms-target="rooms" value="<%= params[:rooms] %>" >
 
@@ -124,7 +124,7 @@
           </div>
 
           <input id="5_bedrooms" class="bed-filter" type="checkbox" value="5" data-action="click->bedrooms#selectBedroom" <%= 'checked' if params[:bedrooms].present? && params[:bedrooms].include?("5") %>>
-          <label for="5_bedrooms" class="bed-tag"><p>5</p></label>
+          <label for="5_bedrooms" class="bed-tag"><p>5+</p></label>
 
           <input type="hidden" name="bedrooms" data-bedrooms-target="bedrooms" value="<%= params[:bedrooms] %>" >
 
