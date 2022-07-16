@@ -141,14 +141,26 @@ class PagesController < ApplicationController
     return unless params[:rooms].present?
 
     @rooms = params[:rooms].split(",")
-    @apartments = @apartments.where(rooms: @rooms)
+    if @rooms.include?("5")
+      @apartments = @apartments.where("rooms > 5").or(@apartments.where(rooms: @rooms))
+      @houses = @houses.where("rooms > 5").or(@houses.where(rooms: @rooms))
+    else
+      @apartments = @apartments.where(rooms: @rooms)
+      @houses = @houses.where(rooms: @rooms)
+    end
   end
 
   def filter_by_bedrooms
     return unless params[:bedrooms].present?
 
     @bedrooms = params[:bedrooms].split(",")
-    @apartments = @apartments.where(bedrooms: @bedrooms)
+    if @bedrooms.include?("5")
+      @apartments = @apartments.where("bedrooms > 5").or(@apartments.where(bedrooms: @bedrooms))
+      @houses = @houses.where("bedrooms > 5").or(@houses.where(bedrooms: @bedrooms))
+    else
+      @apartments = @apartments.where(bedrooms: @bedrooms)
+      @houses = @houses.where(bedrooms: @bedrooms)
+    end
   end
 
   def find_location_tags
@@ -172,7 +184,7 @@ class PagesController < ApplicationController
   end
 
   def find_results
-    @city_results = City.where("name ILIKE ? ", "%#{params[:search]}%")
+    @city_results = City.where("name ILIKE ? ", "%#{params[:search].gsub(' ', '-').gsub('ste', 'Sainte').gsub('st', 'Saint')}%")
     if @locations_insees.present? && @city_results.present?
       @city_results = @city_results.where.not(insee_code: @locations_insees)
     end
