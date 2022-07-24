@@ -263,6 +263,12 @@
         <%# <button data-action="click->apartments#resetForm">reset</button> %>
         <% end %>
 
+
+        <%= simple_form_for Research.new do |f| %>
+          <%= f.hidden_field :rooms %>
+          <%= f.button :submit, value: "Enregister ma recherche"  %>
+
+        <% end %>
       </div>
     </div>
 
