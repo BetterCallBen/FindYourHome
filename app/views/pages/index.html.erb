@@ -52,10 +52,11 @@
           </div>
 
           <input class="filter d-none" data-locations-target="locations" name="locations" value="<%= params[:locations] if params[:locations] %>">
-
-          <div class="location-results d-none" data-locations-target="locationResults">
-            <div class="placehold">
-              <p>Saisissez une ville ou un arrondissement</p>
+          <div class="relative-div">
+            <div class="location-results d-none" data-locations-target="locationResults">
+              <div class="placehold">
+                <p>Saisissez une ville ou un arrondissement</p>
+              </div>
             </div>
           </div>
         </div>
@@ -154,7 +155,7 @@
               <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="balcony" name="balcony" value="true" <%= 'checked' if params[:balcony] == "true" %>>
               <label class="tag" for="balcony">Balcon</label>
             </div>
-            <p class="preview" id="preview-balcony"></p>
+            <p class="preview" id="preview-balcony">(<%= @apartments.where(balcony: true).count + @houses.where(balcony: true).count%>)</p>
           </div>
 
 
@@ -164,14 +165,13 @@
               <label class="tag" for="chimney">Cheminée</label>
             </div>
           </div>
-          <p class="preview" id="preview-chimney"></p>
+          <p class="preview" id="preview-chimney">(<%= @apartments.where(chimney: true).count + @houses.where(chimney: true).count%>)</p>
 
-          <% if params[:types].present? && params[:types].include?("flat") %>
+          <% if @apartments.exists? || params[:types].present? && params[:types].include?("flat") %>
             <div>
               <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="elevator" name="elevator" value="true" <%= 'checked' if params[:elevator] == "true" %>>
-              <label class="tag" for="elevator">Ascenseur</label>
+              <label class="tag" for="elevator">Ascenseur (<%= @apartments.where(elevator: true).count%>)</label>
             </div>
-            <p class="preview" id="preview-elevator"></p>
           <% end %>
 
           <div class="input">
@@ -179,7 +179,7 @@
               <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="garage" name="garage" value="true" <%= 'checked' if params[:garage] == "true" %>>
               <label class="tag" for="garage">Garage</label>
             </div>
-            <p class="preview" id="preview-garage"></p>
+            <p class="preview" id="preview-garage">(<%= @apartments.where(garage: true).count + @houses.where(garage: true).count%>)</p>
           </div>
 
 
@@ -188,17 +188,17 @@
               <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="terrace" name="terrace" value="true" <%= 'checked' if params[:terrace] == "true" %>>
               <label class="tag" for="terrace">Terrasse</label>
             </div>
-          <p class="preview" id="preview-terrace"></p>
+          <p class="preview" id="preview-terrace">(<%= @apartments.where(terrace: true).count + @houses.where(terrace: true).count%>)</p>
           </div>
 
-          <% if params[:types].present? && params[:types].include?("house") %>
+          <% if @houses.exists? || params[:types].present? && params[:types].include?("house") %>
 
             <div class="input">
               <div>
                 <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="garden" name="garden" value="true" <%= 'checked' if params[:garden] == "true" %>>
                 <label class="tag" for="garden">Jardin</label>
               </div>
-            <p class="preview" id="preview-garden"></p>
+            <p class="preview" id="preview-garden">(<%= @houses.where(garden: true).count%>)</p>
             </div>
 
 
@@ -207,7 +207,7 @@
                 <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="pool" name="pool" value="true" <%= 'checked' if params[:pool] == "true" %>>
                 <label class="tag" for="pool">Piscine</label>
               </div>
-            <p class="preview" id="preview-pool"></p>
+              <p class="preview" id="preview-pool">(<%= @houses.where(pool: true).count%>)</p>
             </div>
           <% end %>
 
@@ -217,12 +217,10 @@
               <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="cellar" name="cellar" value="true" <%= 'checked' if params[:cellar] == "true" %>>
               <label class="tag" for="cellar">Cave</label>
             </div>
-            <p class="preview" id="preview-cellar"></p>
+            <p class="preview" id="preview-cellar">(<%= @apartments.where(cellar: true).count + @houses.where(cellar: true).count%>)</p>
           </div>
         </div>
-
-        <% if !params[:types].present? || params[:types].present? && params[:types].include?("flat") %>
-
+        <% if @apartments.exists? || params[:types].present? && params[:types].include?("flat") %>
 
           <p class="bold">Critère d'étage</p>
 
