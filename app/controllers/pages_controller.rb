@@ -33,8 +33,8 @@ class PagesController < ApplicationController
         @properties = @properties.sort_by(&:price)
       when "Surface"
         @properties = @properties.sort_by(&:surface)
-      when "Pertinence"
-        @properties = @properties.shuffle
+      else
+        @properties = BestPropertiesService.new(@properties).call
       end
     end
 
