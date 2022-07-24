@@ -39,6 +39,8 @@ gem 'simple_form', github: 'heartcombo/simple_form'
 
 gem 'faker', '~> 1.9'
 
+gem 'devise'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
