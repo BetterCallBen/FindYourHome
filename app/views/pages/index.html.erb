@@ -1,3 +1,14 @@
+<%= simple_form_for Research.new do |f| %>
+  <%= f.hidden_field :rooms, value: params[:rooms] %>
+  <%= f.button :submit, value: "Enregister ma recherche"  %>
+
+<% end %>
+
+<% if user_signed_in? %>
+  <%= link_to "deco", destroy_user_session_path, method: :delete %>
+<% end %>
+
+
 <%= form_with(url: properties_path, method: :get,
               html: {
                 autocomplete: "off"
@@ -9,6 +20,8 @@
                 'bedrooms-bedrooms-value': @bedrooms.nil? ? [] : @bedrooms,
                 'bedrooms-rooms-value': @rooms.nil? ? [] : @rooms
               }) do |f| %>
+
+
   <div class="contain"
        data-action="click->apartments#hideAll click->locations#hideLocations">
     <div class="form-div">
@@ -52,13 +65,16 @@
           </div>
 
           <input class="filter d-none" data-locations-target="locations" name="locations" value="<%= params[:locations] if params[:locations] %>">
-          <div class="relative-div">
-            <div class="location-results d-none" data-locations-target="locationResults">
-              <div class="placehold">
-                <p>Saisissez une ville ou un arrondissement</p>
+
+            <div class="relative-div">
+              <div class="location-results d-none" data-locations-target="locationResults">
+          <% unless @locations_tags.nil? %>
+                <div class="placehold">
+                  <p>Saisissez une ville ou un arrondissement</p>
+                </div>
+          <% end %>
               </div>
             </div>
-          </div>
         </div>
 
         <p>Nombre de pièce</p>
@@ -145,6 +161,7 @@
           <input placeholder="Max" class="filter" data-apartments-target="secondSurfaceInput" data-action="keyup->apartments#validSurface" min="1" max="120" type="number" name="surface_max" value=<%= params[:surface_max] if params[:surface_max].present? && params[:surface_max].to_i >= params[:surface_min].to_i %> >
 
         </div>
+
         <p class="bold">Critères populaires</p>
 
 
@@ -152,6 +169,9 @@
 
           <div class="input">
             <div>
+              <%= link_to params[:balcony].present? ? request.params.except(:balcony) : request.params.merge(balcony: true), class: params[:balcony] == "true" ? 'red' : 'blue' do %>
+                <p>Balcon (<%= @apartments.where(balcony: true).count + @houses.where(balcony: true).count%>)</p>
+              <% end %>
               <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="balcony" name="balcony" value="true" <%= 'checked' if params[:balcony] == "true" %>>
               <label class="tag" for="balcony">Balcon (<%= @apartments.where(balcony: true).count + @houses.where(balcony: true).count%>)</label>
             </div>
@@ -178,6 +198,7 @@
               <label class="tag" for="garage">Garage (<%= @apartments.where(garage: true).count + @houses.where(garage: true).count%>)</label>
             </div>
           </div>
+
 
 
           <div class="input">
@@ -264,11 +285,6 @@
         <% end %>
 
 
-        <%= simple_form_for Research.new do |f| %>
-          <%= f.hidden_field :rooms %>
-          <%= f.button :submit, value: "Enregister ma recherche"  %>
-
-        <% end %>
       </div>
     </div>
 
@@ -283,16 +299,16 @@
           <label>Trier par</label>
           <div class="sort-div">
             <div class="sort-input" data-action="click->apartments#displaySort">
-              <p class="sort-value"><%= params[:sort].present? ? params[:sort] : "Pertinence" %></p>
+              <p class="sort-value"><%= params[:sort].present? ? translate_sort_by(params[:sort]) : "Pertinence" %></p>
               <i class="fa-solid fa-bars"></i>
             </div>
             <div class="sort-tags d-none" data-apartments-target="sortPropositions">
-              <input data-action="click->apartments#submitForm" type="radio" id="Pertinence" name="sort" value="Pertinence" <%= 'checked' if params[:sort] == "Pertinence" %>>
-              <label class="sort-tag first" for="Pertinence"><p>Pertinence</p></label>
-              <input data-action="click->apartments#submitForm" type="radio" id="Prix" name="sort" value="Prix" <%= 'checked' if params[:sort] == "Prix" %>>
-              <label class="sort-tag" for="Prix"><p class="middle">Prix</p></label>
-              <input data-action="click->apartments#submitForm" type="radio" id="Surface" name="sort" value="Surface" <%= 'checked' if params[:sort] == "Surface" %>>
-              <label class="sort-tag last" for="Surface"><p>Surface</p></label>
+              <%= link_to "Pertinence", request.params.merge(sort: "relevance"), class: "sort-tag first" %>
+              <%= link_to "Prix", request.params.merge(sort: "price"), class: "sort-tag middle" %>
+              <%= link_to "Surface", request.params.merge(sort: "surface"), class: "sort-tag last" %>
+
+              <input type="hidden" name="sort"  value="<%= params[:sort] %>" >
+
             </div>
           </div>
         </div>
