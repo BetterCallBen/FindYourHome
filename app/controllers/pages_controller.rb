@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  skip_before_action :authenticate_user!
   def home
     redirect_to properties_path
   end
@@ -29,9 +30,9 @@ class PagesController < ApplicationController
 
     if params[:sort].present?
       case params[:sort]
-      when "Prix"
+      when "price"
         @properties = @properties.sort_by(&:price)
-      when "Surface"
+      when "surface"
         @properties = @properties.sort_by(&:surface)
       else
         @properties = BestPropertiesService.new(@properties).call
