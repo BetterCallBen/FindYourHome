@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "apartments", "secondRoomsInput", "secondSurfaceInput", "types", "groundFloor", "status", "sortPropositions", "minRooms", "minRoomsPropositions", "maxRoomsPropositions", "minRoomsInput" ]
+  static targets = [ "apartments", "secondRoomsInput", "secondSurfaceInput", "types", "groundFloor", "status", "sortPropositions" ]
   static values = { apartmentTypes: Array }
 
   connect() {
@@ -11,8 +11,6 @@ export default class extends Controller {
   // General methods
 
   hideAll() {
-    this.minRoomsPropositionsTarget.classList.add("d-none")
-    this.maxRoomsPropositionsTarget.classList.add("d-none")
     this.sortPropositionsTarget.classList.add("d-none")
   }
 
@@ -72,45 +70,6 @@ export default class extends Controller {
       event.target.checked = true
     }
     this.element.submit()
-  }
-
-  // Rooms
-
-  MinToMaxRooms() {
-    if (this.secondRoomsInputTarget.value !== "") {
-      this.element.submit()
-    } else {
-      this.secondRoomsInputTarget.select()
-    }
-    this.minRoomsPropositionsTarget.classList.add("d-none")
-    this.maxRoomsPropositionsTarget.classList.remove("d-none")
-  }
-
-  displayMinPropositions(event) {
-    event.stopPropagation()
-    this.minRoomsPropositionsTarget.classList.remove("d-none")
-    this.maxRoomsPropositionsTarget.classList.add("d-none")
-  }
-
-  displayMaxPropositions(event) {
-    event.stopPropagation()
-    this.maxRoomsPropositionsTarget.classList.remove("d-none")
-    this.minRoomsPropositionsTarget.classList.add("d-none")
-  }
-
-  selectMinRooms(event) {
-    event.stopPropagation()
-    this.minRoomsInputTarget.value = event.target.value
-    if (this.minRoomsInputTarget.value !== "" || event.keyCode === 13) {
-      this.MinToMaxRooms()
-    }
-  }
-
-  selectMaxRooms(event) {
-    this.secondRoomsInputTarget.value = event.target.value
-    if (this.secondRoomsInputTarget.value !== "" || event.keyCode === 13) {
-      this.element.submit()
-    }
   }
 
   // Surface
