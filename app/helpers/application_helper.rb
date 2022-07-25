@@ -33,4 +33,16 @@ module ApplicationHelper
       return "#{number.join} #{middle_part} #{last_part}"
     end
   end
+
+  def translate_sort_by(sort_by)
+    hash = {
+      relevance: 'Pertinence',
+      price: 'Prix',
+      surface: 'Surface',
+      rooms: 'Pièces',
+      bedrooms: 'Chambres',
+      created_at: 'Date'
+    }
+    return hash[sort_by.to_sym]
+  end
 end
