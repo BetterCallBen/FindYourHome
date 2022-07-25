@@ -45,11 +45,15 @@ export default class extends Controller {
           .then(locations => this.locationResultsTarget.innerHTML = locations)
 
       } else {
-        const html =
-            `<div class="placehold">
-              <p>Saisissez une ville ou un arrondissement</p>
-            </div>`
-        this.locationResultsTarget.innerHTML = html
+        if (this.insees.length > 0) {
+          const html =
+              `<div class="placehold">
+                <p>Saisissez une ville ou un arrondissement</p>
+              </div>`
+          this.locationResultsTarget.innerHTML = html
+        } else {
+          this.locationResultsTarget.innerHTML = ""
+        }
       }
 
     }, 200);
