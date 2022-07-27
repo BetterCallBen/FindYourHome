@@ -167,29 +167,19 @@
 
         <div class="criterias-filter div-filter">
 
-          <div class="input">
-            <div>
-              <%= link_to params[:balcony].present? ? request.params.except(:balcony) : request.params.merge(balcony: true), class: params[:balcony] == "true" ? 'red' : 'blue' do %>
-                <p>Balcon (<%= @apartments.where(balcony: true).count + @houses.where(balcony: true).count%>)</p>
-              <% end %>
-              <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="balcony" name="balcony" value="true" <%= 'checked' if params[:balcony] == "true" %>>
-              <label class="tag" for="balcony">Balcon (<%= @apartments.where(balcony: true).count + @houses.where(balcony: true).count%>)</label>
-            </div>
-          </div>
+          <%= link_to params[:balcony].present? ? request.params.except(:balcony) : request.params.merge(balcony: true) do %>
+            <p class= "<%=params[:balcony] == "true" ? 'criteria active' : 'criteria' %>">Balcon (<%= @apartments.where(balcony: true).count + @houses.where(balcony: true).count%>)</p>
+          <% end %>
 
 
-          <div class="input">
-            <div>
-              <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="chimney" name="chimney" value="true" <%= 'checked' if params[:chimney] == "true" %>>
-              <label class="tag" for="chimney">Cheminée (<%= @apartments.where(chimney: true).count + @houses.where(chimney: true).count%>)</label>
-            </div>
-          </div>
+          <%= link_to params[:chimney].present? ? request.params.except(:chimney) : request.params.merge(chimney: true) do %>
+            <p class= "<%=params[:chimney] == "true" ? 'criteria active' : 'criteria' %>">Cheminée (<%= @apartments.where(chimney: true).count + @houses.where(chimney: true).count%>)</p>
+          <% end %>
 
           <% if @apartments.exists? || params[:types].present? && params[:types].include?("flat") %>
-            <div>
-              <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="elevator" name="elevator" value="true" <%= 'checked' if params[:elevator] == "true" %>>
-              <label class="tag" for="elevator">Ascenseur (<%= @apartments.where(elevator: true).count%>)</label>
-            </div>
+            <%= link_to params[:elevator].present? ? request.params.except(:elevator) : request.params.merge(elevator: true) do %>
+              <p class= "<%=params[:elevator] == "true" ? 'criteria active' : 'criteria' %>">Ascenseur (<%= @apartments.where(elevator: true).count + @houses.where(elevator: true).count%>)</p>
+            <% end %>
           <% end %>
 
           <div class="input">
