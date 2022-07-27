@@ -118,9 +118,8 @@ class PagesController < ApplicationController
   def filter_by_apartment_type
     return unless params[:types].present?
 
-    @apartment_types = params[:types].split(",")
-    @houses = @houses.none unless @apartment_types.include?("house")
-    @apartments = @apartments.none unless @apartment_types.include?("flat")
+    @houses = @houses.none unless params[:types].include?("house")
+    @apartments = @apartments.none unless params[:types].include?("flat")
   end
 
   def filter_by_locations
