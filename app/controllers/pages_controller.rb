@@ -28,15 +28,13 @@ class PagesController < ApplicationController
       @what = "bien"
     end
 
-    if params[:sort].present?
-      case params[:sort]
-      when "price"
-        @properties = @properties.sort_by(&:price)
-      when "surface"
-        @properties = @properties.sort_by(&:surface)
-      else
-        @properties = BestPropertiesService.new(@properties).call
-      end
+    case params[:sort]
+    when "price"
+      @properties = @properties.sort_by(&:price)
+    when "surface"
+      @properties = @properties.sort_by(&:surface)
+    else
+      @properties = BestPropertiesService.new(@properties).call
     end
 
     respond_to do |format|
