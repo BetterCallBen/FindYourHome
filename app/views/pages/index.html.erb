@@ -40,16 +40,16 @@
             if params[:types].present? && params[:types].include?("flat")
               params[:types].include?("house") ? request.params.merge(types: ["house"]) : request.params.except(:types)
             else
-              params[:types].present? && params[:types].include?("house") ? request.params.merge(types: params[:types] << "flat") : request.params.merge(types: ["flat"])
-            end
+              params[:types].present? && params[:types].include?("house") ? request.params.merge(types: ["flat", "house"]) : request.params.merge(types: ["flat"])
+            end, class: params[:types].present? && params[:types].include?("flat") ? "criteria active" : "criteria"
           %>
 
           <%= link_to "Maison",
             if params[:types].present? && params[:types].include?("house")
               params[:types].include?("flat") ? request.params.merge(types: ["flat"]) : request.params.except(:types)
             else
-              params[:types].present? && params[:types].include?("flat") ? request.params.merge(types: params[:types] << "house") : request.params.merge(types: ["house"])
-            end
+              params[:types].present? && params[:types].include?("flat") ? request.params.merge(types: ["flat", "house"]) : request.params.merge(types: ["house"])
+            end, class: params[:types].present? && params[:types].include?("house") ? "criteria active" : "criteria"
           %>
           <% if params[:types] %>
             <input class="filter" type="hidden" data-apartments-target="types" name="types" value="<%= params[:types]%>">
