@@ -66,3 +66,15 @@ input {
   background-color: #2586A4;
   color: #fff;
 }
+
+.criteria {
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid #2586A4;
+  color: #2586A4;
+  &.active {
+    background-color: #2586A4;
+    color: #fff;
+  }
+}
