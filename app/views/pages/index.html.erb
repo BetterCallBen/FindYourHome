@@ -33,21 +33,29 @@
           <input class="filter" data-action="input->apartments#submitForm" type="radio" id="buy" name="project" value="buy" <%= 'checked' if params[:project] == "buy"%>>
           <label class="tag" for="buy">Acheter</label>
         </div>
-
         <div class="types-filter div-filter">
           <label class="tag">Type de bien</label>
-          <input class="filter" type="checkbox" id="flat" data-action="click->apartments#toggleType" value="flat" <%= 'checked' if params[:types].present? && params[:types].include?("flat")  %>>
-          <label class="tag" for="flat">Appartement</label>
-          <input class="filter" type="checkbox" id="house" data-action="click->apartments#toggleType" value="house" <%= 'checked' if params[:types].present? && params[:types].include?("house") %>>
-          <label class="tag" for="house">Maison</label>
-          <input class="filter" type="checkbox" id="parking" data-action="click->apartments#toggleType" value="parking" <%= 'checked' if params[:types].present? && params[:types].include?("parking") %>>
-          <label class="tag" for="parking">Parking/Box</label>
-          <input class="filter" type="checkbox" id="ground" data-action="click->apartments#toggleType" value="ground" <%= 'checked' if params[:types].present? && params[:types].include?("ground") %>>
-          <label class="tag" for="ground">Terrain</label>
 
-          <input class="filter d-none" data-apartments-target="types" name="types" value="<%= params[:types] if params[:types] %>">
+          <%= link_to "Apartement",
+            if params[:types].present? && params[:types].include?("flat")
+              params[:types].include?("house") ? request.params.merge(types: ["house"]) : request.params.except(:types)
+            else
+              params[:types].present? && params[:types].include?("house") ? request.params.merge(types: params[:types] << "flat") : request.params.merge(types: ["flat"])
+            end
+          %>
 
+          <%= link_to "Maison",
+            if params[:types].present? && params[:types].include?("house")
+              params[:types].include?("flat") ? request.params.merge(types: ["flat"]) : request.params.except(:types)
+            else
+              params[:types].present? && params[:types].include?("flat") ? request.params.merge(types: params[:types] << "house") : request.params.merge(types: ["house"])
+            end
+          %>
+          <% if params[:types] %>
+            <input class="filter" type="hidden" data-apartments-target="types" name="types" value="<%= params[:types]%>">
+          <% end %>
         </div>
+
 
         <div class="locations">
           <div class="location-input">
@@ -170,89 +178,97 @@
           <%= link_to params[:balcony].present? ? request.params.except(:balcony) : request.params.merge(balcony: true) do %>
             <p class= "<%=params[:balcony] == "true" ? 'criteria active' : 'criteria' %>">Balcon (<%= @apartments.where(balcony: true).count + @houses.where(balcony: true).count%>)</p>
           <% end %>
+          <% if params[:balcony].present? %>
+            <input type="hidden" name="balcony"  value="<%= params[:balcony] %>">
+          <% end %>
 
 
           <%= link_to params[:chimney].present? ? request.params.except(:chimney) : request.params.merge(chimney: true) do %>
             <p class= "<%=params[:chimney] == "true" ? 'criteria active' : 'criteria' %>">Cheminée (<%= @apartments.where(chimney: true).count + @houses.where(chimney: true).count%>)</p>
           <% end %>
+          <% if params[:chimney].present? %>
+
+            <input type="hidden" name="chimney"  value="<%= params[:chimney] %>">
+          <% end %>
+
 
           <% if @apartments.exists? || params[:types].present? && params[:types].include?("flat") %>
             <%= link_to params[:elevator].present? ? request.params.except(:elevator) : request.params.merge(elevator: true) do %>
-              <p class= "<%=params[:elevator] == "true" ? 'criteria active' : 'criteria' %>">Ascenseur (<%= @apartments.where(elevator: true).count + @houses.where(elevator: true).count%>)</p>
+              <p class= "<%=params[:elevator] == "true" ? 'criteria active' : 'criteria' %>">Ascenseur (<%= @apartments.where(elevator: true).count %>)</p>
             <% end %>
+            <% if params[:elevator].present? %>
+
+            <input type="hidden" name="elevator"  value="<%= params[:elevator] %>">
+            <% end %>
+
           <% end %>
 
-          <div class="input">
-            <div>
-              <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="garage" name="garage" value="true" <%= 'checked' if params[:garage] == "true" %>>
-              <label class="tag" for="garage">Garage (<%= @apartments.where(garage: true).count + @houses.where(garage: true).count%>)</label>
-            </div>
-          </div>
+          <%= link_to params[:garage].present? ? request.params.except(:garage) : request.params.merge(garage: true) do %>
+            <p class= "<%=params[:garage] == "true" ? 'criteria active' : 'criteria' %>">Garage (<%= @apartments.where(garage: true).count + @houses.where(garage: true).count%>)</p>
+          <% end %>
+          <% if params[:garage].present? %>
+
+            <input type="hidden" name="garage"  value="<%= params[:garage] %>">
+          <% end %>
 
 
+          <%= link_to params[:terrace].present? ? request.params.except(:terrace) : request.params.merge(terrace: true) do %>
+            <p class= "<%=params[:terrace] == "true" ? 'criteria active' : 'criteria' %>">Terrasse (<%= @apartments.where(terrace: true).count + @houses.where(terrace: true).count%>)</p>
+          <% end %>
+          <% if params[:terrace].present? %>
 
-          <div class="input">
-            <div>
-              <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="terrace" name="terrace" value="true" <%= 'checked' if params[:terrace] == "true" %>>
-              <label class="tag" for="terrace">Terrasse (<%= @apartments.where(terrace: true).count + @houses.where(terrace: true).count%>)</label>
-            </div>
-          </div>
+            <input type="hidden" name="terrace"  value="<%= params[:terrace] %>">
+          <% end %>
+
 
           <% if @houses.exists? || params[:types].present? && params[:types].include?("house") %>
 
-            <div class="input">
-              <div>
-                <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="garden" name="garden" value="true" <%= 'checked' if params[:garden] == "true" %>>
-                <label class="tag" for="garden">Jardin (<%= @houses.where(garden: true).count%>)</label>
-              </div>
-            </div>
+            <%= link_to params[:garden].present? ? request.params.except(:garden) : request.params.merge(garden: true) do %>
+              <p class= "<%=params[:garden] == "true" ? 'criteria active' : 'criteria' %>">Jardin (<%= @houses.where(garden: true).count%>)</p>
+            <% end %>
+            <% if params[:garden].present? %>
+
+              <input type="hidden" name="garden"  value="<%= params[:garden] %>">
+            <% end %>
 
 
-            <div class="input">
-              <div>
-                <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="pool" name="pool" value="true" <%= 'checked' if params[:pool] == "true" %>>
-                <label class="tag" for="pool">Piscine (<%= @houses.where(pool: true).count%>)</label>
-              </div>
-            </div>
+            <%= link_to params[:pool].present? ? request.params.except(:pool) : request.params.merge(pool: true) do %>
+              <p class= "<%=params[:pool] == "true" ? 'criteria active' : 'criteria' %>">Piscine (<%= @houses.where(pool: true).count%>)</p>
+            <% end %>
+            <% if params[:pool].present? %>
+
+              <input type="hidden" name="pool"  value="<%= params[:pool] %>">
+            <% end %>
+
+
           <% end %>
 
 
-          <div class="input">
-            <div>
-              <input class="filter" data-action="input->apartments#submitForm" data-preview-target="previewInput" type="checkbox" id="cellar" name="cellar" value="true" <%= 'checked' if params[:cellar] == "true" %>>
-              <label class="tag" for="cellar">Cave (<%= @apartments.where(cellar: true).count + @houses.where(cellar: true).count%>)</label>
-            </div>
-          </div>
+          <%= link_to params[:cellar].present? ? request.params.except(:cellar) : request.params.merge(cellar: true) do %>
+            <p class= "<%=params[:cellar] == "true" ? 'criteria active' : 'criteria' %>">Cave (<%= @apartments.where(cellar: true).count + @houses.where(cellar: true).count%>)</p>
+          <% end %>
+            <% if params[:cellar].present? %>
+              <input type="hidden" name="cellar"  value="<%= params[:cellar] %>">
+            <% end %>
+
         </div>
+
         <% if @apartments.exists? || params[:types].present? && params[:types].include?("flat") %>
 
           <p class="bold">Critère d'étage</p>
 
           <div class="criterias-filter div-filter">
 
-            <input class="filter"
-                  <%= 'checked' if params[:ground_floor] == "true" %>
-                  data-action="input->apartments#toggleGroundFloor"
-                  data-apartments-target="groundFloor"
-                  type="checkbox"
-                  id="ground_floor"
-                  name="ground_floor" value="true">
-            <label class="tag" for="ground_floor">Rez de chaussée</label>
+            <%= link_to params[:ground_floor].present? && params[:ground_floor] == "true" ? request.params.except(:ground_floor) : request.params.merge(ground_floor: true) do %>
+              <p class= "<%=params[:ground_floor] == "true" ? 'criteria active' : 'criteria' %>">Rez de chaussée</p>
+            <% end %>
+            <%= link_to params[:ground_floor].present? && params[:ground_floor] == "false" ? request.params.except(:ground_floor) : request.params.merge(ground_floor: false) do %>
+              <p class= "<%=params[:ground_floor] == "false" ? 'criteria active' : 'criteria' %>">Éviter le Rez de chaussée</p>
+            <% end %>
 
-
-            <input class="filter"
-                  <%= 'checked' if params[:ground_floor] == "false" %>
-                  data-action="input->apartments#toggleGroundFloor"
-                  data-apartments-target="groundFloor"
-                  type="checkbox"
-                  id="no_ground_floor"
-                  name="ground_floor"
-                  value="false">
-            <label class="tag" for="no_ground_floor">Éviter le Rez de chaussée</label>
-
-
-            <input class="filter" data-action="input->apartments#submitForm" type="checkbox" id="last_floor" name="last_floor" value="true" <%= 'checked' if params[:last_floor] == "true" %>>
-            <label class="tag" for="last_floor">Dernier étage</label>
+            <%= link_to params[:last_floor].present? ? request.params.except(:last_floor) : request.params.merge(last_floor: true) do %>
+              <p class= "<%=params[:last_floor] == "true" ? 'criteria active' : 'criteria' %>">Dernier étage</p>
+            <% end %>
 
           </div>
         <% end %>
