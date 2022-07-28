@@ -90,6 +90,7 @@ class PagesController < ApplicationController
   def filter_by_status
     # meublé / non meublé
     @apartments = @apartments.where("status ILIKE ? ", params[:status]) if params[:status].present?
+    @houses = @houses.where("status ILIKE ? ", params[:status]) if params[:status].present?
   end
 
   def filter_by_floor
