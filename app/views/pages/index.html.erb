@@ -1,9 +1,9 @@
 <%= simple_form_for Research.new do |f| %>
   <%= f.hidden_field :rooms, value: params[:rooms] if params[:rooms].present?  %>
+  <%= f.hidden_field :rooms, value: params[:rooms] if params[:rooms].present?  %>
   <%= f.button :submit, value: "Enregister ma recherche"  %>
 
 <% end %>
-
 <% if user_signed_in? %>
   <%= link_to "deco", destroy_user_session_path, method: :delete %>
 <% end %>
@@ -16,7 +16,7 @@
                 autocomplete: "off"
               },
               data: {
-                'controller': 'apartments preview locations bedrooms',
+                'controller': 'apartments locations bedrooms',
                 'locations-insees-value': @locations_insees.nil? ? [] : @locations_insees,
                 'bedrooms-bedrooms-value': @bedrooms.nil? ? [] : @bedrooms,
                 'bedrooms-rooms-value': @rooms.nil? ? [] : @rooms
