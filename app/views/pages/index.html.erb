@@ -29,11 +29,12 @@
       <div class="filter-form">
 
         <div class="project-filter div-filter">
-          <input class="filter" data-action="input->apartments#submitForm" type="radio" id="rent" name="project" value="rent" <%= 'checked' if params[:project] == "rent"%>>
-          <label class="tag" for="rent">Louer</label>
+          <%= link_to "Louer", request.params.merge(project: "rent"), class: params[:project] == "rent" ? 'criteria active' : "criteria" %>
+          <%= link_to "Acheter", request.params.merge(project: "buy"), class: params[:project] == "buy" ? 'criteria active' : "criteria" %>
 
-          <input class="filter" data-action="input->apartments#submitForm" type="radio" id="buy" name="project" value="buy" <%= 'checked' if params[:project] == "buy"%>>
-          <label class="tag" for="buy">Acheter</label>
+          <% if params[:project].present? %>
+            <input type="hidden" name="project" value="<%= params[:project] %>">
+          <% end %>
         </div>
 
         <div class="types-filter div-filter">
