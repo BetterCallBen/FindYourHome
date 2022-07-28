@@ -1,5 +1,5 @@
 <%= simple_form_for Research.new do |f| %>
-  <%= f.hidden_field :rooms, value: params[:rooms] %>
+  <%= f.hidden_field :rooms, value: params[:rooms] if params[:rooms].present?  %>
   <%= f.button :submit, value: "Enregister ma recherche"  %>
 
 <% end %>
@@ -18,7 +18,6 @@
               data: {
                 'controller': 'apartments preview locations bedrooms',
                 'locations-insees-value': @locations_insees.nil? ? [] : @locations_insees,
-                'apartments-apartment-types-value': @apartment_types.nil? ? [] : @apartment_types,
                 'bedrooms-bedrooms-value': @bedrooms.nil? ? [] : @bedrooms,
                 'bedrooms-rooms-value': @rooms.nil? ? [] : @rooms
               }) do |f| %>
@@ -280,16 +279,15 @@
             <p class="bold">Type de location</p>
           <div class="criterias-filter div-filter">
 
-            <input class="filter" data-action="input->apartments#toggleStatus" data-apartments-target="status" type="checkbox" id="furnished" name="status" value="furnished" <%= 'checked' if params[:status] == "furnished" %>>
-            <label class="tag" for="furnished">Meublé</label>
+            <%= link_to "Meublé", params[:status] == "furnished" ? request.params.except(:status): request.params.merge(status: "furnished") %>
+            <%= link_to "Non Meublé", params[:status] == "unfurnished" ? request.params.except(:status): request.params.merge(status: "unfurnished") %>
 
-
-            <input class="filter" data-action="input->apartments#toggleStatus" data-apartments-target="status" type="checkbox" id="unfurnished" name="status" value="unfurnished" <%= 'checked' if params[:status] == "unfurnished" %>>
-            <label class="tag" for="unfurnished">Non meublé</label>
+            <% if params[:status].present? %>
+              <input type="hidden" name="status" value="<%= params[:status] %>">
+            <% end %>
           </div>
 
 
-        <%# <button data-action="click->apartments#resetForm">reset</button> %>
         <% end %>
 
 
