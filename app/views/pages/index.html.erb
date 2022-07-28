@@ -27,6 +27,7 @@
        data-action="click->apartments#hideAll click->locations#hideLocations">
     <div class="form-div">
       <div class="filter-form">
+
         <div class="project-filter div-filter">
           <input class="filter" data-action="input->apartments#submitForm" type="radio" id="rent" name="project" value="rent" <%= 'checked' if params[:project] == "rent"%>>
           <label class="tag" for="rent">Louer</label>
@@ -34,6 +35,7 @@
           <input class="filter" data-action="input->apartments#submitForm" type="radio" id="buy" name="project" value="buy" <%= 'checked' if params[:project] == "buy"%>>
           <label class="tag" for="buy">Acheter</label>
         </div>
+
         <div class="types-filter div-filter">
           <label class="tag">Type de bien</label>
 
@@ -279,8 +281,8 @@
             <p class="bold">Type de location</p>
           <div class="criterias-filter div-filter">
 
-            <%= link_to "Meublé", params[:status] == "furnished" ? request.params.except(:status): request.params.merge(status: "furnished") %>
-            <%= link_to "Non Meublé", params[:status] == "unfurnished" ? request.params.except(:status): request.params.merge(status: "unfurnished") %>
+            <%= link_to "Meublé", params[:status] == "furnished" ? request.params.except(:status): request.params.merge(status: "furnished"), class: params[:status] == "furnished" ? 'criteria active' : 'criteria' %>
+            <%= link_to "Non Meublé", params[:status] == "unfurnished" ? request.params.except(:status): request.params.merge(status: "unfurnished"), class: params[:status] == "unfurnished" ? 'criteria active' : 'criteria' %>
 
             <% if params[:status].present? %>
               <input type="hidden" name="status" value="<%= params[:status] %>">
