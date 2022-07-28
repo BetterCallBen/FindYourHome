@@ -45,4 +45,12 @@ module ApplicationHelper
     }
     return hash[sort_by.to_sym]
   end
+
+  def translate_status(status)
+    hash = {
+      furnished: 'meublé',
+      unfurnished: 'non meublé'
+    }
+    return hash[status.to_sym]
+  end
 end
