@@ -5,7 +5,7 @@
       <%= image_tag apartment.image_url, class: "apartment-image" %>
       <div class="apartment-content">
         <p class="apartment-infos">
-          Appartement
+          Appartement <%= "#{translate_status(apartment.status)} de" if apartment.status %>
           <%= pluralize(apartment.rooms, "pièce") %>
           <%= apartment.surface %> m2
         </p>
@@ -34,10 +34,10 @@
       <%= image_tag apartment.image_url, class: "apartment-image" %>
       <div class="apartment-content">
         <p class="apartment-infos">
-          Maison
+          Maison <%= "#{translate_status(apartment.status)} de" if apartment.status %>
           <%= pluralize(apartment.rooms, "pièce") %>
           <%= apartment.surface %> m2</p>
-        <p class="apartment-tags">Garage
+        <p class="apartment-tags">
           <%= "Balcon" if apartment.balcony %>
           <%= "Cheminée" if apartment.chimney %>
           <%= "Garage" if apartment.garage %>
