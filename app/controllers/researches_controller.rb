@@ -2,6 +2,9 @@ class ResearchesController < ApplicationController
   def create
     @research = Research.new(research_params)
     @research.user = current_user
+    puts "research saved"
+    puts @research.inspect
+    puts "research saved"
     if @research.save
       redirect_back(fallback_location: root_path, notice: "Votre recherche a bien été enregistrée")
     else
@@ -10,6 +13,6 @@ class ResearchesController < ApplicationController
   end
 
   def research_params
-    params.require(:research).permit(:city, :borough, :rooms, :bedrooms, :type, :project, :link)
+    params.require(:research).permit(:project, :types, :locations, :rooms, :bedrooms, :surface_min, :surface_max, :link, :status)
   end
 end
