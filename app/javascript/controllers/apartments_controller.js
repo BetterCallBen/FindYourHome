@@ -13,26 +13,6 @@ export default class extends Controller {
     this.element.submit()
   }
 
-  resetForm() {
-    window.location = document.location.pathname
-  }
-
-  // Status
-
-  toggleStatus(event) {
-    if (!event.target.checked) {
-      this.statusTargets.forEach(status => {
-        status.checked = false
-      });
-    } else {
-      this.statusTargets.forEach(status => {
-        status.checked = false
-      });
-      event.target.checked = true
-    }
-    this.element.submit()
-  }
-
   // Surface
 
   changeSurface(event) {
