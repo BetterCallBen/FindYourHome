@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "secondSurfaceInput", "status", "sortPropositions" ]
+  static targets = [ "secondSurfaceInput", "sortPropositions" ]
 
   // General methods
 
