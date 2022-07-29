@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 2022_07_24_225553) do
     t.bigint "city_id"
     t.bigint "borough_id"
     t.text "link"
+    t.string "types"
     t.string "rooms"
     t.string "bedrooms"
     t.string "project"
