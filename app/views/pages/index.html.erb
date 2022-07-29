@@ -1,11 +1,11 @@
 <%= simple_form_for Research.new do |f| %>
   <%= f.hidden_field :project, value: params[:project] if params[:project].present?  %>
   <%= f.hidden_field :types, value: params[:types] if params[:types].present?  %>
+  <%= f.hidden_field :locations, value: params[:locations] if params[:locations].present?  %>
   <%= f.hidden_field :rooms, value: params[:rooms] if params[:rooms].present?  %>
   <%= f.hidden_field :bedrooms, value: params[:bedrooms] if params[:bedrooms].present?  %>
   <%= f.hidden_field :surface_min, value: params[:surface_min] if params[:surface_min].present?  %>
   <%= f.hidden_field :surface_max, value: params[:surface_max] if params[:surface_max].present?  %>
-  <%= f.hidden_field :locations, value: params[:locations] if params[:locations].present?  %>
   <%= f.hidden_field :status, value: params[:status] if params[:status].present?  %>
   <%= f.button :submit, value: "Enregister ma recherche"  %>
 
