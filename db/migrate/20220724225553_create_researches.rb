@@ -5,6 +5,7 @@ class CreateResearches < ActiveRecord::Migration[6.0]
       t.references :city, null: true, foreign_key: true
       t.references :borough, null: true, foreign_key: true
       t.text :link
+      t.string :types
       t.string :rooms
       t.string :bedrooms
       t.string :project
