@@ -2,11 +2,6 @@ import { Controller } from "stimulus"
 
 export default class extends Controller {
   static targets = ["locations", "locationResults"]
-  static values = { insees: Array }
-
-  connect() {
-    this.insees = this.inseesValue
-  }
 
   hideLocations() {
     this.locationResultsTarget.classList.add("d-none")
@@ -58,22 +53,5 @@ export default class extends Controller {
 
     }, 200);
 
-  }
-
-  addLocation(event) {
-    this.insees.push(event.currentTarget.dataset.inseeCode)
-    this.locationsTarget.value = this.insees
-
-    this.submitForm()
-  }
-
-  removeLocation(event) {
-    const inseeCode = event.currentTarget.dataset.inseeCode
-    const index = this.insees.indexOf(inseeCode)
-    if (index > -1) {
-      this.insees.splice(index, 1)
-    }
-    this.locationsTarget.value = this.insees
-    this.submitForm()
   }
 }
