@@ -41,30 +41,27 @@ input {
 }
 .bed-tag {
   border-radius: 50%;
-  border: 1px solid #2586A4;
+  border: 1px solid #b5e6ee;
   height: 40px;
   width: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: background-color 0.1s;
+  color: #2586A4;
+  animation: name duration timing-function;
   cursor: pointer;
+  &:hover {
+    color: #2586A4;
+  }
+  &.active {
+    background-color: #D7EBEF;
+    border: 1px solid #D7EBEF;
+  }
   &.studio {
     width: 80px;
     border-radius: 20px;
   }
-  p {
-    margin: 0;
-  }
-}
-
-.bed-filter+.bed-tag {
-  color: #2586A4;
-}
-
-.bed-filter:checked+.bed-tag {
-  background-color: #2586A4;
-  color: #fff;
 }
 
 .criteria {
