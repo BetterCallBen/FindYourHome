@@ -100,9 +100,80 @@
         <div class="room-filter div-filter">
 
           <div class="filling-div">
+
+            <%= link_to "Studio",
+              if params[:rooms].present? && params[:rooms].include?("1")
+                request.params.merge(rooms: params[:rooms].present? ? params[:rooms].delete("1") : "")
+              else
+                request.params.merge(rooms: params[:rooms].present? ? params[:rooms] + "1" : "1")
+              end,
+              class: "bed-tag studio" + (params[:rooms].present? && params[:rooms].include?("1") ? " active" : "")
+            %>
+
+            <div class="filling studio <%= 'active' if params[:rooms].present? && params[:rooms].include?("1") && params[:rooms].include?("2")%>" ></div>
+
+          </div>
+          <div class="filling-div">
+
+            <%= link_to "2",
+              if params[:rooms].present? && params[:rooms].include?("2")
+                request.params.merge(rooms: params[:rooms].present? ? params[:rooms].delete("2") : "")
+              else
+                request.params.merge(rooms: params[:rooms].present? ? params[:rooms] + "2" : "2")
+              end,
+              class: "bed-tag" + (params[:rooms].present? && params[:rooms].include?("2") ? " active" : "")
+            %>
+            <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?("2") && params[:rooms].include?("3")%>" ></div>
+
+          </div>
+          <div class="filling-div">
+
+            <%= link_to "3",
+              if params[:rooms].present? && params[:rooms].include?("3")
+                request.params.merge(rooms: params[:rooms].present? ? params[:rooms].delete("3") : "")
+              else
+                request.params.merge(rooms: params[:rooms].present? ? params[:rooms] + "3" : "3")
+              end,
+              class: "bed-tag" + (params[:rooms].present? && params[:rooms].include?("3") ? " active" : "")
+            %>
+            <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?("3") && params[:rooms].include?("4")%>" ></div>
+
+          </div>
+
+          <div class="filling-div">
+
+            <%= link_to "4",
+              if params[:rooms].present? && params[:rooms].include?("4")
+                request.params.merge(rooms: params[:rooms].present? ? params[:rooms].delete("4") : "")
+              else
+                request.params.merge(rooms: params[:rooms].present? ? params[:rooms] + "4" : "4")
+              end,
+              class: "bed-tag" + (params[:rooms].present? && params[:rooms].include?("4") ? " active" : "")
+            %>
+            <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?("4") && params[:rooms].include?("5")%>" ></div>
+
+          </div>
+          <div class="filling-div">
+
+            <%= link_to "5+",
+              if params[:rooms].present? && params[:rooms].include?("5")
+                request.params.merge(rooms: params[:rooms].present? ? params[:rooms].delete("5") : "")
+              else
+                request.params.merge(rooms: params[:rooms].present? ? params[:rooms] + "5" : "5")
+              end,
+              class: "bed-tag" + (params[:rooms].present? && params[:rooms].include?("5") ? " active" : "")
+            %>
+
+          </div>
+
+          <% if params[:rooms].present? %>
+            <input type="hidden" name="rooms" value="<%= params[:rooms]%>">
+          <% end %>
+
+          <!--
+          <div class="filling-div">
             <input id="1_rooms" class="bed-filter" type="checkbox" value="1" data-action="click->bedrooms#selectRoom" <%= 'checked' if params[:rooms].present? && params[:rooms].include?("1") %>>
             <label for="1_rooms" class="bed-tag studio"><p>Studio</p></label>
-            <div class="filling studio <%= 'active' if params[:rooms].present? && params[:rooms].include?("1") && params[:rooms].include?("2")%>" data-bedrooms-target="roomFilling1 roomFilling" data-value="1"></div>
           </div>
 
           <div class="filling-div">
@@ -126,7 +197,8 @@
           <input id="5_rooms" class="bed-filter" type="checkbox" value="5" data-action="click->bedrooms#selectRoom" <%= 'checked' if params[:rooms].present? && params[:rooms].include?("5") %>>
           <label for="5_rooms" class="bed-tag"><p>5+</p></label>
 
-          <input type="hidden" name="rooms" data-bedrooms-target="rooms" value="<%= params[:rooms] %>" >
+          <input type="hidden" name="rooms" data-bedrooms-target="rooms" value="<%= params[:rooms]%>" >
+        -->
 
         </div>
 
