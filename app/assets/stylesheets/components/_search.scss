@@ -74,19 +74,20 @@
         }
       }
       .location-result {
+        padding: .6rem .5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: white;
         &:first-child {
           border-radius: 4px 4px 0 0;
         }
         &:last-child {
           border-radius: 0 0 4px 4px;
         }
-        padding: .6rem .5rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: white;
         .location-name {
           margin: 0;
+          color: rgba(0, 0, 0, 0.884);
         }
         .location-type {
           margin: 0;
