@@ -1,11 +1,10 @@
 <% unless locations.nil? %>
   <% locations.first(8).each do |location| %>
-    <div data-insee-code="<%= location.insee_code %>" data-action="click->locations#addLocation" class="location-result">
+    <%= link_to request.params.merge(locations: params[:locations].present? ? params[:locations] + ",#{location.insee_code}" : location.insee_code), class: "location-result" do %>
       <p class="location-name"><%= location.name %></p>
       <p class="location-type">
         <%= humanize_location(location) %>
       </p>
-
-    </div>
+    <% end %>
   <% end %>
 <% end %>
