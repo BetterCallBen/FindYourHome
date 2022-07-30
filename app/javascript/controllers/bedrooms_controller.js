@@ -52,12 +52,14 @@ export default class extends Controller {
         filling.classList.remove("active")
       }
     });
+    console.log(this.roomsTarget.value);
 
   }
 
   valid() {
     this.bedroomsTarget.value = this.bedrooms
     this.roomsTarget.value = this.rooms
+
     this.element.submit()
   }
   }
