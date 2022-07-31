@@ -271,6 +271,7 @@
 
           </div>
 
+          <input type="hidden" name="bedrooms" value="<%= params[:bedrooms] %>" >
 
         <!--
 
@@ -406,16 +407,16 @@
 
           <div class="criterias-filter div-filter">
 
-            <%= link_to params[:ground_floor].present? && params[:ground_floor] == "true" ? request.params.except(:ground_floor) : request.params.merge(ground_floor: true) do %>
-              <p class= "<%=params[:ground_floor] == "true" ? 'criteria active' : 'criteria' %>">Rez de chaussée</p>
+            <%= link_to params[:floor].present? && params[:floor] == "ground" ? request.params.except(:floor) : request.params.merge(floor: "ground") do %>
+              <p class= "<%=params[:floor] == "ground" ? 'criteria active' : 'criteria' %>">Rez de chaussée</p>
             <% end %>
-            <%= link_to params[:ground_floor].present? && params[:ground_floor] == "false" ? request.params.except(:ground_floor) : request.params.merge(ground_floor: false) do %>
-              <p class= "<%=params[:ground_floor] == "false" ? 'criteria active' : 'criteria' %>">Éviter le Rez de chaussée</p>
+            <%= link_to params[:floor].present? && params[:floor] == "not ground" ? request.params.except(:floor) : request.params.merge(floor: "not ground") do %>
+              <p class= "<%=params[:floor] == "not ground" ? 'criteria active' : 'criteria' %>">Éviter le Rez de chaussée</p>
+            <% end %>
+            <%= link_to params[:floor].present? && params[:floor] == "last" ? request.params.except(:floor) : request.params.merge(floor: "last") do %>
+              <p class= "<%=params[:floor] == "last" ? 'criteria active' : 'criteria' %>">Dernier étage</p>
             <% end %>
 
-            <%= link_to params[:last_floor].present? ? request.params.except(:last_floor) : request.params.merge(last_floor: true) do %>
-              <p class= "<%=params[:last_floor] == "true" ? 'criteria active' : 'criteria' %>">Dernier étage</p>
-            <% end %>
 
           </div>
         <% end %>
