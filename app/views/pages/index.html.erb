@@ -12,6 +12,7 @@
 <% end %>
 <% if user_signed_in? %>
   <%= link_to "deco", destroy_user_session_path, method: :delete %>
+  <%= link_to "Menu", researches_path %>
 <% end %>
 
 <%= link_to "reset", properties_path %>
