@@ -11,6 +11,7 @@ class CreateResearches < ActiveRecord::Migration[6.0]
       t.string :project
       t.string :type
       t.string :locations
+      t.string :status
       t.boolean :balcony, default: false
 
       t.timestamps
