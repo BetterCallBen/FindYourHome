@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 2022_07_24_225553) do
     t.string "project"
     t.string "type"
     t.string "locations"
+    t.string "status"
     t.boolean "balcony", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
