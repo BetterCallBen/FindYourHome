@@ -1,4 +1,8 @@
 class ResearchesController < ApplicationController
+  def index
+    @researches = current_user.researches
+  end
+
   def create
     @research = Research.new(research_params)
     @research.user = current_user
