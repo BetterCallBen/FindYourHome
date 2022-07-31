@@ -1,0 +1,11 @@
+<div class="researches">
+  <% @researches.each do |research| %>
+    <div class="research">
+      <p><%= research.project %></p>
+      <p><%= research.status %></p>
+      <p><%= research.rooms %></p>
+      <p><%= research.bedrooms %></p>
+      <p><%= research.balcony %></p>
+    </div>
+  <% end %>
+</div>
