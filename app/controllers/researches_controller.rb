@@ -17,6 +17,6 @@ class ResearchesController < ApplicationController
   end
 
   def research_params
-    params.require(:research).permit(:project, :types, :locations, :rooms, :bedrooms, :surface_min, :surface_max, :link, :status)
+    params.require(:research).permit(:project, :types, :locations, :rooms, :bedrooms, :surface_min, :surface_max, :link, :status, :balcony, :chimney, :cellar, :garage, :terrace, :garden, :pool, :ground_floor)
   end
 end
