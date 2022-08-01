@@ -39,3 +39,21 @@
     }
   }
 }
+
+.researches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2vh;
+  height: 100%;
+
+
+  .research {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    height: 300px;
+    width: 300px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.301);
+  }
+}
