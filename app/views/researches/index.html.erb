@@ -1,11 +1,21 @@
 <div class="researches">
   <% @researches.each do |research| %>
     <div class="research">
-      <p><%= research.project %></p>
-      <p><%= research.status %></p>
-      <p><%= research.rooms %></p>
-      <p><%= research.bedrooms %></p>
-      <p><%= research.balcony %></p>
+      <p><%= research.project if research.project %></p>
+      <p><%= research.status if research.status %></p>
+      <% if research.rooms %>
+        <p><%= research.rooms %> rooms</p>
+      <% end %>
+      <% if research.bedrooms %>
+        <p><%= research.bedrooms %> bedrooms</p>
+      <% end %>
+      <p><%= 'balcon' if research.balcony %></p>
+      <% research.research_boroughs.each do |research_boroughs| %>
+        <p><%= research_boroughs.borough.name %></p>
+      <% end %>
+      <% research.research_cities.each do |research_city| %>
+        <p><%= research_city.city.name %></p>
+      <% end %>
     </div>
   <% end %>
 </div>
