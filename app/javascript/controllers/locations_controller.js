@@ -2,6 +2,11 @@ import { Controller } from "stimulus"
 
 export default class extends Controller {
   static targets = ["locations", "locationResults"]
+  static values = { insees: Array }
+
+  connect() {
+    this.insees = this.inseesValue
+  }
 
   hideLocations() {
     this.locationResultsTarget.classList.add("d-none")
