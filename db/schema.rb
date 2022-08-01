@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_24_225553) do
+ActiveRecord::Schema.define(version: 2022_08_01_010538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,24 @@ ActiveRecord::Schema.define(version: 2022_07_24_225553) do
     t.index ["city_id"], name: "index_houses_on_city_id"
   end
 
+  create_table "research_boroughs", force: :cascade do |t|
+    t.bigint "borough_id", null: false
+    t.bigint "research_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["borough_id"], name: "index_research_boroughs_on_borough_id"
+    t.index ["research_id"], name: "index_research_boroughs_on_research_id"
+  end
+
+  create_table "research_cities", force: :cascade do |t|
+    t.bigint "city_id", null: false
+    t.bigint "research_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["city_id"], name: "index_research_cities_on_city_id"
+    t.index ["research_id"], name: "index_research_cities_on_research_id"
+  end
+
   create_table "researches", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "city_id"
@@ -121,6 +139,10 @@ ActiveRecord::Schema.define(version: 2022_07_24_225553) do
   add_foreign_key "boroughs", "cities"
   add_foreign_key "houses", "boroughs"
   add_foreign_key "houses", "cities"
+  add_foreign_key "research_boroughs", "boroughs"
+  add_foreign_key "research_boroughs", "researches"
+  add_foreign_key "research_cities", "cities"
+  add_foreign_key "research_cities", "researches"
   add_foreign_key "researches", "boroughs"
   add_foreign_key "researches", "cities"
   add_foreign_key "researches", "users"
