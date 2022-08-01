@@ -103,7 +103,7 @@
 
             <%= link_to "Studio",
               if params[:rooms].present? && params[:rooms].include?("1")
-                request.params.merge(rooms: params[:rooms].present? ? params[:rooms].delete("1") : "")
+                params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(rooms: params[:rooms].delete("1"))
               else
                 request.params.merge(rooms: params[:rooms].present? ? params[:rooms] + "1" : "1")
               end,
@@ -117,7 +117,7 @@
 
             <%= link_to "2",
               if params[:rooms].present? && params[:rooms].include?("2")
-                request.params.merge(rooms: params[:rooms].present? ? params[:rooms].delete("2") : "")
+                params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(rooms: params[:rooms].delete("2"))
               else
                 request.params.merge(rooms: params[:rooms].present? ? params[:rooms] + "2" : "2")
               end,
@@ -130,7 +130,7 @@
 
             <%= link_to "3",
               if params[:rooms].present? && params[:rooms].include?("3")
-                request.params.merge(rooms: params[:rooms].present? ? params[:rooms].delete("3") : "")
+                params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(rooms: params[:rooms].delete("3"))
               else
                 request.params.merge(rooms: params[:rooms].present? ? params[:rooms] + "3" : "3")
               end,
@@ -143,7 +143,7 @@
 
             <%= link_to "4",
               if params[:rooms].present? && params[:rooms].include?("4")
-                request.params.merge(rooms: params[:rooms].present? ? params[:rooms].delete("4") : "")
+                params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(rooms: params[:rooms].delete("4"))
               else
                 request.params.merge(rooms: params[:rooms].present? ? params[:rooms] + "4" : "4")
               end,
@@ -156,7 +156,7 @@
 
             <%= link_to "5+",
               if params[:rooms].present? && params[:rooms].include?("5")
-                request.params.merge(rooms: params[:rooms].present? ? params[:rooms].delete("5") : "")
+                params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(rooms: params[:rooms].delete("5"))
               else
                 request.params.merge(rooms: params[:rooms].present? ? params[:rooms] + "5" : "5")
               end,
