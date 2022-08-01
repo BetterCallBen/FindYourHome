@@ -12,7 +12,7 @@ class CreateResearches < ActiveRecord::Migration[6.0]
       t.string :type
       t.string :locations
       t.string :status
-      t.string :ground_floor
+      t.string :floor
       t.boolean :balcony, default: false
       t.boolean :chimney, default: false
       t.boolean :pool, default: false
