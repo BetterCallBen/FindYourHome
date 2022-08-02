@@ -8,6 +8,8 @@
         <%= translate_rooms(research.rooms) if research.rooms %>
         <%= research_locations(research) if research.boroughs.any? || research.cities.any? %>
       </p>
+
+      <%= link_to "Voir tous les biens", research.link %>
     </div>
   <% end %>
 </div>
