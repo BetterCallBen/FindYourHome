@@ -7,4 +7,6 @@ class Research < ApplicationRecord
   has_many :research_cities, dependent: :destroy
   has_many :boroughs, through: :research_boroughs
   has_many :cities, through: :research_cities
+
+  validates :link, uniqueness: { scope: :user_id }
 end
