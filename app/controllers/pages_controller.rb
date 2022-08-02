@@ -19,6 +19,7 @@ class PagesController < ApplicationController
     filter_by_project
 
     @properties = (@apartments + @houses).uniq
+    @research = Research.new
 
     if @properties.count == @properties.select { |p| p.instance_of?(Apartment) }.count
       @what = "appartement"
