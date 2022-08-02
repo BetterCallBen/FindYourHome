@@ -6,14 +6,7 @@ class ResearchesController < ApplicationController
   def create
     @research = Research.new(research_params)
     @research.user = current_user
-    if research_params[:locations]
-      Borough.where(insee_code: research_params[:locations].split(',').map(&:to_i)).each do |borough|
-        ResearchBorough.create!(research: @research, borough: borough)
-      end
-      City.where(insee_code: research_params[:locations].split(',').map(&:to_i)).each do |city|
-        ResearchCity.create!(research: @research, city: city)
-      end
-    end
+    add_locations_to_research
 
     if @research.save
       redirect_back(fallback_location: root_path, notice: "Votre recherche a bien été enregistrée")
@@ -22,9 +15,22 @@ class ResearchesController < ApplicationController
     end
   end
 
+  private
+
   def research_params
     params.require(:research).permit(:project, :types, :locations, :rooms, :bedrooms, :surface_min, :surface_max,
                                      :link, :status, :balcony, :chimney, :cellar, :garage, :terrace, :garden, :pool,
                                      :floor)
+  end
+
+  def add_locations_to_research
+    return unless research_params[:locations]
+
+    Borough.where(insee_code: research_params[:locations].split(',').map(&:to_i)).each do |borough|
+      ResearchBorough.create!(research: @research, borough: borough)
+    end
+    City.where(insee_code: research_params[:locations].split(',').map(&:to_i)).each do |city|
+      ResearchCity.create!(research: @research, city: city)
+    end
   end
 end
