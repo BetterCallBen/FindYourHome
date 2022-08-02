@@ -64,6 +64,18 @@ module ApplicationHelper
     return hash[research.to_sym]
   end
 
+  def translate_rooms(rooms)
+    rooms = rooms.chars
+    case rooms.count
+    when 1
+      "#{rooms.first} pièce"
+    when 2
+      "#{rooms.first} et #{rooms.last} pièces"
+    else
+      "#{rooms[0..-2].join(",")} et #{rooms.last} pièces"
+    end
+  end
+
   def research_locations(research)
     locations = []
     research.boroughs.each { |borough| locations << borough.name }
