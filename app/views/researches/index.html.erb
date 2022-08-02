@@ -10,11 +10,13 @@
         <p><%= research.bedrooms %> bedrooms</p>
       <% end %>
       <p><%= 'balcon' if research.balcony %></p>
-      <% research.research_boroughs.each do |research_boroughs| %>
-        <p><%= research_boroughs.borough.name %></p>
+
+      <% research.boroughs.each do |borough| %>
+        <p><%= borough.name %></p>
       <% end %>
-      <% research.research_cities.each do |research_city| %>
-        <p><%= research_city.city.name %></p>
+
+      <% research.cities.each do |city| %>
+        <p><%= city.name %></p>
       <% end %>
     </div>
   <% end %>
