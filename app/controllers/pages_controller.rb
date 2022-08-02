@@ -150,7 +150,7 @@ class PagesController < ApplicationController
   def filter_by_bedrooms
     return unless params[:bedrooms].present?
 
-    @bedrooms = params[:bedrooms].split(",")
+    @bedrooms = params[:bedrooms].chars
     if @bedrooms.include?("5")
       @apartments = @apartments.where("bedrooms > 5").or(@apartments.where(bedrooms: @bedrooms))
       @houses = @houses.where("bedrooms > 5").or(@houses.where(bedrooms: @bedrooms))
