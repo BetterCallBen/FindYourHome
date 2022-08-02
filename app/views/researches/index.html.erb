@@ -1,23 +1,13 @@
 <div class="researches">
   <% @researches.each do |research| %>
     <div class="research">
-      <p><%= research.project if research.project %></p>
-      <p><%= research.status if research.status %></p>
-      <% if research.rooms %>
-        <p><%= research.rooms %> rooms</p>
-      <% end %>
-      <% if research.bedrooms %>
-        <p><%= research.bedrooms %> bedrooms</p>
-      <% end %>
-      <p><%= 'balcon' if research.balcony %></p>
-
-      <% research.boroughs.each do |borough| %>
-        <p><%= borough.name %></p>
-      <% end %>
-
-      <% research.cities.each do |city| %>
-        <p><%= city.name %></p>
-      <% end %>
+      <p class="title">
+        <%= translate_research(research.project) if research.project %>
+        <%= translate_research(research.types) if research.types %>
+        <%= research.status if research.status %>
+        <% "de #{research.rooms}" if research.rooms %>
+        <%= research_locations(research) if research.boroughs.any? || research.cities.any? %>
+      </p>
     </div>
   <% end %>
 </div>
