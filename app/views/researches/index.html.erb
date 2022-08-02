@@ -5,7 +5,7 @@
         <%= translate_research(research.project) if research.project %>
         <%= translate_research(research.types) if research.types %>
         <%= research.status if research.status %>
-        <% "de #{research.rooms}" if research.rooms %>
+        <%= translate_rooms(research.rooms) if research.rooms %>
         <%= research_locations(research) if research.boroughs.any? || research.cities.any? %>
       </p>
     </div>
