@@ -53,4 +53,32 @@ module ApplicationHelper
     }
     return hash[status.to_sym]
   end
+
+  def translate_research(research)
+    hash = {
+      flat: 'Appartements',
+      house: 'Maisons',
+      rent: 'Location',
+      buy: 'Achat'
+    }
+    return hash[research.to_sym]
+  end
+
+  def research_locations(research)
+    locations = []
+    research.boroughs.each { |borough| locations << borough.name }
+    research.cities.each { |city| locations << city.name }
+    humanize_locations(locations)
+  end
+
+  def humanize_locations(locations)
+    case locations.count
+    when 1
+      "à #{locations.first}"
+    when 2
+      "à #{locations.first} ou #{locations.last}"
+    else
+      "à #{locations[0..-2].join(', ')} ou #{locations.last}"
+    end
+  end
 end
