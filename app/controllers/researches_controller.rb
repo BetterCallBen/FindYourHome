@@ -6,11 +6,13 @@ class ResearchesController < ApplicationController
   def create
     @research = Research.new(research_params)
     @research.user = current_user
-    Borough.where(insee_code: research_params[:locations].split(',').map(&:to_i)).each do |borough|
-      ResearchBorough.create!(research: @research, borough: borough)
-    end
-    City.where(insee_code: research_params[:locations].split(',').map(&:to_i)).each do |city|
-      ResearchCity.create!(research: @research, city: city)
+    if research_params[:locations]
+      Borough.where(insee_code: research_params[:locations].split(',').map(&:to_i)).each do |borough|
+        ResearchBorough.create!(research: @research, borough: borough)
+      end
+      City.where(insee_code: research_params[:locations].split(',').map(&:to_i)).each do |city|
+        ResearchCity.create!(research: @research, city: city)
+      end
     end
 
     if @research.save
