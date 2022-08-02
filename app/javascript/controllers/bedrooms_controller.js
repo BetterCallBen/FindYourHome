@@ -6,9 +6,7 @@ export default class extends Controller {
 
   connect() {
     this.bedrooms = this.bedroomsValue.map(bedroom => parseInt(bedroom));
-    console.log(this.bedrooms);
     this.rooms = this.roomsValue.map(room => parseInt(room));
-    console.log(this.rooms);
   }
 
   selectBedroom(event) {
