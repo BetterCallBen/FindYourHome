@@ -25,15 +25,6 @@ export default class extends Controller {
       })
 
     })
-    .then(response => response.json())
-    .then(data => {
-      const html = `<i class="fa-solid fa-heart active"
-         data-action="click->favorite#removeFavorite"
-         data-favorite-apartment-id="${parseInt(favoriteApartmentId) + 1}">
-      </i>`
-
-      target.outerHTML = html
-    })
   }
 
   removeFavorite(event) {
@@ -47,16 +38,6 @@ export default class extends Controller {
         "Content-Type": "application/json",
         "Accept": "application/json"
       }
-    })
-    .then(response => response.json())
-    .then(data => {
-      const html = `<i class="fa-solid fa-heart"
-           data-action="click->favorite#addFavorite"
-           data-apartment-id="<%= apartment.id %>"
-           data-favorite-apartment-id="${parseInt(favoriteApartmentId) + 1}>
-        </i>`
-
-      target.outerHTML = html
     })
 
   }

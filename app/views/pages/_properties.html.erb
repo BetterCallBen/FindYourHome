@@ -1,48 +1,45 @@
 <% properties.first(50).each do |apartment| %>
   <% if apartment.class.name == "Apartment" %>
     <%# flat %>
-    <%= link_to apartment_path(apartment), class: "apartment-card" do %>
+    <div class="apartment-card">
+      <%= link_to apartment_path(apartment) do %>
 
-      <div class="apartment-fav">
-      <% if apartment.favorite_apartments.where(user: current_user).any? %>
-        <i class="fa-solid fa-heart active"
-           data-action="click->favorite#removeFavorite"
-           data-favorite-apartment-id="<%= apartment.favorite_apartments.where(user: current_user).first.id %>">
-        </i>
-      <% else %>
-        <i class="fa-solid fa-heart"
-           data-action="click->favorite#addFavorite"
-           data-apartment-id="<%= apartment.id %>"
-           data-favorite-apartment-id="<%= FavoriteApartment.last.id %>">
-        </i>
+        <%= image_tag apartment.image_url, class: "apartment-image" %>
+        <div class="apartment-content">
+          <p class="apartment-infos">
+            Appartement <%= "#{translate_status(apartment.status)} de" if apartment.status %>
+            <%= pluralize(apartment.rooms, "pièce") %>
+            <%= apartment.surface %> m2
+          </p>
+          <p class="apartment-tags">
+            <%= "Balcon" if apartment.balcony %>
+            <%= "Cheminée" if apartment.chimney %>
+            <%= "Garage" if apartment.garage %>
+            <%= "Ascenseur" if apartment.elevator %>
+            <%= "Terrasse" if apartment.terrace %>
+            <%= "Cave" if apartment.cellar %>
+          </p>
+          <p class="apartment-location">
+            <% if apartment.borough %>
+              <%= apartment.borough.name %>
+            <% else %>
+              <%= apartment.city.name %>
+            <% end %>
+          </p>
+          <p class="apartment-price"><%= in_group_of(apartment.price.to_s.length, apartment.price) %> €</p>
+        </div>
       <% end %>
-      </div>
-
-      <%= image_tag apartment.image_url, class: "apartment-image" %>
-      <div class="apartment-content">
-        <p class="apartment-infos">
-          Appartement <%= "#{translate_status(apartment.status)} de" if apartment.status %>
-          <%= pluralize(apartment.rooms, "pièce") %>
-          <%= apartment.surface %> m2
-        </p>
-        <p class="apartment-tags">
-          <%= "Balcon" if apartment.balcony %>
-          <%= "Cheminée" if apartment.chimney %>
-          <%= "Garage" if apartment.garage %>
-          <%= "Ascenseur" if apartment.elevator %>
-          <%= "Terrasse" if apartment.terrace %>
-          <%= "Cave" if apartment.cellar %>
-        </p>
-        <p class="apartment-location">
-          <% if apartment.borough %>
-            <%= apartment.borough.name %>
-          <% else %>
-            <%= apartment.city.name %>
-          <% end %>
-        </p>
-        <p class="apartment-price"><%= in_group_of(apartment.price.to_s.length, apartment.price) %> €</p>
-      </div>
-    <% end %>
+      <% if FavoriteApartment.exists?(user: current_user, apartment: apartment) %>
+        <%= link_to favorite_apartments_path(apartment), method: :delete, class: "apartment-fav" do %>
+          <i class="fa-solid fa-heart"></i>
+        <% end %>
+      <% else %>
+        <%= simple_form_for FavoriteApartment.new, class: "apartment-fav" do |f| %>
+          <i class="fa-solid fa-heart"></i>
+          <%= f.hidden_field :apartment_id, value: apartment.id %>
+        <% end %>
+      <% end %>
+    </div>
 
   <% elsif apartment.class.name == "House" %>
     <%# house %>
