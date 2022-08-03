@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_01_010538) do
+ActiveRecord::Schema.define(version: 2022_08_03_020648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,16 @@ ActiveRecord::Schema.define(version: 2022_08_01_010538) do
     t.string "insee_code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "favorite_apartments", force: :cascade do |t|
+    t.string "name"
+    t.bigint "apartment_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["apartment_id"], name: "index_favorite_apartments_on_apartment_id"
+    t.index ["user_id"], name: "index_favorite_apartments_on_user_id"
   end
 
   create_table "houses", force: :cascade do |t|
@@ -137,6 +147,8 @@ ActiveRecord::Schema.define(version: 2022_08_01_010538) do
   add_foreign_key "apartments", "boroughs"
   add_foreign_key "apartments", "cities"
   add_foreign_key "boroughs", "cities"
+  add_foreign_key "favorite_apartments", "apartments"
+  add_foreign_key "favorite_apartments", "users"
   add_foreign_key "houses", "boroughs"
   add_foreign_key "houses", "cities"
   add_foreign_key "research_boroughs", "boroughs"
