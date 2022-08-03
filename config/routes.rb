@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   resources :apartments, only: %i[show]
   resources :houses, only: %i[show]
   resources :researches, only: %i[create index]
+  resources :favorite_apartments, only: %i[create destroy]
 end
