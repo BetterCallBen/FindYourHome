@@ -70,9 +70,9 @@ module ApplicationHelper
     when 1
       "#{rooms.first} pièce"
     when 2
-      "#{rooms.first} et #{rooms.last} pièces"
+      "#{rooms.first} ou #{rooms.last} pièces"
     else
-      "#{rooms[0..-2].join(",")} et #{rooms.last} pièces"
+      "#{rooms[0..-2].join(',')} ou #{rooms.last} pièces"
     end
   end
 
