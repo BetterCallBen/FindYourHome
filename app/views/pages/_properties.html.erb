@@ -2,6 +2,22 @@
   <% if apartment.class.name == "Apartment" %>
     <%# flat %>
     <%= link_to apartment_path(apartment), class: "apartment-card" do %>
+
+      <div class="apartment-fav">
+      <% if apartment.favorite_apartments.where(user: current_user).any? %>
+        <i class="fa-solid fa-heart active"
+           data-action="click->favorite#removeFavorite"
+           data-favorite-apartment-id="<%= apartment.favorite_apartments.where(user: current_user).first.id %>">
+        </i>
+      <% else %>
+        <i class="fa-solid fa-heart"
+           data-action="click->favorite#addFavorite"
+           data-apartment-id="<%= apartment.id %>"
+           data-favorite-apartment-id="<%= FavoriteApartment.last.id %>">
+        </i>
+      <% end %>
+      </div>
+
       <%= image_tag apartment.image_url, class: "apartment-image" %>
       <div class="apartment-content">
         <p class="apartment-infos">
