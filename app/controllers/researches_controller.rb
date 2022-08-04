@@ -9,7 +9,8 @@ class ResearchesController < ApplicationController
 
     if @research.save
       add_locations_to_research
-      redirect_back(fallback_location: root_path, notice: "Votre recherche a bien été enregistrée")
+      link = view_context.link_to '- mes recherches', researches_path
+      redirect_back(fallback_location: root_path, notice: "Votre recherche a bien été enregistrée #{link}")
     elsif @research.errors.full_messages.include?("Link has already been taken")
       redirect_back(fallback_location: root_path, alert: "Cette recherche a déjà été enregistrée")
     else
