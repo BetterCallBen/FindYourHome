@@ -29,7 +29,7 @@
           <p class="apartment-price"><%= in_group_of(apartment.price.to_s.length, apartment.price) %> €</p>
         </div>
       <% end %>
-      <%= simple_form_for FavoriteApartment.new, data: { controller: 'favorite' } do |f| %>
+      <%= form_with model: FavoriteApartment.new, data: { controller: 'favorite' } do |f| %>
         <div class="apartment-fav" data-action="click->favorite#submitForm">
           <%= f.hidden_field :apartment_id, value: apartment.id %>
           <i class="fa-solid fa-heart"></i>

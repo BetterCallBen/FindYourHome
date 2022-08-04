@@ -5,7 +5,7 @@ class FavoriteApartmentsController < ApplicationController
     if @favorite_apartment.save
       redirect_back(fallback_location: root_path, notice: "Votre appartement a bien été ajouté aux favoris")
     else
-      redirect_back(fallback_location: root_path, alert: @favorite_apartment.errors.full_messages.join(', '))
+      redirect_back(fallback_location: root_path, alert: "Cet appartement est déjà dans vos favoris")
     end
   end
 
