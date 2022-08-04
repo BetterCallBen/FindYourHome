@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   end
 
   def index
-    @apartments = Apartment.includes(:city, :borough, :favorite_apartments)
+    @apartments = Apartment.includes(:city, :borough)
     @houses = House.includes(:city, :borough)
 
     filter_by_checkbox_criterias
