@@ -5,7 +5,7 @@
   </div>
 <% end %>
 <% if alert %>
-  <div class="alert alert-warning alert-dismissible fade show m-1" role="alert">
+  <div class="alert alert-warning alert-dismissible fade show m-1" data-controller="notice" role="alert">
     <%= alert %>
     <i class="fa-solid fa-xmark" data-action="click->notice#close" ></i>
   </div>
