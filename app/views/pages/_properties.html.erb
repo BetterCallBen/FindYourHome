@@ -29,15 +29,11 @@
           <p class="apartment-price"><%= in_group_of(apartment.price.to_s.length, apartment.price) %> €</p>
         </div>
       <% end %>
-      <% if FavoriteApartment.exists?(user: current_user, apartment: apartment) %>
-        <%= link_to favorite_apartments_path(apartment), method: :delete, class: "apartment-fav" do %>
-          <i class="fa-solid fa-heart"></i>
-        <% end %>
-      <% else %>
-        <%= simple_form_for FavoriteApartment.new, class: "apartment-fav" do |f| %>
-          <i class="fa-solid fa-heart"></i>
+      <%= simple_form_for FavoriteApartment.new, data: { controller: 'favorite' } do |f| %>
+        <div class="apartment-fav" data-action="click->favorite#submitForm">
           <%= f.hidden_field :apartment_id, value: apartment.id %>
-        <% end %>
+          <i class="fa-solid fa-heart"></i>
+        </div>
       <% end %>
     </div>
 
