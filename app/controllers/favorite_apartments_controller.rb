@@ -3,9 +3,9 @@ class FavoriteApartmentsController < ApplicationController
     @favorite_apartment = FavoriteApartment.new(favorite_apartment_params)
     @favorite_apartment.user = current_user
     if @favorite_apartment.save
-      render json: { success: true }
+      redirect_back(fallback_location: root_path, notice: "Votre appartement a bien été ajouté aux favoris")
     else
-      render json: { success: false, errors: restaurant.errors.messages }, status: :unprocessable_entity
+      redirect_back(fallback_location: root_path, alert: @favorite_apartment.errors.full_messages.join(', '))
     end
   end
 
