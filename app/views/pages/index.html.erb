@@ -460,7 +460,7 @@
               <%= link_to "Prix", request.params.merge(sort: "price"), class: "sort-tag middle" %>
               <%= link_to "Surface", request.params.merge(sort: "surface"), class: "sort-tag last" %>
               <% if params[:sort].present? %>
-                <input type="hidden" name="sort"  value="<%= params[:sort] %>" >
+                <input type="hidden" name="sort" value="<%= params[:sort] %>" >
               <% end %>
 
             </div>
