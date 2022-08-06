@@ -8,13 +8,15 @@ export default class extends Controller {
 
   addFavorite(event) {
     const target = event.currentTarget
-    const apartmentId = event.currentTarget.dataset.apartmentId
-    const html = `<div data-action="click->favorite#removeFavorite" data-apartment-id="${apartmentId}">
+    const type = event.currentTarget.dataset.type
+    const propertyId = event.currentTarget.dataset.propertyId
+    console.log(propertyId)
+    const html = `<div data-action="click->favorite#removeFavorite" data-property-id="${propertyId}" data-type="${type}">
                     <div class="apartment-fav">
                       <i class="fa-solid fa-heart active"></i>
                     </div>
                   </div>`
-    fetch(`/apartments/${apartmentId}/add_favorite`, {
+    fetch(`/${type}/${propertyId}/add_favorite`, {
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -29,14 +31,15 @@ export default class extends Controller {
   }
 
   removeFavorite(event) {
-    const apartmentId = event.currentTarget.dataset.apartmentId
     const target = event.currentTarget
-    const html = `<div data-action="click->favorite#addFavorite" data-apartment-id="${apartmentId}">
-                <div class="apartment-fav">
-                  <i class="fa-solid fa-heart"></i>
-                </div>
-              </div>`
-    fetch(`/apartments/${apartmentId}/remove_favorite`, {
+    const propertyId = event.currentTarget.dataset.propertyId
+    const type = event.currentTarget.dataset.type
+    const html = `<div data-action="click->favorite#addFavorite" data-property-id="${propertyId}" data-type="${type}">
+                    <div class="apartment-fav">
+                      <i class="fa-solid fa-heart"></i>
+                    </div>
+                  </div>`
+    fetch(`/${type}/${propertyId}/remove_favorite`, {
       method: "POST",
       headers: {
         "Accept": "application/json",
