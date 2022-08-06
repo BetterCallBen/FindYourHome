@@ -7,6 +7,7 @@ class PagesController < ApplicationController
   def index
     @apartments = Apartment.includes(:city, :borough)
     @houses = House.includes(:city, :borough)
+    @favorite_apartments = current_user.favorite_apartments.includes(:apartment).map(&:apartment) if current_user.present?
 
     filter_by_checkbox_criterias
     filter_by_status
