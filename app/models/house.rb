@@ -1,6 +1,7 @@
 class House < ApplicationRecord
   belongs_to :city
   belongs_to :borough, optional: true
+  has_many :favorite_houses, dependent: :destroy
 
   validates :name, presence: true
   validates :address, presence: true
