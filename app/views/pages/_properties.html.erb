@@ -29,14 +29,18 @@
           <p class="apartment-price"><%= in_group_of(apartment.price.to_s.length, apartment.price) %> €</p>
         </div>
       <% end %>
-      <% if @favorite_apartments.include?(apartment) %>
-        <div data-action="click->favorite#removeFavorite" data-apartment-id="<%= apartment.id %>">
+      <% if @favorite_apartments.present? && @favorite_apartments.include?(apartment) %>
+        <div data-action="click->favorite#removeFavorite"
+             data-property-id="<%= apartment.id %>"
+             data-type="<%= apartment.class.name.downcase %>s">
           <div class="apartment-fav">
             <i class="fa-solid fa-heart active"></i>
           </div>
         </div>
       <% else %>
-        <div data-action="click->favorite#addFavorite" data-apartment-id="<%= apartment.id %>">
+        <div data-action="click->favorite#addFavorite"
+             data-property-id="<%= apartment.id %>"
+             data-type="<%= apartment.class.name.downcase %>s">
           <div class="apartment-fav">
             <i class="fa-solid fa-heart"></i>
           </div>
@@ -47,32 +51,52 @@
 
   <% elsif apartment.class.name == "House" %>
     <%# house %>
-    <%= link_to apartment_path(apartment), class: "apartment-card" do %>
-      <%= image_tag apartment.image_url, class: "apartment-image" %>
-      <div class="apartment-content">
-        <p class="apartment-infos">
-          Maison <%= "#{translate_status(apartment.status)} de" if apartment.status %>
-          <%= pluralize(apartment.rooms, "pièce") %>
-          <%= apartment.surface %> m2</p>
-        <p class="apartment-tags">
-          <%= "Balcon" if apartment.balcony %>
-          <%= "Cheminée" if apartment.chimney %>
-          <%= "Garage" if apartment.garage %>
-          <%= "Jardin" if apartment.garden %>
-          <%= "Terrasse" if apartment.terrace %>
-          <%= "Cave" if apartment.cellar %>
-          <%= "Piscine" if apartment.pool %>
-        </p>
-        <p class="apartment-location">
-          <% if apartment.borough %>
-            <%= apartment.borough.name %>
-          <% else %>
-            <%= apartment.city.name %>
-          <% end %>
-        </p>
-        <p class="apartment-price"><%= in_group_of(apartment.price.to_s.length, apartment.price) %> €</p>
-      </div>
-    <% end %>
+    <div class="apartment-card">
+      <%= link_to apartment_path(apartment) do %>
+        <%= image_tag apartment.image_url, class: "apartment-image" %>
+        <div class="apartment-content">
+          <p class="apartment-infos">
+            Maison <%= "#{translate_status(apartment.status)} de" if apartment.status %>
+            <%= pluralize(apartment.rooms, "pièce") %>
+            <%= apartment.surface %> m2</p>
+          <p class="apartment-tags">
+            <%= "Balcon" if apartment.balcony %>
+            <%= "Cheminée" if apartment.chimney %>
+            <%= "Garage" if apartment.garage %>
+            <%= "Jardin" if apartment.garden %>
+            <%= "Terrasse" if apartment.terrace %>
+            <%= "Cave" if apartment.cellar %>
+            <%= "Piscine" if apartment.pool %>
+          </p>
+          <p class="apartment-location">
+            <% if apartment.borough %>
+              <%= apartment.borough.name %>
+            <% else %>
+              <%= apartment.city.name %>
+            <% end %>
+          </p>
+          <p class="apartment-price"><%= in_group_of(apartment.price.to_s.length, apartment.price) %> €</p>
+        </div>
+      <% end %>
+      <% if @favorite_houses.present? && @favorite_houses.include?(apartment) %>
+        <div data-action="click->favorite#removeFavorite"
+             data-property-id="<%= apartment.id %>"
+             data-type="<%= apartment.class.name.downcase %>s">
+          <div class="apartment-fav">
+            <i class="fa-solid fa-heart active"></i>
+          </div>
+        </div>
+      <% else %>
+        <div data-action="click->favorite#addFavorite"
+             data-property-id="<%= apartment.id %>"
+             data-type="<%= apartment.class.name.downcase %>s">
+          <div class="apartment-fav">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
 
   <% end %>
 
