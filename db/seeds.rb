@@ -29,6 +29,13 @@ APARTMENT_IMAGES = %w[https://images.ctfassets.net/pg6xj64qk0kh/2r4QaBLvhQFH1mPG
 puts 'Destroy DB'
 City.destroy_all
 
+puts 'Create Users'
+
+User.create!(
+  email: 'benjbdk@gmail.com',
+  password: 'secret'
+)
+
 puts 'Creating Locations...'
 
 LYON_CITIES.each do |lyon_city|
@@ -47,6 +54,7 @@ LYON_BOROUGH.each do |lyon_borough|
 end
 
 puts 'Creating Apartments...'
+
 lyon = City.find_by(name: "Lyon")
 
 ## flats in Lyon to rent
