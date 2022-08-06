@@ -424,7 +424,7 @@
 
         <% end %>
 
-        <%= simple_form_for @research do |f| %>
+        <%= form_with model: @research do |f| %>
           <%= f.hidden_field :project, value: params[:project] if params[:project].present?  %>
           <%= f.hidden_field :types, value: params[:types] if params[:types].present?  %>
           <%= f.hidden_field :locations, value: params[:locations] if params[:locations].present?  %>
@@ -434,7 +434,7 @@
           <%= f.hidden_field :surface_max, value: params[:surface_max] if params[:surface_max].present?  %>
           <%= f.hidden_field :status, value: params[:status] if params[:status].present?  %>
           <%= f.hidden_field :link, value: request.url  %>
-          <%= f.button :submit, value: "Enregister ma recherche"  %>
+          <%= f.submit "Enregister ma recherche", class: "save-research-btn"  %>
         <% end %>
 
       </div>
@@ -456,9 +456,24 @@
               <i class="fa-solid fa-bars"></i>
             </div>
             <div class="sort-tags d-none" data-apartments-target="sortPropositions">
-              <%= link_to "Pertinence", request.params.merge(sort: "relevance"), class: "sort-tag first" %>
-              <%= link_to "Prix", request.params.merge(sort: "price"), class: "sort-tag middle" %>
-              <%= link_to "Surface", request.params.merge(sort: "surface"), class: "sort-tag last" %>
+              <%= link_to request.params.merge(sort: "relevance"), class: "sort-tag first" do %>
+                <% if params[:sort].present? && params[:sort] == 'relevance' %>
+                  <i class="fa-solid fa-circle-check"></i>
+                <% end %>
+                <p >Pertinence</p>
+              <% end %>
+              <%= link_to request.params.merge(sort: "price"), class: "sort-tag middle" do %>
+                <% if params[:sort].present? && params[:sort] == 'price' %>
+                  <i class="fa-solid fa-circle-check"></i>
+                <% end %>
+                <p>Prix</p>
+              <% end %>
+              <%= link_to request.params.merge(sort: "surface"), class: "sort-tag last" do %>
+                <% if params[:sort].present? && params[:sort] == 'surface' %>
+                  <i class="fa-solid fa-circle-check"></i>
+                <% end %>
+                <p >Surface</p>
+              <% end %>
               <% if params[:sort].present? %>
                 <input type="hidden" name="sort" value="<%= params[:sort] %>" >
               <% end %>
