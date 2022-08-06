@@ -457,10 +457,10 @@
             </div>
             <div class="sort-tags d-none" data-apartments-target="sortPropositions">
               <%= link_to request.params.merge(sort: "relevance"), class: "sort-tag first" do %>
-                <% if params[:sort].present? && params[:sort] == 'relevance' %>
+                <% if params[:sort].present? && params[:sort] == 'relevance' || !params[:sort].present? %>
                   <i class="fa-solid fa-circle-check"></i>
                 <% end %>
-                <p >Pertinence</p>
+                <p>Pertinence</p>
               <% end %>
               <%= link_to request.params.merge(sort: "price"), class: "sort-tag middle" do %>
                 <% if params[:sort].present? && params[:sort] == 'price' %>
@@ -472,7 +472,7 @@
                 <% if params[:sort].present? && params[:sort] == 'surface' %>
                   <i class="fa-solid fa-circle-check"></i>
                 <% end %>
-                <p >Surface</p>
+                <p>Surface</p>
               <% end %>
               <% if params[:sort].present? %>
                 <input type="hidden" name="sort" value="<%= params[:sort] %>" >
