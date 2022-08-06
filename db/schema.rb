@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_03_020648) do
+ActiveRecord::Schema.define(version: 2022_08_06_041109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,13 +59,21 @@ ActiveRecord::Schema.define(version: 2022_08_03_020648) do
   end
 
   create_table "favorite_apartments", force: :cascade do |t|
-    t.string "name"
-    t.bigint "apartment_id", null: false
     t.bigint "user_id", null: false
+    t.bigint "apartment_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["apartment_id"], name: "index_favorite_apartments_on_apartment_id"
     t.index ["user_id"], name: "index_favorite_apartments_on_user_id"
+  end
+
+  create_table "favorite_houses", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "house_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["house_id"], name: "index_favorite_houses_on_house_id"
+    t.index ["user_id"], name: "index_favorite_houses_on_user_id"
   end
 
   create_table "houses", force: :cascade do |t|
@@ -124,7 +132,14 @@ ActiveRecord::Schema.define(version: 2022_08_03_020648) do
     t.string "type"
     t.string "locations"
     t.string "status"
+    t.string "floor"
     t.boolean "balcony", default: false
+    t.boolean "chimney", default: false
+    t.boolean "pool", default: false
+    t.boolean "garden", default: false
+    t.boolean "cellar", default: false
+    t.boolean "garage", default: false
+    t.boolean "terrace", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["borough_id"], name: "index_researches_on_borough_id"
@@ -149,6 +164,8 @@ ActiveRecord::Schema.define(version: 2022_08_03_020648) do
   add_foreign_key "boroughs", "cities"
   add_foreign_key "favorite_apartments", "apartments"
   add_foreign_key "favorite_apartments", "users"
+  add_foreign_key "favorite_houses", "houses"
+  add_foreign_key "favorite_houses", "users"
   add_foreign_key "houses", "boroughs"
   add_foreign_key "houses", "cities"
   add_foreign_key "research_boroughs", "boroughs"
