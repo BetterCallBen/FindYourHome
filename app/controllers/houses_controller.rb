@@ -1,4 +1,8 @@
 class HousesController < ApplicationController
+  def show
+    @house = House.find(params[:id])
+
+  end
   def add_favorite
     @favorite_house = FavoriteHouse.new
     @favorite_house.house = House.find(params[:id])
