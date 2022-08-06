@@ -65,14 +65,14 @@ module ApplicationHelper
   end
 
   def translate_rooms(rooms)
-    rooms = rooms.chars
+    rooms = rooms.chars.sort
     case rooms.count
     when 1
       "#{rooms.first} pièce"
     when 2
       "#{rooms.first} ou #{rooms.last} pièces"
     else
-      "#{rooms[0..-2].join(',')} ou #{rooms.last} pièces"
+      "#{rooms[0..-2].join(', ')} ou #{rooms.last} pièces"
     end
   end
 
