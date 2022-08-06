@@ -8,7 +8,7 @@ class HousesController < ApplicationController
   end
 
   def remove_favorite
-    @house = House.find(params[:house_id])
+    @house = House.find(params[:id])
     @house.favorite_houses.find_by(user: current_user).destroy
     render json: { head: :ok }
   end
