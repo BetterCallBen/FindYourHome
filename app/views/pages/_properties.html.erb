@@ -52,7 +52,7 @@
   <% elsif apartment.class.name == "House" %>
     <%# house %>
     <div class="apartment-card">
-      <%= link_to apartment_path(apartment) do %>
+      <%= link_to house_path(apartment) do %>
         <%= image_tag apartment.image_url, class: "apartment-image" %>
         <div class="apartment-content">
           <p class="apartment-infos">
