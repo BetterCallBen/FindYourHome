@@ -42,7 +42,7 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.text { render partial: 'locations', locals: { locations: @results, saved_locations: @saved_locations }, formats: :html }
+      format.text { render partial: 'locations', formats: :html }
       format.json { render json: @properties.count }
     end
   end

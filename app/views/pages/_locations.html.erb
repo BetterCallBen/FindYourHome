@@ -1,7 +1,7 @@
-<% unless saved_locations.count == 0 %>
+<% unless @saved_locations.count == 0 %>
   <div class="saved-locations">
     <p class="location-title">Récement recherché</p>
-    <% saved_locations.first(3).each do |saved_location| %>
+    <% @saved_locations.first(3).each do |saved_location| %>
       <%= link_to request.params.merge(locations: params[:locations].present? ? params[:locations] + ",#{saved_location.insee_code}" : saved_location.insee_code),
           class: "location-result",
           data: { action: 'click->locations#add_location', type: "#{saved_location.class.name.downcase}", 'location-id': saved_location.id} do %>
@@ -16,10 +16,10 @@
     <% end %>
   </div>
 <% end %>
-<% unless locations.count == 0 %>
+<% unless @results.count == 0 %>
   <div class="matching-locations">
     <p class="location-title">Communes</p>
-    <% locations.first(@number_of_results).each do |location| %>
+    <% @results.first(@number_of_results).each do |location| %>
       <%= link_to request.params.merge(locations: params[:locations].present? ? params[:locations] + ",#{location.insee_code}" : location.insee_code),
           class: "location-result",
           data: { action: 'click->locations#add_location', type: "#{location.class.name.downcase}", 'location-id': location.id} do %>
