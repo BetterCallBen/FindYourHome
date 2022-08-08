@@ -214,7 +214,9 @@ class PagesController < ApplicationController
     @saved_cities = City.where(insee_code: @cookies_locations).where(@search_query)
     @saved_boroughs = Borough.where(insee_code: @cookies_locations).where(@search_query)
     @saved_locations = @saved_cities + @saved_boroughs
+    return unless @results.present?
 
-    @results -= @saved_locations if @results.present?
+    @results -= @saved_locations
+    @number_of_results = @saved_locations.count <= 3 ? 6 - @saved_locations.count : 3
   end
 end
