@@ -435,7 +435,10 @@
           <%= f.hidden_field :surface_max, value: params[:surface_max] if params[:surface_max].present?  %>
           <%= f.hidden_field :status, value: params[:status] if params[:status].present?  %>
           <%= f.hidden_field :link, value: request.url  %>
-          <%= f.submit "Enregister ma recherche", class: "save-research-btn"  %>
+          <%= button_tag(type: 'submit', class: "save-research-btn") do %>
+            <i class="fa-regular fa-bell save-bell"></i>
+            <p>Sauvegarder ma recherche</p>
+          <% end %>
         <% end %>
 
       </div>
