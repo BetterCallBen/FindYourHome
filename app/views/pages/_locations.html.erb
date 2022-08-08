@@ -5,7 +5,10 @@
       <%= link_to request.params.merge(locations: params[:locations].present? ? params[:locations] + ",#{saved_location.insee_code}" : saved_location.insee_code),
           class: "location-result",
           data: { action: 'click->locations#add_location', type: "#{saved_location.class.name.downcase}", 'location-id': saved_location.id} do %>
-        <p class="location-name"><i class="fa-solid fa-clock-rotate-left"></i><%= saved_location.name %></p>
+        <div class="location-logo-name">
+          <i class="fa-solid fa-clock-rotate-left location-logo"></i>
+          <p class="location-name"><%= saved_location.name %></p>
+        </div>
         <p class="location-type">
           <%= humanize_location(saved_location) %>
         </p>
@@ -20,7 +23,10 @@
       <%= link_to request.params.merge(locations: params[:locations].present? ? params[:locations] + ",#{location.insee_code}" : location.insee_code),
           class: "location-result",
           data: { action: 'click->locations#add_location', type: "#{location.class.name.downcase}", 'location-id': location.id} do %>
-        <p class="location-name"><i class="fa-solid fa-location-dot"></i><%= location.name %></p>
+          <div class="location-logo-name">
+            <i class="fa-solid fa-location-dot location-logo"></i>
+            <p class="location-name"><%= location.name %></p>
+          </div>
         <p class="location-type">
           <%= humanize_location(location) %>
         </p>
