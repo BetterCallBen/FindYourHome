@@ -40,6 +40,10 @@ class PagesController < ApplicationController
       @properties = BestPropertiesService.new(@properties).call
     end
 
+    p cookies[:locations]
+    p cookies[:locations]
+    p cookies[:locations]
+
     respond_to do |format|
       format.html
       format.text { render partial: 'locations', locals: { locations: @results }, formats: :html }
