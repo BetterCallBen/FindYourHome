@@ -1,5 +1,18 @@
 <% unless locations.nil? %>
-  <% locations.first(8).each do |location| %>
+  <div class="saved-locations">
+    <p>récement recherché</p>
+    <% saved_locations.each do |saved_location| %>
+      <%= link_to request.params.merge(locations: params[:locations].present? ? params[:locations] + ",#{saved_location.insee_code}" : saved_location.insee_code),
+          class: "location-result",
+          data: { action: 'click->locations#add_location', type: "#{saved_location.class.name.downcase}", 'location-id': saved_location.id} do %>
+        <p class="location-name"><%= saved_location.name %></p>
+        <p class="location-type">
+          <%= humanize_location(saved_location) %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+  <% locations.first(8 - saved_locations.count).each do |location| %>
     <%= link_to request.params.merge(locations: params[:locations].present? ? params[:locations] + ",#{location.insee_code}" : location.insee_code),
         class: "location-result",
         data: { action: 'click->locations#add_location', type: "#{location.class.name.downcase}", 'location-id': location.id} do %>
