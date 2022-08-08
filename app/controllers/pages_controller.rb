@@ -202,7 +202,7 @@ class PagesController < ApplicationController
     end
 
     ## combine les résultats
-    @results = @city_results + @borough_results if @city_results.present? || @borough_results.present?
+    @results = @city_results + @borough_results
 
     manage_cookies_locations
   end
@@ -215,6 +215,6 @@ class PagesController < ApplicationController
     @saved_boroughs = Borough.where(insee_code: @cookies_locations).where(@search_query)
     @saved_locations = @saved_cities + @saved_boroughs
 
-    @results -= @saved_locations
+    @results -= @saved_locations if @results.present?
   end
 end
