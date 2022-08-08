@@ -62,6 +62,7 @@
       flex-direction: column;
       position: absolute;
       top: 2px;
+      background-color: white;
       .placehold {
         background-color: white;
         border-radius: 4px;
@@ -73,26 +74,27 @@
           padding: 0;
         }
       }
-      .saved-locations {
-        padding: 12px 0;
-        background-color: white;
-        p {
-
+      .saved-locations, .matching-locations {
+        display: flex;
+        flex-direction: column;
+        .location-title {
+          font-weight: bold;
+          margin: 0;
+          padding: 0.6rem 1rem 0.2rem;
         }
       }
+      .matching-locations {
+        padding-bottom: 0;
+      }
       .location-result {
-        padding: .6rem .5rem;
+        padding: .6rem 1rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: white;
-        &:first-child {
-          border-radius: 4px 4px 0 0;
-        }
-        &:last-child {
-          border-radius: 0 0 4px 4px;
-        }
         .location-name {
+          display: flex;
+          align-items: center;
+          gap: 12px;
           margin: 0;
           color: rgba(0, 0, 0, 0.884);
         }
