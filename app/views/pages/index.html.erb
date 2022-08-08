@@ -55,9 +55,10 @@
           <div class="locations">
             <div class="location-input">
               <% unless @locations_tags.nil? %>
-                <div class="location-tags">
+                <div class="location-tags" >
                   <% @locations_tags.each do |location_tag| %>
-                    <%= link_to params[:locations].split(",").count == 1 ? request.params.except(:locations) : request.params.merge(locations: params[:locations].split(",").delete_if { |n| n == location_tag.insee_code}.join(",") ), class: "location-tag" do %>
+                    <%= link_to params[:locations].split(",").count == 1 ? request.params.except(:locations) : request.params.merge(locations: params[:locations].split(",").delete_if { |n| n == location_tag.insee_code}.join(",") ),
+                        class: "location-tag" do %>
                       <p class="location"><%= location_tag.name %></p>
                       <i class="fa-solid fa-xmark cross"></i>
                     <% end %>
