@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
+
   root to: 'pages#home'
   get 'properties', to: 'pages#index', as: :properties
 
@@ -14,6 +15,12 @@ Rails.application.routes.draw do
     member do
       post 'add_favorite', to: 'apartments#add_favorite'
       post 'remove_favorite', to: 'apartments#remove_favorite'
+    end
+  end
+
+  resources :city, only: %i[] do
+    member do
+      post 'save_location', to: 'cities#save_location'
     end
   end
 
