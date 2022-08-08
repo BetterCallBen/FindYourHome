@@ -10,35 +10,10 @@ class PagesController < ApplicationController
     @favorite_apartments = current_user.apartments if current_user.present?
     @favorite_houses = current_user.houses if current_user.present?
 
-    filter_by_checkbox_criterias
-    filter_by_status
-    filter_by_floor
-    filter_by_rooms
-    filter_by_bedrooms
-    filter_by_surface
-    filter_by_locations
-    filter_by_apartment_type
-    filter_by_project
+    filter_properties
+    sort_properties
 
-    @properties = (@apartments + @houses).uniq
-    @research = Research.new
-
-    if @properties.count == @properties.select { |p| p.instance_of?(Apartment) }.count
-      @what = "appartement"
-    elsif @properties.count == @properties.select { |p| p.instance_of?(House) }.count
-      @what = "maison"
-    else
-      @what = "bien"
-    end
-
-    case params[:sort]
-    when "price"
-      @properties = @properties.sort_by(&:price)
-    when "surface"
-      @properties = @properties.sort_by(&:surface)
-    else
-      @properties = BestPropertiesService.new(@properties).call
-    end
+    define_what_to_display
 
     respond_to do |format|
       format.html
@@ -48,6 +23,30 @@ class PagesController < ApplicationController
   end
 
   private
+
+  def filter_properties
+    filter_by_checkbox_criterias
+    filter_by_status
+    filter_by_floor
+    filter_by_rooms
+    filter_by_bedrooms
+    filter_by_surface
+    filter_by_locations
+    filter_by_type
+    filter_by_project
+    @properties = (@apartments + @houses).uniq
+  end
+
+  def sort_properties
+    case params[:sort]
+    when "price"
+      @properties = @properties.sort_by(&:price)
+    when "surface"
+      @properties = @properties.sort_by(&:surface)
+    else
+      @properties = BestPropertiesService.new(@properties).call
+    end
+  end
 
   def filter_by_project
     return unless params[:project].present?
@@ -117,7 +116,7 @@ class PagesController < ApplicationController
     end
   end
 
-  def filter_by_apartment_type
+  def filter_by_type
     return unless params[:types].present?
 
     @houses = @houses.none unless params[:types].include?("house")
@@ -218,5 +217,15 @@ class PagesController < ApplicationController
 
     @results -= @saved_locations
     @number_of_results = @saved_locations.count <= 3 ? 6 - @saved_locations.count : 3
+  end
+
+  def define_what_to_display
+    if @properties.count == @properties.select { |p| p.instance_of?(Apartment) }.count
+      @what = "appartement"
+    elsif @properties.count == @properties.select { |p| p.instance_of?(House) }.count
+      @what = "maison"
+    else
+      @what = "bien"
+    end
   end
 end

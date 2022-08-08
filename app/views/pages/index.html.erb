@@ -425,7 +425,7 @@
 
         <% end %>
 
-        <%= form_with model: @research do |f| %>
+        <%= form_with model: Research.new do |f| %>
           <%= f.hidden_field :project, value: params[:project] if params[:project].present?  %>
           <%= f.hidden_field :types, value: params[:types] if params[:types].present?  %>
           <%= f.hidden_field :locations, value: params[:locations] if params[:locations].present?  %>
