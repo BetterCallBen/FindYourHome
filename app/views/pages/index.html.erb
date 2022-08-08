@@ -374,16 +374,15 @@
                 <input type="hidden" name="pool"  value="<%= params[:pool] %>">
               <% end %>
 
-
             <% end %>
-
 
             <%= link_to params[:cellar].present? ? request.params.except(:cellar) : request.params.merge(cellar: true) do %>
               <p class= "<%=params[:cellar] == "true" ? 'criteria active' : 'criteria' %>">Cave (<%= @apartments.where(cellar: true).count + @houses.where(cellar: true).count%>)</p>
             <% end %>
-              <% if params[:cellar].present? %>
-                <input type="hidden" name="cellar"  value="<%= params[:cellar] %>">
-              <% end %>
+
+            <% if params[:cellar].present? %>
+              <input type="hidden" name="cellar"  value="<%= params[:cellar] %>">
+            <% end %>
 
           </div>
 
