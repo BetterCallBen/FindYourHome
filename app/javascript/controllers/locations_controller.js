@@ -1,4 +1,5 @@
 import { Controller } from "stimulus"
+import { csrfToken } from "@rails/ujs"
 
 export default class extends Controller {
   static targets = ["locations", "locationResults"]
@@ -21,6 +22,22 @@ export default class extends Controller {
   displayLocations(event) {
     event.stopPropagation()
     this.locationResultsTarget.classList.remove("d-none")
+  }
+
+  add_location(event) {
+    console.log("add_location")
+    const locationId = event.currentTarget.dataset.locationId
+    const type = event.currentTarget.dataset.type
+    console.log(locationId)
+    console.log(type)
+    fetch(`/${type}/${locationId}/save_location`, {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "X-CSRF-Token": csrfToken(),
+      }
+    })
   }
 
   searchLocations(event) {
