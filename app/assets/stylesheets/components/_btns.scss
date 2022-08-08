@@ -1,7 +1,51 @@
 .save-research-btn {
-  padding: 6px 12px;
+  padding: 10px 20px;
   color: white;
   background-color: #2586A4;
   border: none;
   border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  .save-bell {
+    animation: shaking 5s infinite;
+    animation-delay: 1s;
+    font-size: 1.1rem;
+    transform-origin: 50% 0;
+  }
+  p {
+    margin: 0;
+    font-weight: bold;
+  }
+}
+
+@keyframes shaking {
+  0% {
+    transform: rotate(0deg);
+  }
+  2% {
+    transform: rotate(-10deg);
+  }
+  4% {
+    transform: rotate(10deg);
+  }
+  6% {
+    transform: rotate(-8deg);
+  }
+  8% {
+    transform: rotate(8deg);
+  }
+  10% {
+    transform: rotate(-4deg);
+  }
+  12% {
+    transform: rotate(4deg);
+  }
+  14% {
+    transform: rotate(-2deg);
+  }
+  16%, 100% {
+    transform: rotate(0deg);
+  }
 }
