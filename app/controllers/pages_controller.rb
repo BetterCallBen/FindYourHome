@@ -40,13 +40,9 @@ class PagesController < ApplicationController
       @properties = BestPropertiesService.new(@properties).call
     end
 
-    p cookies[:locations]
-    p cookies[:locations]
-    p cookies[:locations]
-
     respond_to do |format|
       format.html
-      format.text { render partial: 'locations', locals: { locations: @results }, formats: :html }
+      format.text { render partial: 'locations', locals: { locations: @results, saved_locations: @saved_locations }, formats: :html }
       format.json { render json: @properties.count }
     end
   end
@@ -188,14 +184,37 @@ class PagesController < ApplicationController
   end
 
   def find_results
-    @city_results = City.where("name ILIKE ? ", "%#{params[:search].gsub(' ', '-').gsub('ste', 'Sainte').gsub('st', 'Saint')}%")
+    @search_query = "name ILIKE ? ", "%#{params[:search].gsub(' ', '-').gsub('ste', 'Sainte').gsub('st', 'Saint')}%"
+    ## cherche les villes
+    @city_results = City.where(@search_query)
+
+    ## supprime les villes qui ont déjà été choisies
     if @locations_insees.present? && @city_results.present?
       @city_results = @city_results.where.not(insee_code: @locations_insees)
     end
-    @borough_results = Borough.where("name ILIKE ? ", "%#{params[:search]}%")
+
+    ## cherche les quartiers
+    @borough_results = Borough.where(@search_query)
+
+    ## supprime les quartiets qui ont déjà été choisies
     if @locations_insees.present? && @borough_results.present?
       @borough_results = @borough_results.where.not(insee_code: @locations_insees)
     end
+
+    ## combine les résultats
     @results = @city_results + @borough_results if @city_results.present? || @borough_results.present?
+
+    manage_cookies_locations
+  end
+
+  def manage_cookies_locations
+    return unless cookies[:locations].present?
+
+    @cookies_locations = cookies[:locations].split(",")
+    @saved_cities = City.where(insee_code: @cookies_locations).where(@search_query)
+    @saved_boroughs = Borough.where(insee_code: @cookies_locations).where(@search_query)
+    @saved_locations = @saved_cities + @saved_boroughs
+
+    @results -= @saved_locations
   end
 end
