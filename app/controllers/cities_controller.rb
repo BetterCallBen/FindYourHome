@@ -5,7 +5,7 @@ class CitiesController < ApplicationController
     @city = City.find(params[:id])
 
     if cookies[:locations].present?
-      cookies[:locations].include?(@city.insee_code) ? return : cookies[:locations] << @city.insee_code
+      cookies[:locations] = "#{cookies[:locations]},#{@city.insee_code}"
     else
       cookies[:locations] = [@city.insee_code]
     end
