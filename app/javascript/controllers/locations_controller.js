@@ -30,7 +30,7 @@ export default class extends Controller {
     const type = event.currentTarget.dataset.type
     console.log(locationId)
     console.log(type)
-    fetch(`/${type}/${locationId}/save_location`, {
+    fetch(`/${type}/${locationId}/add_recent_location`, {
       method: "POST",
       headers: {
         "Accept": "application/json",
