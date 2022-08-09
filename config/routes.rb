@@ -20,7 +20,13 @@ Rails.application.routes.draw do
 
   resources :city, only: %i[] do
     member do
-      post 'save_location', to: 'cities#save_location'
+      post 'add_recent_location', to: 'cities#add_recent_location'
+    end
+  end
+
+  resources :borough, only: %i[] do
+    member do
+      post 'add_recent_location', to: 'boroughs#add_recent_location'
     end
   end
 
