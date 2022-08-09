@@ -1,5 +1,5 @@
 class CitiesController < ApplicationController
-  def save_location
+  def add_recent_location
     return unless user_signed_in?
 
     @city = City.find(params[:id])
