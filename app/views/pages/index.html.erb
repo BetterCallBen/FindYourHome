@@ -38,7 +38,7 @@
           </div>
 
           <div class="types-filter div-filter">
-            <label class="tag">Type de bien</label>
+            <p class="tag">Type de bien</p>
 
             <%= link_to "Apartement",
               if params[:types].present? && params[:types].include?("flat")
@@ -464,7 +464,7 @@
           <%= @there %>
         </p>
         <div>
-          <label>Trier par</label>
+          <p>Trier par</p>
           <div class="sort-div">
             <div class="sort-input" data-action="click->apartments#displaySort">
               <p class="sort-value"><%= params[:sort].present? ? translate_sort_by(params[:sort]) : "Pertinence" %></p>
