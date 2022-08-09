@@ -5,11 +5,8 @@ class PagesController < ApplicationController
   end
 
   def index
-    @apartments = Apartment.includes(:city, :borough)
-    @houses = House.includes(:city, :borough)
-    @favorite_apartments = current_user.apartments if current_user.present?
-    @favorite_houses = current_user.houses if current_user.present?
-
+    init_properties
+    init_favorites
     filter_properties
     sort_properties
 
@@ -24,8 +21,20 @@ class PagesController < ApplicationController
 
   private
 
+  def init_properties
+    @apartments = Apartment.includes(:city, :borough)
+    @houses = House.includes(:city, :borough)
+  end
+
+  def init_favorites
+    return unless user_signed_in?
+
+    @favorite_apartments = current_user.apartments
+    @favorite_houses = current_user.favorite_houses
+  end
+
   def filter_properties
-    filter_by_checkbox_criterias
+    filter_by_criterias
     filter_by_status
     filter_by_floor
     filter_by_rooms
@@ -55,44 +64,34 @@ class PagesController < ApplicationController
     @houses = @houses.where(project: params[:project])
   end
 
-  def filter_by_checkbox_criterias
-    ## balcon
-    if params[:balcony].present?
-      @apartments = @apartments.where(balcony: true)
-      @houses = @houses.where(balcony: true)
+  def filter_by_criterias
+    ## pour appartements et maisons
+    filter_for_houses
+    filter_for_apartments
+  end
+
+  def filter_for_houses
+    %i[balcony chimney cellar garage terrace garden pool].each do |criteria|
+      next unless params[criteria].present?
+
+      @houses = @houses.where(criteria => true)
     end
-    ## cheminée
-    if params[:chimney].present?
-      @apartments = @apartments.where(chimney: true)
-      @houses = @houses.where(chimney: true)
+  end
+
+  def filter_for_apartments
+    %i[balcony chimney cellar garage terrace elevator].each do |criteria|
+      next unless params[criteria].present?
+
+      @apartments = @apartments.where(criteria => true)
     end
-    ## ascenseur
-    @apartments = @apartments.where(elevator: true) if params[:elevator].present?
-    ## cellier
-    if params[:cellar].present?
-      @apartments = @apartments.where(cellar: true)
-      @houses = @houses.where(cellar: true)
-    end
-    ## garage
-    if params[:garage].present?
-      @apartments = @apartments.where(garage: true)
-      @houses = @houses.where(garage: true)
-    end
-    ## terrasse
-    if params[:terrace].present?
-      @apartments = @apartments.where(terrace: true)
-      @houses = @houses.where(terrace: true)
-    end
-    ## jardin
-    @houses = @houses.where(garden: true) if params[:garden].present?
-    ## piscine
-    @houses = @houses.where(pool: true) if params[:pool].present?
   end
 
   def filter_by_status
     # meublé / non meublé
-    @apartments = @apartments.where("status ILIKE ? ", params[:status]) if params[:status].present?
-    @houses = @houses.where("status ILIKE ? ", params[:status]) if params[:status].present?
+    return unless params[:status].present?
+
+    @apartments = @apartments.where("status ILIKE ? ", params[:status])
+    @houses = @houses.where("status ILIKE ? ", params[:status])
   end
 
   def filter_by_floor
@@ -183,40 +182,42 @@ class PagesController < ApplicationController
   end
 
   def find_results
-    @search_query = "name ILIKE ? ", "%#{params[:search].gsub(' ', '-').gsub('ste', 'Sainte').gsub('st', 'Saint')}%"
-    ## cherche les villes
-    @city_results = City.where(@search_query)
+    @city_search_query = "name ILIKE ? ", "%#{params[:search].gsub(' ', '-').gsub('st', 'Saint')}%"
+    @borough_search_query = "name ILIKE ? ", "%#{params[:search]}%"
 
-    ## supprime les villes qui ont déjà été choisies
-    if @locations_insees.present? && @city_results.present?
-      @city_results = @city_results.where.not(insee_code: @locations_insees)
-    end
+    find_matching_locations
+    find_recent_locations
 
-    ## cherche les quartiers
-    @borough_results = Borough.where(@search_query)
+    @recent_locations = [] unless @recent_locations.present?
 
-    ## supprime les quartiets qui ont déjà été choisies
-    if @locations_insees.present? && @borough_results.present?
-      @borough_results = @borough_results.where.not(insee_code: @locations_insees)
-    end
+    @results = @matching_locations - @recent_locations
 
-    ## combine les résultats
-    @results = @city_results + @borough_results
-
-    manage_cookies_locations
+    @number_of_results = @recent_locations.count <= 3 ? 6 - @recent_locations.count : 3
   end
 
-  def manage_cookies_locations
+  def find_matching_locations
+    ## cherche les villes
+    @matching_cities = City.where(@city_search_query).where.not(insee_code: @locations_insees)
+    ## cherche les quartiers
+    @matching_borough = Borough.where(@borough_search_query).where.not(insee_code: @locations_insees)
+
+    @matching_locations = @matching_cities + @matching_borough
+  end
+
+  def find_recent_locations
     return unless cookies[:locations].present?
 
     @cookies_locations = cookies[:locations].split(",")
-    @saved_cities = City.where(insee_code: @cookies_locations).where(@search_query)
-    @saved_boroughs = Borough.where(insee_code: @cookies_locations).where(@search_query)
-    @saved_locations = @saved_cities + @saved_boroughs
-    return unless @results.present?
 
-    @results -= @saved_locations
-    @number_of_results = @saved_locations.count <= 3 ? 6 - @saved_locations.count : 3
+    ## cherche les villes recherchées récemment
+    @recent_cities = City.where(insee_code: @cookies_locations)
+    @recent_cities = @recent_cities.where(@city_search_query).where.not(insee_code: @locations_insees)
+
+    ## cherche les quartiers recherchés récemment
+    @recent_boroughs = Borough.where(insee_code: @cookies_locations)
+    @recent_boroughs = @recent_boroughs.where(@borough_search_query).where.not(insee_code: @locations_insees)
+
+    @recent_locations = @recent_cities + @recent_boroughs
   end
 
   def define_what_to_display
