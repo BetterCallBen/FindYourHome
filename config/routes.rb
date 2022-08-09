@@ -18,13 +18,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :city, only: %i[] do
+  resources :cities, only: %i[] do
     member do
       post 'add_recent_location', to: 'cities#add_recent_location'
     end
   end
 
-  resources :borough, only: %i[] do
+  resources :boroughs, only: %i[] do
     member do
       post 'add_recent_location', to: 'boroughs#add_recent_location'
     end
