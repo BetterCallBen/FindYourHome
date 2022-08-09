@@ -24,12 +24,9 @@ export default class extends Controller {
     this.locationResultsTarget.classList.remove("d-none")
   }
 
-  add_location(event) {
-    console.log("add_location")
+  add_recent_location(event) {
     const locationId = event.currentTarget.dataset.locationId
     const type = event.currentTarget.dataset.type
-    console.log(locationId)
-    console.log(type)
     fetch(`/${type}/${locationId}/add_recent_location`, {
       method: "POST",
       headers: {
