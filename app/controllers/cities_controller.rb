@@ -5,9 +5,9 @@ class CitiesController < ApplicationController
     @city = City.find(params[:id])
 
     if cookies[:locations].present?
-      cookies[:locations] = "#{cookies[:locations]},#{@city.insee_code}"
+      cookies[:locations] = { value: "#{cookies[:locations]},#{@city.insee_code}", expires: 1.day.from_now }
     else
-      cookies[:locations] = [@city.insee_code]
+      cookies[:locations] = { value: [@city.insee_code], expires: 1.day.from_now }
     end
 
     render json: { head: :ok }
