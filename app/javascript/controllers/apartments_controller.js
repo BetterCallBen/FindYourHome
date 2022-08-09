@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "secondSurfaceInput", "sortPropositions" ]
+  static targets = [ "secondSurfaceInput", "sortPropositions", "form" ]
 
   // General methods
 
@@ -10,7 +10,7 @@ export default class extends Controller {
   }
 
   submitForm() {
-    this.element.submit()
+    this.formTarget.submit()
   }
 
   // Surface
@@ -27,7 +27,7 @@ export default class extends Controller {
 
   validSurface(event) {
     if (event.keyCode === 13 || event.currentTarget.value.length === 3) {
-      this.element.submit()
+      this.submitForm()
     }
   }
 
