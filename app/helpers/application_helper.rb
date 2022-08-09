@@ -7,6 +7,14 @@ module ApplicationHelper
     end
   end
 
+  def pluralize_type(content)
+    hash = {
+      city: "cities",
+      borough: "boroughs"
+    }
+    return hash[content.downcase.to_sym]
+  end
+
   def humanize_location(location)
     hash = {
       city: 'Ville',
