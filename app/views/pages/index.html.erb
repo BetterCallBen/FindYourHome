@@ -16,17 +16,25 @@
     <div class="form-div">
       <div class="filter-form">
         <%= form_with(url: properties_path, method: :get,
+                      data: { 'apartments-target': "form" },
                       html: {
                         autocomplete: "off"
                       }) do |f| %>
 
           <div class="project-filter div-filter">
-            <%= link_to "Louer", request.params.merge(project: "rent"), class: params[:project] == "rent" ? 'criteria active' : "criteria" %>
-            <%= link_to "Acheter", request.params.merge(project: "buy"), class: params[:project] == "buy" ? 'criteria active' : "criteria" %>
+
+            <%= link_to request.params.merge(project: "rent") do %>
+              <p class="<%= params[:project] == "rent" ? 'criteria active' : "criteria"%>">Louer</p>
+            <% end %>
+
+            <%= link_to request.params.merge(project: "buy") do %>
+              <p class="<%= params[:project] == "buy" ? 'criteria active' : "criteria"%>">Acheter</p>
+            <% end %>
 
             <% if params[:project].present? %>
               <input type="hidden" name="project" value="<%= params[:project] %>">
             <% end %>
+
           </div>
 
           <div class="types-filter div-filter">
@@ -411,8 +419,12 @@
               <p class="bold">Type de location</p>
             <div class="criterias-filter div-filter">
 
-              <%= link_to "Meublé", params[:status] == "furnished" ? request.params.except(:status): request.params.merge(status: "furnished"), class: params[:status] == "furnished" ? 'criteria active' : 'criteria' %>
-              <%= link_to "Non Meublé", params[:status] == "unfurnished" ? request.params.except(:status): request.params.merge(status: "unfurnished"), class: params[:status] == "unfurnished" ? 'criteria active' : 'criteria' %>
+              <%= link_to params[:status] == "furnished" ? request.params.except(:status): request.params.merge(status: "furnished") do %>
+                <p class= "<%=params[:status] == "furnished" ? 'criteria active' : 'criteria' %>">Meublé</p>
+              <% end %>
+              <%= link_to params[:status] == "unfurnished" ? request.params.except(:status): request.params.merge(status: "unfurnished") do %>
+                <p class= "<%=params[:status] == "unfurnished" ? 'criteria active' : 'criteria' %>">Non meublé</p>
+              <% end %>
 
               <% if params[:status].present? %>
                 <input type="hidden" name="status" value="<%= params[:status] %>">
