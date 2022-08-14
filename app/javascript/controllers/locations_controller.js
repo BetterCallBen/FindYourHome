@@ -13,11 +13,13 @@ export default class extends Controller {
     this.locationResultsTarget.classList.add("d-none")
   }
 
+  dontHideLocations(event) {
+    event.stopPropagation()
+  }
+
   submitForm() {
     this.element.submit()
   }
-
-  // Locations
 
   displayLocations(event) {
     event.stopPropagation()
