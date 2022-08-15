@@ -56,12 +56,12 @@ class PagesController < ApplicationController
   end
 
   def paginate_properties
-    @current_page = params[:page].present? ? params[:page].to_i : 1
+    @current_page = params[:page].present? && params[:page].to_i.positive? ? params[:page].to_i : 1
     @pagination_max = (@properties.count.to_f / PER_PAGE).ceil
 
     if params[:page].present?
-      @first_part = ((@current_page - 1) * PER_PAGE) + 1
-      @last_part = (@current_page * PER_PAGE)
+      @first_part = ((@current_page - 1) * PER_PAGE)
+      @last_part = (@current_page * PER_PAGE) - 1
     else
       @first_part = 1
       @last_part = PER_PAGE
