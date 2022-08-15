@@ -21,8 +21,13 @@
       justify-content: space-between;
       align-items: flex-end;
       margin-bottom: 2vh;
-      p {
-        margin: 3px;
+      .what-where {
+        margin: 0;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.850);
+      }
+      .sort-title {
+        margin-bottom: 4px;
       }
     }
   }
