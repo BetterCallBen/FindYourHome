@@ -39,7 +39,7 @@
 
           <div class="types-filter div-filter">
 
-            <p class="tag">Type de bien</p>
+            <p class="filter-title">Type de bien</p>
 
             <%= link_to "Apartement",
               if params[:types].present? && params[:types].include?("flat")
@@ -90,12 +90,11 @@
             </div>
           </div>
 
-          <p>Nombre de pièce</p>
+          <p class="filter-title">Nombre de pièce</p>
 
           <div class="room-filter div-filter">
 
             <div class="filling-div">
-
               <%= link_to "Studio",
                 if params[:rooms].present? && params[:rooms].include?("1")
                   params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(rooms: params[:rooms].delete("1"))
@@ -104,51 +103,26 @@
                 end,
                 class: "bed-tag studio" + (params[:rooms].present? && params[:rooms].include?("1") ? " active" : "")
               %>
-
               <div class="filling studio <%= 'active' if params[:rooms].present? && params[:rooms].include?("1") && params[:rooms].include?("2")%>" ></div>
-
             </div>
+
+            <% 3.times do |n| %>
+
+              <div class="filling-div">
+                <%= link_to (n + 2).to_s,
+                  if params[:rooms].present? && params[:rooms].include?((n + 2).to_s)
+                    params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(rooms: params[:rooms].delete((n + 2).to_s))
+                  else
+                    request.params.merge(rooms: params[:rooms].present? ? params[:rooms] + (n + 2).to_s : (n + 2).to_s)
+                  end,
+                  class: "bed-tag" + (params[:rooms].present? && params[:rooms].include?((n + 2).to_s) ? " active" : "")
+                %>
+                <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?((n + 2).to_s) && params[:rooms].include?((n + 3).to_s)%>" ></div>
+              </div>
+
+            <% end %>
+
             <div class="filling-div">
-
-              <%= link_to "2",
-                if params[:rooms].present? && params[:rooms].include?("2")
-                  params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(rooms: params[:rooms].delete("2"))
-                else
-                  request.params.merge(rooms: params[:rooms].present? ? params[:rooms] + "2" : "2")
-                end,
-                class: "bed-tag" + (params[:rooms].present? && params[:rooms].include?("2") ? " active" : "")
-              %>
-              <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?("2") && params[:rooms].include?("3")%>" ></div>
-
-            </div>
-            <div class="filling-div">
-
-              <%= link_to "3",
-                if params[:rooms].present? && params[:rooms].include?("3")
-                  params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(rooms: params[:rooms].delete("3"))
-                else
-                  request.params.merge(rooms: params[:rooms].present? ? params[:rooms] + "3" : "3")
-                end,
-                class: "bed-tag" + (params[:rooms].present? && params[:rooms].include?("3") ? " active" : "")
-              %>
-              <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?("3") && params[:rooms].include?("4")%>" ></div>
-
-            </div>
-            <div class="filling-div">
-
-              <%= link_to "4",
-                if params[:rooms].present? && params[:rooms].include?("4")
-                  params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(rooms: params[:rooms].delete("4"))
-                else
-                  request.params.merge(rooms: params[:rooms].present? ? params[:rooms] + "4" : "4")
-                end,
-                class: "bed-tag" + (params[:rooms].present? && params[:rooms].include?("4") ? " active" : "")
-              %>
-              <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?("4") && params[:rooms].include?("5")%>" ></div>
-
-            </div>
-            <div class="filling-div">
-
               <%= link_to "5+",
                 if params[:rooms].present? && params[:rooms].include?("5")
                   params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(rooms: params[:rooms].delete("5"))
@@ -157,7 +131,6 @@
                 end,
                 class: "bed-tag" + (params[:rooms].present? && params[:rooms].include?("5") ? " active" : "")
               %>
-
             </div>
 
             <% if params[:rooms].present? %>
@@ -166,12 +139,11 @@
 
           </div>
 
-          <p>Nombre de chambre</p>
+          <p class="filter-title">Nombre de chambre</p>
 
           <div class="bedroom-filter div-filter">
 
             <div class="filling-div">
-
               <%= link_to "1",
                 if params[:bedrooms].present? && params[:bedrooms].include?("1")
                   params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(bedrooms: params[:bedrooms].delete("1"))
@@ -180,12 +152,10 @@
                 end,
                 class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("1") ? " active" : "")
               %>
-
               <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("1") && params[:bedrooms].include?("2")%>" ></div>
-
             </div>
-            <div class="filling-div">
 
+            <div class="filling-div">
               <%= link_to "2",
                 if params[:bedrooms].present? && params[:bedrooms].include?("2")
                   params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(bedrooms: params[:bedrooms].delete("2"))
@@ -195,10 +165,9 @@
                 class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("2") ? " active" : "")
               %>
               <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("2") && params[:bedrooms].include?("3")%>" ></div>
-
             </div>
-            <div class="filling-div">
 
+            <div class="filling-div">
               <%= link_to "3",
                 if params[:bedrooms].present? && params[:bedrooms].include?("3")
                   params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(bedrooms: params[:bedrooms].delete("3"))
@@ -208,10 +177,9 @@
                 class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("3") ? " active" : "")
               %>
               <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("3") && params[:bedrooms].include?("4")%>" ></div>
-
             </div>
-            <div class="filling-div">
 
+            <div class="filling-div">
               <%= link_to "4",
                 if params[:bedrooms].present? && params[:bedrooms].include?("4")
                   params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(bedrooms: params[:bedrooms].delete("4"))
@@ -221,10 +189,9 @@
                 class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("4") ? " active" : "")
               %>
               <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("4") && params[:bedrooms].include?("5")%>" ></div>
-
             </div>
-            <div class="filling-div">
 
+            <div class="filling-div">
               <%= link_to "5+",
                 if params[:bedrooms].present? && params[:bedrooms].include?("5")
                   params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(bedrooms: params[:bedrooms].delete("5"))
@@ -233,14 +200,13 @@
                 end,
                 class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("5") ? " active" : "")
               %>
-
             </div>
 
             <input type="hidden" name="bedrooms" value="<%= params[:bedrooms] %>" >
 
           </div>
 
-          <p>Surface</p>
+          <p class="filter-title">Surface</p>
           <div class="surface-filter div-filter">
 
             <input placeholder="Min" class="filter" data-action="keyup->apartments#changeSurface"  min="1" max="120" type="number" name="surface_min" value=<%= params[:surface_min] if params[:surface_min].present? %> >
@@ -248,7 +214,7 @@
 
           </div>
 
-          <p class="bold">Critères populaires</p>
+          <p class="bold filter-title">Critères populaires</p>
 
           <div class="criterias-filter div-filter">
 
@@ -330,7 +296,7 @@
 
           <% if @apartments.exists? || params[:types].present? && params[:types].include?("flat") %>
 
-            <p class="bold">Critère d'étage</p>
+            <p class="bold filter-title">Critère d'étage</p>
 
             <div class="criterias-filter div-filter">
 
@@ -350,7 +316,7 @@
 
           <% if params[:project].present? && params[:project] == "rent" %>
 
-            <p class="bold">Type de location</p>
+            <p class="bold filter-title">Type de location</p>
 
             <div class="criterias-filter div-filter">
 
@@ -394,12 +360,12 @@
 
     <div class="apartments">
       <div class="apartment-infos">
-        <p>
+        <p class="what-where">
           <%= pluralize(@properties.count, @what) %>
           <%= @there %>
         </p>
         <div>
-          <p>Trier par</p>
+          <p class="sort-title">Trier par</p>
           <div class="sort-div">
             <div class="sort-input" data-action="click->apartments#displaySort">
               <p class="sort-value"><%= params[:sort].present? ? translate_sort_by(params[:sort]) : "Pertinence" %></p>
@@ -434,7 +400,40 @@
       </div>
 
       <div class="apartment-cards" data-apartments-target="apartments" data-controller="favorite">
-        <%= render 'properties', properties: @properties %>
+        <%= render 'properties' %>
       </div>
+
+      <div class="pagination">
+
+        <div class="pagination-content">
+          <p>Annonces <span class="bold"><%= @first_part %> à <%= @last_part >= @properties.count ? @properties.count : @last_part %></span> sur <%= @properties.count %></p>
+        </div>
+
+        <div class="pagination-navigation">
+
+          <div class="pagination-last">
+            <% if @current_page != 1 %>
+              <%= link_to "Précedent", request.params.merge(page: @current_page - 1), class: "pagination-btn" %>
+            <% end %>
+          </div>
+          <div class="pagination-numbers">
+            <% if @pagination_max > 1 %>
+              <div class="pagination-numbers">
+                <% 1..@pagination_max.times do |page_number| %>
+                  <%= link_to page_number + 1, request.params.merge(page: page_number + 1), class: "pagination-number" %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="pagination-next">
+            <% if @pagination_max > @current_page %>
+              <%= link_to "Suivant", request.params.merge(page: @current_page + 1), class: "pagination-btn" %>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </div>
