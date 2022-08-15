@@ -17,10 +17,6 @@ export default class extends Controller {
     event.stopPropagation()
   }
 
-  submitForm() {
-    this.element.submit()
-  }
-
   displayLocations(event) {
     event.stopPropagation()
     this.locationResultsTarget.classList.remove("d-none")

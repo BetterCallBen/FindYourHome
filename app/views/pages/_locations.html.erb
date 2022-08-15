@@ -2,9 +2,8 @@
   <div class="saved-locations">
     <p class="location-title">Récement recherché</p>
     <% @recent_locations.first(3).each do |recent_location| %>
-      <%= link_to request.params.merge(locations: params[:locations].present? ? params[:locations] + ",#{recent_location.insee_code}" : recent_location.insee_code),
-          class: "location-result",
-          data: { action: 'click->locations#addRecentLocation', type: "#{pluralize_type(recent_location.class.name)}", 'location-id': recent_location.id} do %>
+      <%= link_to request.params.merge(locations: params[:locations].present? ? params[:locations] + ",#{recent_location.insee_code}" : recent_location.insee_code, page: 1),
+          class: "location-result" do %>
         <div class="location-logo-name">
           <i class="fa-solid fa-clock-rotate-left location-logo"></i>
           <p class="location-name"><%= recent_location.name %></p>
@@ -20,7 +19,7 @@
   <div class="matching-locations">
     <p class="location-title">Communes</p>
     <% @results.first(@number_of_results).each do |location| %>
-      <%= link_to request.params.merge(locations: params[:locations].present? ? params[:locations] + ",#{location.insee_code}" : location.insee_code),
+      <%= link_to request.params.merge(locations: params[:locations].present? ? params[:locations] + ",#{location.insee_code}" : location.insee_code, page: 1),
           class: "location-result",
           data: { action: 'click->locations#addRecentLocation', type: "#{pluralize_type(location.class.name)}", 'location-id': location.id} do %>
           <div class="location-logo-name">
