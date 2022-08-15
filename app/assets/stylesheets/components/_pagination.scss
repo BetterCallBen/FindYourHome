@@ -1,0 +1,39 @@
+.pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  .pagination-content {
+    p {
+      margin: 0;
+    }
+  }
+  .pagination-navigation {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    .pagination-last, .pagination-next {
+      width: 100px;
+      .pagination-btn {
+        height: 100%;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 18px;
+        background-color: #2487A4;
+        color: white;
+        font-size: 0.9em;
+      }
+    }
+    .pagination-numbers {
+      display: flex;
+      gap: 1rem;
+      .pagination-number {
+        color: #2487A4;
+      }
+    }
+  }
+}
