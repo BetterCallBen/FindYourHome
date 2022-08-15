@@ -1,14 +1,19 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!
+
+  PER_PAGE = 20
+
   def home
     redirect_to properties_path
   end
 
   def index
     init_properties
-    init_favorites
     filter_properties
     sort_properties
+    paginate_properties
+
+    init_favorites
 
     define_what_to_display
 
@@ -24,13 +29,6 @@ class PagesController < ApplicationController
   def init_properties
     @apartments = Apartment.includes(:city, :borough)
     @houses = House.includes(:city, :borough)
-  end
-
-  def init_favorites
-    return unless user_signed_in?
-
-    @favorite_apartments = current_user.apartments
-    @favorite_houses = current_user.favorite_houses
   end
 
   def filter_properties
@@ -57,6 +55,28 @@ class PagesController < ApplicationController
     end
   end
 
+  def paginate_properties
+    @current_page = params[:page].present? ? params[:page].to_i : 1
+    @pagination_max = (@properties.count.to_f / PER_PAGE).ceil
+
+    if params[:page].present?
+      @first_part = ((@current_page - 1) * PER_PAGE) + 1
+      @last_part = (@current_page * PER_PAGE)
+    else
+      @first_part = 1
+      @last_part = PER_PAGE
+    end
+
+    @properties_paginated = @properties[@first_part..@last_part]
+  end
+
+  def init_favorites
+    return unless user_signed_in?
+
+    @favorite_apartments = current_user.apartments
+    @favorite_houses = current_user.houses
+  end
+
   def filter_by_project
     return unless params[:project].present?
 
@@ -65,7 +85,6 @@ class PagesController < ApplicationController
   end
 
   def filter_by_criterias
-    ## pour appartements et maisons
     filter_for_houses
     filter_for_apartments
   end
@@ -87,7 +106,7 @@ class PagesController < ApplicationController
   end
 
   def filter_by_status
-    # meublé / non meublé
+    ## meublé / non meublé
     return unless params[:status].present?
 
     @apartments = @apartments.where("status ILIKE ? ", params[:status])

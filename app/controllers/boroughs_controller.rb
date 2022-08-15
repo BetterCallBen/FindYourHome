@@ -10,8 +10,6 @@ class BoroughsController < ApplicationController
       cookies[:locations] = { value: [@borough.insee_code], expires: 1.day.from_now }
     end
 
-    cookies[:locations].expires_at = 1.day.from_now
-
     render json: { head: :ok }
   end
 end
