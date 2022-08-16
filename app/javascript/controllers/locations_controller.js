@@ -59,9 +59,9 @@ export default class extends Controller {
       } else {
         if (this.insees.length > 0) {
           const html =
-              `<div class="placehold">
-                <p>Saisissez une ville ou un arrondissement</p>
-              </div>`
+            `<div class="placehold">
+              <p>Saisissez une ville ou un arrondissement</p>
+            </div>`
           this.locationResultsTarget.innerHTML = html
         } else {
           this.locationResultsTarget.innerHTML = ""
