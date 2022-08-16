@@ -7,448 +7,448 @@
 
 <%= link_to "reset", properties_path %>
 
-  <div class="contain"
-       data-action="click->apartments#hideAll click->locations#hideLocations"
-       data-controller="apartments locations bedrooms"
-       locations-insses-value="<%= @locations_insees.nil? ? [] : @locations_insees %>"
-       bedrooms-bedrooms-value="<%= @bedrooms.nil? ? [] : @bedrooms%>"
-       bedrooms-rooms-value="<%= @rooms.nil? ? [] : @rooms%>">
-    <div class="form-div">
-      <div class="filter-form">
-        <%= form_with(url: properties_path, method: :get,
-                      data: { 'apartments-target': "form" },
-                      html: {
-                        autocomplete: "off"
-                      }) do |f| %>
+<div class="contain"
+      data-action="click->apartments#hideAll click->locations#hideLocations"
+      data-controller="apartments locations bedrooms"
+      locations-insses-value="<%= @locations_insees.nil? ? [] : @locations_insees %>"
+      bedrooms-bedrooms-value="<%= @bedrooms.nil? ? [] : @bedrooms%>"
+      bedrooms-rooms-value="<%= @rooms.nil? ? [] : @rooms%>">
+  <div class="form-div">
+    <div class="filter-form">
+      <%= form_with(url: properties_path, method: :get,
+                    data: { 'apartments-target': "form" },
+                    html: {
+                      autocomplete: "off"
+                    }) do |f| %>
 
-          <div class="project-filter div-filter">
+        <div class="project-filter div-filter">
 
-            <%= link_to request.params.merge(page: 1, project: "rent") do %>
-              <p class="<%= params[:project] == "rent" ? 'criteria active' : "criteria"%>">Louer</p>
-            <% end %>
+          <%= link_to request.params.merge(page: 1, project: "rent") do %>
+            <p class="<%= params[:project] == "rent" ? 'criteria active' : "criteria"%>">Louer</p>
+          <% end %>
 
-            <%= link_to request.params.merge(page: 1, project: "buy") do %>
-              <p class="<%= params[:project] == "buy" ? 'criteria active' : "criteria"%>">Acheter</p>
-            <% end %>
+          <%= link_to request.params.merge(page: 1, project: "buy") do %>
+            <p class="<%= params[:project] == "buy" ? 'criteria active' : "criteria"%>">Acheter</p>
+          <% end %>
 
-            <% if params[:project].present? %>
-              <input type="hidden" name="project" value="<%= params[:project] %>">
-            <% end %>
+          <% if params[:project].present? %>
+            <input type="hidden" name="project" value="<%= params[:project] %>">
+          <% end %>
 
-          </div>
+        </div>
 
-          <div class="types-filter div-filter">
+        <div class="types-filter div-filter">
 
-            <p class="filter-title">Type de bien</p>
+          <p class="filter-title">Type de bien</p>
 
-            <%= link_to "Apartement",
-              if params[:types].present? && params[:types].include?("flat")
-                params[:types].include?("house") ? request.params.merge(page: 1, types: ["house"]) : request.params.except(:types)
-              else
-                params[:types].present? && params[:types].include?("house") ? request.params.merge(page: 1, types: ["flat", "house"]) : request.params.merge(page: 1, types: ["flat"])
-              end, class: params[:types].present? && params[:types].include?("flat") ? "criteria active" : "criteria"
-            %>
+          <%= link_to "Apartement",
+            if params[:types].present? && params[:types].include?("flat")
+              params[:types].include?("house") ? request.params.merge(page: 1, types: ["house"]) : request.params.except(:types)
+            else
+              params[:types].present? && params[:types].include?("house") ? request.params.merge(page: 1, types: ["flat", "house"]) : request.params.merge(page: 1, types: ["flat"])
+            end, class: params[:types].present? && params[:types].include?("flat") ? "criteria active" : "criteria"
+          %>
 
-            <%= link_to "Maison",
-              if params[:types].present? && params[:types].include?("house")
-                params[:types].include?("flat") ? request.params.merge(page: 1, types: ["flat"]) : request.params.except(:types)
-              else
-                params[:types].present? && params[:types].include?("flat") ? request.params.merge(page: 1, types: ["flat", "house"]) : request.params.merge(page: 1, types: ["house"])
-              end, class: params[:types].present? && params[:types].include?("house") ? "criteria active" : "criteria"
-            %>
-            <% if params[:types] %>
-              <input class="filter" type="hidden" data-apartments-target="types" name="types" value="<%= params[:types]%>">
-            <% end %>
-          </div>
+          <%= link_to "Maison",
+            if params[:types].present? && params[:types].include?("house")
+              params[:types].include?("flat") ? request.params.merge(page: 1, types: ["flat"]) : request.params.except(:types)
+            else
+              params[:types].present? && params[:types].include?("flat") ? request.params.merge(page: 1, types: ["flat", "house"]) : request.params.merge(page: 1, types: ["house"])
+            end, class: params[:types].present? && params[:types].include?("house") ? "criteria active" : "criteria"
+          %>
+          <% if params[:types] %>
+            <input class="filter" type="hidden" data-apartments-target="types" name="types" value="<%= params[:types]%>">
+          <% end %>
+        </div>
 
-          <div class="locations">
-            <div class="location-input">
-              <% unless @locations_tags.nil? %>
-                <div class="location-tags" >
-                  <% @locations_tags.each do |location_tag| %>
-                    <%= link_to params[:locations].split(",").count == 1 ? request.params.except(:locations) : request.params.merge(page: 1, locations: params[:locations].split(",").delete_if { |n| n == location_tag.insee_code}.join(",") ),
-                        class: "location-tag" do %>
-                      <p class="location"><%= location_tag.name %></p>
-                      <i class="fa-solid fa-xmark cross"></i>
-                    <% end %>
+        <div class="locations">
+          <div class="location-input">
+            <% unless @locations_tags.nil? %>
+              <div class="location-tags" >
+                <% @locations_tags.each do |location_tag| %>
+                  <%= link_to params[:locations].split(",").count == 1 ? request.params.except(:locations) : request.params.merge(page: 1, locations: params[:locations].split(",").delete_if { |n| n == location_tag.insee_code}.join(",") ),
+                      class: "location-tag" do %>
+                    <p class="location"><%= location_tag.name %></p>
+                    <i class="fa-solid fa-xmark cross"></i>
                   <% end %>
-                </div>
-              <% end %>
-              <input class="input" placeholder="<%= "Saisissez une ville ou un arrondissement" if @locations_tags.nil?%>" type="text" data-action="keyup->locations#searchLocations click->locations#displayLocations">
-            </div>
-
-            <input class="filter d-none" data-locations-target="locations" name="locations" value="<%= params[:locations] if params[:locations] %>">
-
-            <div class="relative-div">
-              <div class="location-results d-none" data-locations-target="locationResults" data-action="click->locations#dontHideLocations">
-                <% unless @locations_tags.nil? %>
-                  <div class="placehold">
-                    <p>Saisissez une ville ou un arrondissement</p>
-                  </div>
                 <% end %>
               </div>
-            </div>
+            <% end %>
+            <input class="input" placeholder="<%= "Saisissez une ville ou un arrondissement" if @locations_tags.nil? %>" type="text" data-action="keyup->locations#searchLocations click->locations#displayLocations">
           </div>
 
-          <p class="filter-title">Nombre de pièce</p>
+          <input class="filter d-none" data-locations-target="locations" name="locations" value="<%= params[:locations] if params[:locations] %>">
 
-          <div class="room-filter div-filter">
-
-            <div class="filling-div">
-              <%= link_to "Studio",
-                if params[:rooms].present? && params[:rooms].include?("1")
-                  params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(page: 1, rooms: params[:rooms].delete("1"))
-                else
-                  request.params.merge(page: 1, rooms: params[:rooms].present? ? params[:rooms] + "1" : "1")
-                end,
-                class: "bed-tag studio" + (params[:rooms].present? && params[:rooms].include?("1") ? " active" : "")
-              %>
-              <div class="filling studio <%= 'active' if params[:rooms].present? && params[:rooms].include?("1") && params[:rooms].include?("2")%>" ></div>
+          <div class="relative-div">
+            <div class="location-results d-none" data-locations-target="locationResults" data-action="click->locations#dontHideLocations">
+              <% unless @locations_tags.nil? %>
+                <div class="placehold">
+                  <p>Saisissez une ville ou un arrondissement</p>
+                </div>
+              <% end %>
             </div>
+          </div>
+        </div>
 
-            <% 3.times do |n| %>
+        <p class="filter-title">Nombre de pièce</p>
 
-              <div class="filling-div">
-                <%= link_to (n + 2).to_s,
-                  if params[:rooms].present? && params[:rooms].include?((n + 2).to_s)
-                    params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(page: 1, rooms: params[:rooms].delete((n + 2).to_s))
-                  else
-                    request.params.merge(page: 1, rooms: params[:rooms].present? ? params[:rooms] + (n + 2).to_s : (n + 2).to_s)
-                  end,
-                  class: "bed-tag" + (params[:rooms].present? && params[:rooms].include?((n + 2).to_s) ? " active" : "")
-                %>
-                <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?((n + 2).to_s) && params[:rooms].include?((n + 3).to_s)%>" ></div>
-              </div>
+        <div class="room-filter div-filter">
 
-            <% end %>
-
-            <div class="filling-div">
-              <%= link_to "5+",
-                if params[:rooms].present? && params[:rooms].include?("5")
-                  params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(page: 1, rooms: params[:rooms].delete("5"))
-                else
-                  request.params.merge(page: 1, rooms: params[:rooms].present? ? params[:rooms] + "5" : "5")
-                end,
-                class: "bed-tag" + (params[:rooms].present? && params[:rooms].include?("5") ? " active" : "")
-              %>
-            </div>
-
-            <% if params[:rooms].present? %>
-              <input type="hidden" name="rooms" value="<%= params[:rooms]%>">
-            <% end %>
-
+          <div class="filling-div">
+            <%= link_to "Studio",
+              if params[:rooms].present? && params[:rooms].include?("1")
+                params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(page: 1, rooms: params[:rooms].delete("1"))
+              else
+                request.params.merge(page: 1, rooms: params[:rooms].present? ? params[:rooms] + "1" : "1")
+              end,
+              class: "bed-tag studio" + (params[:rooms].present? && params[:rooms].include?("1") ? " active" : "")
+            %>
+            <div class="filling studio <%= 'active' if params[:rooms].present? && params[:rooms].include?("1") && params[:rooms].include?("2")%>" ></div>
           </div>
 
-          <p class="filter-title">Nombre de chambre</p>
-
-          <div class="bedroom-filter div-filter">
+          <% 3.times do |n| %>
 
             <div class="filling-div">
-              <%= link_to "1",
-                if params[:bedrooms].present? && params[:bedrooms].include?("1")
-                  params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(page: 1, bedrooms: params[:bedrooms].delete("1"))
+              <%= link_to (n + 2).to_s,
+                if params[:rooms].present? && params[:rooms].include?((n + 2).to_s)
+                  params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(page: 1, rooms: params[:rooms].delete((n + 2).to_s))
                 else
-                  request.params.merge(page: 1, bedrooms: params[:bedrooms].present? ? params[:bedrooms] + "1" : "1")
+                  request.params.merge(page: 1, rooms: params[:rooms].present? ? params[:rooms] + (n + 2).to_s : (n + 2).to_s)
                 end,
-                class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("1") ? " active" : "")
+                class: "bed-tag" + (params[:rooms].present? && params[:rooms].include?((n + 2).to_s) ? " active" : "")
               %>
-              <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("1") && params[:bedrooms].include?("2")%>" ></div>
+              <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?((n + 2).to_s) && params[:rooms].include?((n + 3).to_s)%>" ></div>
             </div>
 
-            <div class="filling-div">
-              <%= link_to "2",
-                if params[:bedrooms].present? && params[:bedrooms].include?("2")
-                  params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(page: 1, bedrooms: params[:bedrooms].delete("2"))
-                else
-                  request.params.merge(page: 1, bedrooms: params[:bedrooms].present? ? params[:bedrooms] + "2" : "2")
-                end,
-                class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("2") ? " active" : "")
-              %>
-              <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("2") && params[:bedrooms].include?("3")%>" ></div>
-            </div>
+          <% end %>
 
-            <div class="filling-div">
-              <%= link_to "3",
-                if params[:bedrooms].present? && params[:bedrooms].include?("3")
-                  params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(page: 1, bedrooms: params[:bedrooms].delete("3"))
-                else
-                  request.params.merge(page: 1, bedrooms: params[:bedrooms].present? ? params[:bedrooms] + "3" : "3")
-                end,
-                class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("3") ? " active" : "")
-              %>
-              <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("3") && params[:bedrooms].include?("4")%>" ></div>
-            </div>
-
-            <div class="filling-div">
-              <%= link_to "4",
-                if params[:bedrooms].present? && params[:bedrooms].include?("4")
-                  params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(page: 1, bedrooms: params[:bedrooms].delete("4"))
-                else
-                  request.params.merge(page: 1, bedrooms: params[:bedrooms].present? ? params[:bedrooms] + "4" : "4")
-                end,
-                class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("4") ? " active" : "")
-              %>
-              <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("4") && params[:bedrooms].include?("5")%>" ></div>
-            </div>
-
-            <div class="filling-div">
-              <%= link_to "5+",
-                if params[:bedrooms].present? && params[:bedrooms].include?("5")
-                  params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(page: 1, bedrooms: params[:bedrooms].delete("5"))
-                else
-                  request.params.merge(page: 1, bedrooms: params[:bedrooms].present? ? params[:bedrooms] + "5" : "5")
-                end,
-                class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("5") ? " active" : "")
-              %>
-            </div>
-
-            <input type="hidden" name="bedrooms" value="<%= params[:bedrooms] %>" >
-
+          <div class="filling-div">
+            <%= link_to "5+",
+              if params[:rooms].present? && params[:rooms].include?("5")
+                params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(page: 1, rooms: params[:rooms].delete("5"))
+              else
+                request.params.merge(page: 1, rooms: params[:rooms].present? ? params[:rooms] + "5" : "5")
+              end,
+              class: "bed-tag" + (params[:rooms].present? && params[:rooms].include?("5") ? " active" : "")
+            %>
           </div>
 
-          <p class="filter-title">Surface</p>
+          <% if params[:rooms].present? %>
+            <input type="hidden" name="rooms" value="<%= params[:rooms]%>">
+          <% end %>
 
-          <div class="surface-filter div-filter">
+        </div>
 
-            <input placeholder="Min" class="filter" data-action="keyup->apartments#changeSurface"  min="1" max="120" type="number" name="surface_min" value=<%= params[:surface_min] if params[:surface_min].present? %> >
-            <input placeholder="Max" class="filter" data-apartments-target="secondSurfaceInput" data-action="keyup->apartments#validSurface" min="1" max="120" type="number" name="surface_max" value=<%= params[:surface_max] if params[:surface_max].present? && params[:surface_max].to_i >= params[:surface_min].to_i %> >
+        <p class="filter-title">Nombre de chambre</p>
 
+        <div class="bedroom-filter div-filter">
+
+          <div class="filling-div">
+            <%= link_to "1",
+              if params[:bedrooms].present? && params[:bedrooms].include?("1")
+                params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(page: 1, bedrooms: params[:bedrooms].delete("1"))
+              else
+                request.params.merge(page: 1, bedrooms: params[:bedrooms].present? ? params[:bedrooms] + "1" : "1")
+              end,
+              class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("1") ? " active" : "")
+            %>
+            <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("1") && params[:bedrooms].include?("2")%>" ></div>
           </div>
 
-          <p class="bold filter-title">Critères populaires</p>
-
-          <div class="criterias-filter div-filter">
-
-            <%= link_to params[:balcony].present? ? request.params.except(:balcony) : request.params.merge(page: 1, balcony: true) do %>
-              <p class= "<%=params[:balcony] == "true" ? 'criteria active' : 'criteria' %>">Balcon (<%= @apartments.where(balcony: true).count + @houses.where(balcony: true).count%>)</p>
-            <% end %>
-
-            <% if params[:balcony].present? %>
-              <input type="hidden" name="balcony"  value="<%= params[:balcony] %>">
-            <% end %>
-
-            <%= link_to params[:chimney].present? ? request.params.except(:chimney) : request.params.merge(page: 1, chimney: true) do %>
-              <p class= "<%=params[:chimney] == "true" ? 'criteria active' : 'criteria' %>">Cheminée (<%= @apartments.where(chimney: true).count + @houses.where(chimney: true).count%>)</p>
-            <% end %>
-
-            <% if params[:chimney].present? %>
-              <input type="hidden" name="chimney"  value="<%= params[:chimney] %>">
-            <% end %>
-
-
-            <% if @apartments.exists? || params[:types].present? && params[:types].include?("flat") %>
-
-              <%= link_to params[:elevator].present? ? request.params.except(:elevator) : request.params.merge(page: 1, elevator: true) do %>
-                <p class= "<%=params[:elevator] == "true" ? 'criteria active' : 'criteria' %>">Ascenseur (<%= @apartments.where(elevator: true).count %>)</p>
-              <% end %>
-
-              <% if params[:elevator].present? %>
-              <input type="hidden" name="elevator"  value="<%= params[:elevator] %>">
-              <% end %>
-
-            <% end %>
-
-            <%= link_to params[:garage].present? ? request.params.except(:garage) : request.params.merge(page: 1, garage: true) do %>
-              <p class= "<%=params[:garage] == "true" ? 'criteria active' : 'criteria' %>">Garage (<%= @apartments.where(garage: true).count + @houses.where(garage: true).count%>)</p>
-            <% end %>
-
-            <% if params[:garage].present? %>
-              <input type="hidden" name="garage"  value="<%= params[:garage] %>">
-            <% end %>
-
-            <%= link_to params[:terrace].present? ? request.params.except(:terrace) : request.params.merge(page: 1, terrace: true) do %>
-              <p class= "<%=params[:terrace] == "true" ? 'criteria active' : 'criteria' %>">Terrasse (<%= @apartments.where(terrace: true).count + @houses.where(terrace: true).count%>)</p>
-            <% end %>
-
-            <% if params[:terrace].present? %>
-              <input type="hidden" name="terrace"  value="<%= params[:terrace] %>">
-            <% end %>
-
-
-            <% if @houses.exists? || params[:types].present? && params[:types].include?("house") %>
-
-              <%= link_to params[:garden].present? ? request.params.except(:garden) : request.params.merge(page: 1, garden: true) do %>
-                <p class= "<%=params[:garden] == "true" ? 'criteria active' : 'criteria' %>">Jardin (<%= @houses.where(garden: true).count%>)</p>
-              <% end %>
-
-              <% if params[:garden].present? %>
-                <input type="hidden" name="garden"  value="<%= params[:garden] %>">
-              <% end %>
-
-              <%= link_to params[:pool].present? ? request.params.except(:pool) : request.params.merge(page: 1, pool: true) do %>
-                <p class= "<%=params[:pool] == "true" ? 'criteria active' : 'criteria' %>">Piscine (<%= @houses.where(pool: true).count%>)</p>
-              <% end %>
-
-              <% if params[:pool].present? %>
-                <input type="hidden" name="pool"  value="<%= params[:pool] %>">
-              <% end %>
-
-            <% end %>
-
-            <%= link_to params[:cellar].present? ? request.params.except(:cellar) : request.params.merge(page: 1, cellar: true) do %>
-              <p class= "<%=params[:cellar] == "true" ? 'criteria active' : 'criteria' %>">Cave (<%= @apartments.where(cellar: true).count + @houses.where(cellar: true).count%>)</p>
-            <% end %>
-
-            <% if params[:cellar].present? %>
-              <input type="hidden" name="cellar"  value="<%= params[:cellar] %>">
-            <% end %>
-
+          <div class="filling-div">
+            <%= link_to "2",
+              if params[:bedrooms].present? && params[:bedrooms].include?("2")
+                params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(page: 1, bedrooms: params[:bedrooms].delete("2"))
+              else
+                request.params.merge(page: 1, bedrooms: params[:bedrooms].present? ? params[:bedrooms] + "2" : "2")
+              end,
+              class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("2") ? " active" : "")
+            %>
+            <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("2") && params[:bedrooms].include?("3")%>" ></div>
           </div>
+
+          <div class="filling-div">
+            <%= link_to "3",
+              if params[:bedrooms].present? && params[:bedrooms].include?("3")
+                params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(page: 1, bedrooms: params[:bedrooms].delete("3"))
+              else
+                request.params.merge(page: 1, bedrooms: params[:bedrooms].present? ? params[:bedrooms] + "3" : "3")
+              end,
+              class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("3") ? " active" : "")
+            %>
+            <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("3") && params[:bedrooms].include?("4")%>" ></div>
+          </div>
+
+          <div class="filling-div">
+            <%= link_to "4",
+              if params[:bedrooms].present? && params[:bedrooms].include?("4")
+                params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(page: 1, bedrooms: params[:bedrooms].delete("4"))
+              else
+                request.params.merge(page: 1, bedrooms: params[:bedrooms].present? ? params[:bedrooms] + "4" : "4")
+              end,
+              class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("4") ? " active" : "")
+            %>
+            <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("4") && params[:bedrooms].include?("5")%>" ></div>
+          </div>
+
+          <div class="filling-div">
+            <%= link_to "5+",
+              if params[:bedrooms].present? && params[:bedrooms].include?("5")
+                params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(page: 1, bedrooms: params[:bedrooms].delete("5"))
+              else
+                request.params.merge(page: 1, bedrooms: params[:bedrooms].present? ? params[:bedrooms] + "5" : "5")
+              end,
+              class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("5") ? " active" : "")
+            %>
+          </div>
+
+          <input type="hidden" name="bedrooms" value="<%= params[:bedrooms] %>" >
+
+        </div>
+
+        <p class="filter-title">Surface</p>
+
+        <div class="surface-filter div-filter">
+
+          <input placeholder="Min" class="filter" data-action="keyup->apartments#changeSurface"  min="1" max="120" type="number" name="surface_min" value=<%= params[:surface_min] if params[:surface_min].present? %> >
+          <input placeholder="Max" class="filter" data-apartments-target="secondSurfaceInput" data-action="keyup->apartments#validSurface" min="1" max="120" type="number" name="surface_max" value=<%= params[:surface_max] if params[:surface_max].present? && params[:surface_max].to_i >= params[:surface_min].to_i %> >
+
+        </div>
+
+        <p class="bold filter-title">Critères populaires</p>
+
+        <div class="criterias-filter div-filter">
+
+          <%= link_to params[:balcony].present? ? request.params.except(:balcony) : request.params.merge(page: 1, balcony: true) do %>
+            <p class= "<%=params[:balcony] == "true" ? 'criteria active' : 'criteria' %>">Balcon (<%= @apartments.where(balcony: true).count + @houses.where(balcony: true).count%>)</p>
+          <% end %>
+
+          <% if params[:balcony].present? %>
+            <input type="hidden" name="balcony"  value="<%= params[:balcony] %>">
+          <% end %>
+
+          <%= link_to params[:chimney].present? ? request.params.except(:chimney) : request.params.merge(page: 1, chimney: true) do %>
+            <p class= "<%=params[:chimney] == "true" ? 'criteria active' : 'criteria' %>">Cheminée (<%= @apartments.where(chimney: true).count + @houses.where(chimney: true).count%>)</p>
+          <% end %>
+
+          <% if params[:chimney].present? %>
+            <input type="hidden" name="chimney"  value="<%= params[:chimney] %>">
+          <% end %>
+
 
           <% if @apartments.exists? || params[:types].present? && params[:types].include?("flat") %>
 
-            <p class="bold filter-title">Critère d'étage</p>
+            <%= link_to params[:elevator].present? ? request.params.except(:elevator) : request.params.merge(page: 1, elevator: true) do %>
+              <p class= "<%=params[:elevator] == "true" ? 'criteria active' : 'criteria' %>">Ascenseur (<%= @apartments.where(elevator: true).count %>)</p>
+            <% end %>
 
-            <div class="criterias-filter div-filter">
-
-              <%= link_to params[:floor].present? && params[:floor] == "ground" ? request.params.except(:floor) : request.params.merge(page: 1, floor: "ground") do %>
-                <p class= "<%=params[:floor] == "ground" ? 'criteria active' : 'criteria' %>">Rez de chaussée</p>
-              <% end %>
-              <%= link_to params[:floor].present? && params[:floor] == "not ground" ? request.params.except(:floor) : request.params.merge(page: 1, floor: "not ground") do %>
-                <p class= "<%=params[:floor] == "not ground" ? 'criteria active' : 'criteria' %>">Éviter le Rez de chaussée</p>
-              <% end %>
-              <%= link_to params[:floor].present? && params[:floor] == "last" ? request.params.except(:floor) : request.params.merge(page: 1, floor: "last") do %>
-                <p class= "<%=params[:floor] == "last" ? 'criteria active' : 'criteria' %>">Dernier étage</p>
-              <% end %>
-
-            </div>
-          <% end %>
-
-
-          <% if params[:project].present? && params[:project] == "rent" %>
-
-            <p class="bold filter-title">Type de location</p>
-
-            <div class="criterias-filter div-filter">
-
-              <%= link_to params[:status] == "furnished" ? request.params.except(:status): request.params.merge(page: 1, status: "furnished") do %>
-                <p class= "<%=params[:status] == "furnished" ? 'criteria active' : 'criteria' %>">Meublé</p>
-              <% end %>
-              <%= link_to params[:status] == "unfurnished" ? request.params.except(:status): request.params.merge(page: 1, status: "unfurnished") do %>
-                <p class= "<%=params[:status] == "unfurnished" ? 'criteria active' : 'criteria' %>">Non meublé</p>
-              <% end %>
-
-              <% if params[:status].present? %>
-                <input type="hidden" name="status" value="<%= params[:status] %>">
-              <% end %>
-            </div>
+            <% if params[:elevator].present? %>
+            <input type="hidden" name="elevator"  value="<%= params[:elevator] %>">
+            <% end %>
 
           <% end %>
 
-        <% end %>
-
-        <%= form_with model: Research.new do |f| %>
-          <%= f.hidden_field :project, value: params[:project] if params[:project].present?  %>
-          <%= f.hidden_field :types, value: params[:types] if params[:types].present?  %>
-          <%= f.hidden_field :locations, value: params[:locations] if params[:locations].present?  %>
-          <%= f.hidden_field :rooms, value: params[:rooms] if params[:rooms].present?  %>
-          <%= f.hidden_field :bedrooms, value: params[:bedrooms] if params[:bedrooms].present?  %>
-          <%= f.hidden_field :surface_min, value: params[:surface_min] if params[:surface_min].present?  %>
-          <%= f.hidden_field :surface_max, value: params[:surface_max] if params[:surface_max].present?  %>
-          <%= f.hidden_field :status, value: params[:status] if params[:status].present?  %>
-          <%= f.hidden_field :link, value: request.url  %>
-          <%= button_tag(type: 'submit', class: "save-research-btn") do %>
-            <i class="fa-regular fa-bell save-bell"></i>
-            <p>Sauvegarder ma recherche</p>
+          <%= link_to params[:garage].present? ? request.params.except(:garage) : request.params.merge(page: 1, garage: true) do %>
+            <p class= "<%=params[:garage] == "true" ? 'criteria active' : 'criteria' %>">Garage (<%= @apartments.where(garage: true).count + @houses.where(garage: true).count%>)</p>
           <% end %>
-        <% end %>
 
-      </div>
-    </div>
+          <% if params[:garage].present? %>
+            <input type="hidden" name="garage"  value="<%= params[:garage] %>">
+          <% end %>
+
+          <%= link_to params[:terrace].present? ? request.params.except(:terrace) : request.params.merge(page: 1, terrace: true) do %>
+            <p class= "<%=params[:terrace] == "true" ? 'criteria active' : 'criteria' %>">Terrasse (<%= @apartments.where(terrace: true).count + @houses.where(terrace: true).count%>)</p>
+          <% end %>
+
+          <% if params[:terrace].present? %>
+            <input type="hidden" name="terrace"  value="<%= params[:terrace] %>">
+          <% end %>
 
 
+          <% if @houses.exists? || params[:types].present? && params[:types].include?("house") %>
 
-    <div class="apartments">
-      <div class="apartment-infos">
-        <p class="what-where">
-          <%= pluralize(@properties.count, @what) %>
-          <%= @there %>
-        </p>
-        <div>
-          <p class="sort-title">Trier par</p>
-          <div class="sort-div">
-            <div class="sort-input" data-action="click->apartments#displaySort">
-              <p class="sort-value"><%= params[:sort].present? ? translate_sort_by(params[:sort]) : "Pertinence" %></p>
-              <i class="fa-solid fa-bars"></i>
-            </div>
-            <div class="sort-tags d-none" data-apartments-target="sortPropositions">
-              <%= link_to request.params.merge(page: 1, sort: "relevance"), class: "sort-tag first" do %>
-                <% if params[:sort].present? && params[:sort] == 'relevance' || !params[:sort].present? %>
-                  <i class="fa-solid fa-circle-check"></i>
-                <% end %>
-                <p>Pertinence</p>
-              <% end %>
-              <%= link_to request.params.merge(page: 1, sort: "price"), class: "sort-tag middle" do %>
-                <% if params[:sort].present? && params[:sort] == 'price' %>
-                  <i class="fa-solid fa-circle-check"></i>
-                <% end %>
-                <p>Prix</p>
-              <% end %>
-              <%= link_to request.params.merge(page: 1, sort: "surface"), class: "sort-tag last" do %>
-                <% if params[:sort].present? && params[:sort] == 'surface' %>
-                  <i class="fa-solid fa-circle-check"></i>
-                <% end %>
-                <p>Surface</p>
-              <% end %>
-              <% if params[:sort].present? %>
-                <input type="hidden" name="sort" value="<%= params[:sort] %>" >
-              <% end %>
+            <%= link_to params[:garden].present? ? request.params.except(:garden) : request.params.merge(page: 1, garden: true) do %>
+              <p class= "<%=params[:garden] == "true" ? 'criteria active' : 'criteria' %>">Jardin (<%= @houses.where(garden: true).count%>)</p>
+            <% end %>
 
-            </div>
+            <% if params[:garden].present? %>
+              <input type="hidden" name="garden"  value="<%= params[:garden] %>">
+            <% end %>
+
+            <%= link_to params[:pool].present? ? request.params.except(:pool) : request.params.merge(page: 1, pool: true) do %>
+              <p class= "<%=params[:pool] == "true" ? 'criteria active' : 'criteria' %>">Piscine (<%= @houses.where(pool: true).count%>)</p>
+            <% end %>
+
+            <% if params[:pool].present? %>
+              <input type="hidden" name="pool"  value="<%= params[:pool] %>">
+            <% end %>
+
+          <% end %>
+
+          <%= link_to params[:cellar].present? ? request.params.except(:cellar) : request.params.merge(page: 1, cellar: true) do %>
+            <p class= "<%=params[:cellar] == "true" ? 'criteria active' : 'criteria' %>">Cave (<%= @apartments.where(cellar: true).count + @houses.where(cellar: true).count%>)</p>
+          <% end %>
+
+          <% if params[:cellar].present? %>
+            <input type="hidden" name="cellar"  value="<%= params[:cellar] %>">
+          <% end %>
+
+        </div>
+
+        <% if @apartments.exists? || params[:types].present? && params[:types].include?("flat") %>
+
+          <p class="bold filter-title">Critère d'étage</p>
+
+          <div class="criterias-filter div-filter">
+
+            <%= link_to params[:floor].present? && params[:floor] == "ground" ? request.params.except(:floor) : request.params.merge(page: 1, floor: "ground") do %>
+              <p class= "<%=params[:floor] == "ground" ? 'criteria active' : 'criteria' %>">Rez de chaussée</p>
+            <% end %>
+            <%= link_to params[:floor].present? && params[:floor] == "not ground" ? request.params.except(:floor) : request.params.merge(page: 1, floor: "not ground") do %>
+              <p class= "<%=params[:floor] == "not ground" ? 'criteria active' : 'criteria' %>">Éviter le Rez de chaussée</p>
+            <% end %>
+            <%= link_to params[:floor].present? && params[:floor] == "last" ? request.params.except(:floor) : request.params.merge(page: 1, floor: "last") do %>
+              <p class= "<%=params[:floor] == "last" ? 'criteria active' : 'criteria' %>">Dernier étage</p>
+            <% end %>
+
           </div>
-        </div>
-      </div>
+        <% end %>
 
-      <div class="apartment-cards" data-apartments-target="apartments" data-controller="favorite">
-        <%= render 'properties' %>
-      </div>
 
-      <div class="pagination">
+        <% if params[:project].present? && params[:project] == "rent" %>
 
-        <div class="pagination-content">
-          <p>Annonces <span class="bold"><%= @first_part + 1 %> à <%= @last_part >= @properties.count ? @properties.count : @last_part + 1 %></span> sur <%= @properties.count %></p>
-        </div>
+          <p class="bold filter-title">Type de location</p>
 
-        <% if @pagination_max > 1 %>
+          <div class="criterias-filter div-filter">
 
-          <div class="pagination-navigation">
-            <% if @current_page > 1 %>
-              <%= link_to request.params.merge(page: 1, page: @current_page - 1), class: "pagination-btn active" do %>
-                <i class="fa-solid fa-chevron-left"></i>
-              <% end %>
-            <% else %>
-              <div class="pagination-btn">
-                <i class="fa-solid fa-chevron-left"></i>
-              </div>
+            <%= link_to params[:status] == "furnished" ? request.params.except(:status): request.params.merge(page: 1, status: "furnished") do %>
+              <p class= "<%=params[:status] == "furnished" ? 'criteria active' : 'criteria' %>">Meublé</p>
             <% end %>
-            <div class="pagination-numbers">
-              <% 1..@pagination_max.times do |page_number| %>
-                <% if page_number + 1 == params[:page].to_i %>
-                  <div class="pagination-number active">
-                    <%= page_number + 1 %>
-                  </div>
-                <% else %>
-                  <%= link_to page_number + 1, request.params.merge(page: 1, page: page_number + 1), class: "pagination-number" %>
-                <% end %>
-              <% end %>
-            </div>
-
-            <% if @current_page < @pagination_max %>
-              <%= link_to request.params.merge(page: 1, page: @current_page + 1), class: "pagination-btn active" do %>
-                <i class="fa-solid fa-chevron-right"></i>
-              <% end %>
-            <% else %>
-              <div class="pagination-btn">
-                <i class="fa-solid fa-chevron-right"></i>
-              </div>
+            <%= link_to params[:status] == "unfurnished" ? request.params.except(:status): request.params.merge(page: 1, status: "unfurnished") do %>
+              <p class= "<%=params[:status] == "unfurnished" ? 'criteria active' : 'criteria' %>">Non meublé</p>
             <% end %>
 
-          <% end %>
+            <% if params[:status].present? %>
+              <input type="hidden" name="status" value="<%= params[:status] %>">
+            <% end %>
+          </div>
 
+        <% end %>
 
-        </div>
+      <% end %>
 
-      </div>
+      <%= form_with model: Research.new do |f| %>
+        <%= f.hidden_field :project, value: params[:project] if params[:project].present?  %>
+        <%= f.hidden_field :types, value: params[:types] if params[:types].present?  %>
+        <%= f.hidden_field :locations, value: params[:locations] if params[:locations].present?  %>
+        <%= f.hidden_field :rooms, value: params[:rooms] if params[:rooms].present?  %>
+        <%= f.hidden_field :bedrooms, value: params[:bedrooms] if params[:bedrooms].present?  %>
+        <%= f.hidden_field :surface_min, value: params[:surface_min] if params[:surface_min].present?  %>
+        <%= f.hidden_field :surface_max, value: params[:surface_max] if params[:surface_max].present?  %>
+        <%= f.hidden_field :status, value: params[:status] if params[:status].present?  %>
+        <%= f.hidden_field :link, value: request.url  %>
+        <%= button_tag(type: 'submit', class: "save-research-btn") do %>
+          <i class="fa-regular fa-bell save-bell"></i>
+          <p>Sauvegarder ma recherche</p>
+        <% end %>
+      <% end %>
 
     </div>
   </div>
+
+
+
+  <div class="apartments">
+    <div class="apartment-infos">
+      <p class="what-where">
+        <%= pluralize(@properties.count, @what) %>
+        <%= @there %>
+      </p>
+      <div>
+        <p class="sort-title">Trier par</p>
+        <div class="sort-div">
+          <div class="sort-input" data-action="click->apartments#displaySort">
+            <p class="sort-value"><%= params[:sort].present? ? translate_sort_by(params[:sort]) : "Pertinence" %></p>
+            <i class="fa-solid fa-bars"></i>
+          </div>
+          <div class="sort-tags d-none" data-apartments-target="sortPropositions">
+            <%= link_to request.params.merge(page: 1, sort: "relevance"), class: "sort-tag first" do %>
+              <% if params[:sort].present? && params[:sort] == 'relevance' || !params[:sort].present? %>
+                <i class="fa-solid fa-circle-check"></i>
+              <% end %>
+              <p>Pertinence</p>
+            <% end %>
+            <%= link_to request.params.merge(page: 1, sort: "price"), class: "sort-tag middle" do %>
+              <% if params[:sort].present? && params[:sort] == 'price' %>
+                <i class="fa-solid fa-circle-check"></i>
+              <% end %>
+              <p>Prix</p>
+            <% end %>
+            <%= link_to request.params.merge(page: 1, sort: "surface"), class: "sort-tag last" do %>
+              <% if params[:sort].present? && params[:sort] == 'surface' %>
+                <i class="fa-solid fa-circle-check"></i>
+              <% end %>
+              <p>Surface</p>
+            <% end %>
+            <% if params[:sort].present? %>
+              <input type="hidden" name="sort" value="<%= params[:sort] %>" >
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="apartment-cards" data-apartments-target="apartments" data-controller="favorite">
+      <%= render 'properties' %>
+    </div>
+
+    <div class="pagination">
+
+      <div class="pagination-content">
+        <p>Annonces <span class="bold"><%= @first_part + 1 %> à <%= @last_part >= @properties.count ? @properties.count : @last_part + 1 %></span> sur <%= @properties.count %></p>
+      </div>
+
+      <% if @pagination_max > 1 %>
+
+        <div class="pagination-navigation">
+          <% if @current_page > 1 %>
+            <%= link_to request.params.merge(page: @current_page - 1), class: "pagination-btn active" do %>
+              <i class="fa-solid fa-chevron-left"></i>
+            <% end %>
+          <% else %>
+            <div class="pagination-btn">
+              <i class="fa-solid fa-chevron-left"></i>
+            </div>
+          <% end %>
+          <div class="pagination-numbers">
+            <% 1..@pagination_max.times do |page_number| %>
+              <% if page_number + 1 == params[:page].to_i %>
+                <div class="pagination-number active">
+                  <%= page_number + 1 %>
+                </div>
+              <% else %>
+                <%= link_to page_number + 1, request.params.merge(page: page_number + 1), class: "pagination-number" %>
+              <% end %>
+            <% end %>
+          </div>
+
+          <% if @current_page < @pagination_max %>
+            <%= link_to request.params.merge(page: @current_page + 1), class: "pagination-btn active" do %>
+              <i class="fa-solid fa-chevron-right"></i>
+            <% end %>
+          <% else %>
+            <div class="pagination-btn">
+              <i class="fa-solid fa-chevron-right"></i>
+            </div>
+          <% end %>
+
+        <% end %>
+
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
