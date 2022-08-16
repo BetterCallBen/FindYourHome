@@ -1,4 +1,4 @@
-<% unless @recent_locations.count == 0 %>
+<% if @recent_locations.present? && @recent_locations.count != 0 %>
   <div class="saved-locations">
     <p class="location-title">Récement recherché</p>
     <% @recent_locations.first(3).each do |recent_location| %>
@@ -15,7 +15,8 @@
     <% end %>
   </div>
 <% end %>
-<% unless @results.count == 0 %>
+
+<% if @results.present? && @results.count != 0 %>
   <div class="matching-locations">
     <p class="location-title">Communes</p>
     <% @results.first(@number_of_results).each do |location| %>
