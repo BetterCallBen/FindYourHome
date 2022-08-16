@@ -9,10 +9,6 @@ export default class extends Controller {
     this.sortPropositionsTarget.classList.add("d-none")
   }
 
-  submitForm() {
-    this.formTarget.submit()
-  }
-
   // Surface
 
   changeSurface(event) {
@@ -27,7 +23,7 @@ export default class extends Controller {
 
   validSurface(event) {
     if (event.keyCode === 13 || event.currentTarget.value.length === 3) {
-      this.submitForm()
+      this.formTarget.submit()
     }
   }
 
