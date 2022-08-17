@@ -20,7 +20,6 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.html
       format.text { render partial: 'locations', formats: :html }
-      format.json { render json: @properties.count }
     end
   end
 
@@ -122,16 +121,15 @@ class PagesController < ApplicationController
   end
 
   def filter_by_surface
-    if params[:surface_min].present? && params[:surface_max].present? && params[:surface_max].to_i >= params[:surface_min].to_i
-      @apartments = @apartments.where(surface: params[:surface_min].to_i..params[:surface_max].to_i)
-      @houses = @houses.where(surface: params[:surface_min].to_i..params[:surface_max].to_i)
-    elsif params[:surface_min].present?
+    if params[:surface_min].present?
       @apartments = @apartments.where("surface >= ? ", params[:surface_min].to_i)
       @houses = @houses.where("surface >= ? ", params[:surface_min].to_i)
-    elsif params[:surface_max].present?
-      @apartments = @apartments.where("surface <= ? ", params[:surface_max].to_i)
-      @houses = @houses.where("surface <= ? ", params[:surface_max].to_i)
     end
+
+    return unless params[:surface_max].present?
+
+    @apartments = @apartments.where("surface <= ? ", params[:surface_max].to_i)
+    @houses = @houses.where("surface <= ? ", params[:surface_max].to_i)
   end
 
   def filter_by_type
