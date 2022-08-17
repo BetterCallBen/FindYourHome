@@ -360,11 +360,13 @@
 
   <div class="apartments">
     <div class="apartment-infos">
+
       <p class="what-where">
         <%= pluralize(@properties.count, @what) %>
         <%= @there %>
       </p>
-      <div>
+
+      <div class="sort-filter">
         <p class="sort-title">Trier par</p>
         <div class="sort-div">
           <div class="sort-input" data-action="click->apartments#displaySort">
@@ -412,6 +414,9 @@
       <% if @pagination_max > 1 %>
 
         <div class="pagination-navigation">
+
+          <%# précédent %>
+
           <% if @current_page > 1 %>
             <%= link_to request.params.merge(page: @current_page - 1), class: "pagination-btn active" do %>
               <i class="fa-solid fa-chevron-left"></i>
@@ -421,17 +426,70 @@
               <i class="fa-solid fa-chevron-left"></i>
             </div>
           <% end %>
+
           <div class="pagination-numbers">
-            <% 1..@pagination_max.times do |page_number| %>
-              <% if page_number + 1 == params[:page].to_i %>
-                <div class="pagination-number active">
-                  <%= page_number + 1 %>
-                </div>
+
+            <% if @pagination_max > 4 %>
+
+              <%# quand il y a beaucoup de page %>
+
+              <% if @current_page == 1 %>
+
+                <% ((@current_page)..(@current_page + 2)).each do |page_number| %>
+                  <%= paginate(page_number) %>
+                <% end %>
+
+                <p class="points">...</p>
+
+                <%= link_to @pagination_max, request.params.merge(page: @pagination_max ), class: "pagination-number" %>
+
+              <% elsif @current_page >= @pagination_max - 1%>
+
+                <%= link_to 1, request.params.merge(page: 1), class: "pagination-number" %>
+
+                <p class="points">...</p>
+
+                <% ((@pagination_max - 2)..(@pagination_max)).each do |page_number| %>
+                  <%= paginate(page_number) %>
+                <% end %>
+
+
               <% else %>
-                <%= link_to page_number + 1, request.params.merge(page: page_number + 1), class: "pagination-number" %>
+
+                <%= link_to 1, request.params.merge(page: 1), class: "pagination-number" %>
+
+                <% if @current_page > 3 %>
+
+                  <p class="points">...</p>
+
+                <% end %>
+
+                <% ((@current_page - 1)..(@current_page + 1)).each do |page_number| %>
+                  <%= paginate(page_number) %>
+                <% end %>
+
+                <% if @pagination_max - @current_page > 2  %>
+
+                  <p class="points">...</p>
+
+                <% end %>
+
+                <%= link_to @pagination_max, request.params.merge(page: @pagination_max ), class: "pagination-number" %>
+
+              <% end %>
+
+            <% else %>
+
+              <%# quand il y a peu de page %>
+
+              <% (1..@pagination_max).each do |page_number| %>
+                <%= paginate(page_number) %>
               <% end %>
             <% end %>
+
           </div>
+
+          <%# suivant %>
 
           <% if @current_page < @pagination_max %>
             <%= link_to request.params.merge(page: @current_page + 1), class: "pagination-btn active" do %>
