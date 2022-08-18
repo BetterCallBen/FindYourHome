@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get 'properties', to: 'pages#index', as: :properties
 
+  get 'favorites', to: 'users#favorites'
+
   resources :houses, only: %i[show] do
     member do
       post 'add_favorite', to: 'houses#add_favorite'
