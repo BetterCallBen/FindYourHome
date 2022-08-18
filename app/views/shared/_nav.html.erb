@@ -1,0 +1,9 @@
+<nav class="nav">
+  <% if user_signed_in? %>
+    <%= link_to "deco", destroy_user_session_path, method: :delete %>
+    <%= link_to "Menu", researches_path %>
+  <% else %>
+    <%= link_to "Connexion", new_user_session_path %>
+  <% end %>
+
+</nav>
