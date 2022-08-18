@@ -29,14 +29,7 @@
         font-size: 1.1rem;
         &.active {
           color: #F44336;
-        }
-      }
-      &:hover {
-        .fa-heart {
-          &.active {
-            color: grey;
-          }
-          color: #F44336;
+          animation: like 0.3s ease-in-out;
         }
       }
     }
@@ -92,5 +85,20 @@
     width: 300px;
     border-radius: 4px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.301);
+  }
+}
+
+@keyframes like {
+  0% {
+    transform: scale(1);
+  }
+  33% {
+    transform: scale(0.8);
+  }
+  66% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 }
