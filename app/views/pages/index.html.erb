@@ -83,7 +83,6 @@
 
           <div class="filling-div">
             <%= room_filter(room, "rooms") %>
-            <%= room_filling(room, "rooms") %>
           </div>
 
         <% end %>
@@ -94,13 +93,14 @@
 
       </div>
 
+      <p class="filter-title">Nombre de chambre</p>
+
       <div class="bedroom-filter div-filter">
 
         <% (1..5).each do |bedroom| %>
 
           <div class="filling-div">
             <%= room_filter(bedroom, "bedrooms") %>
-            <%= room_filling(bedroom, "rooms") %>
           </div>
 
         <% end %>
@@ -111,7 +111,6 @@
 
       </div>
 
-      <p class="filter-title">Nombre de chambre</p>
 
       <p class="filter-title">Surface</p>
 

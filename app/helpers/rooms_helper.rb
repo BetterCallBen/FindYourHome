@@ -5,17 +5,17 @@ module RoomsHelper
     room = room.to_s
     link_name = type == "rooms" ? room_name(room) : bedroom_name(room)
 
-    link_to link_name,
-      if params[@type].present? && params[@type].include?(room)
-        params[@type].chars.count == 1 ?  request.params.except(@type) : request.params.merge(page: 1, @type => params[@type].delete(room))
-      else
-        request.params.merge(page: 1, @type => params[@type].present? ? params[@type] + room : room)
-      end,
-      class: "bed-tag #{studio?(room) if type == "rooms"} #{tag_active?(room)}"
-  end
+    link = "#{link_to link_name,
+        if params[@type].present? && params[@type].include?(room)
+          params[@type].chars.count == 1 ?  request.params.except(@type) : request.params.merge(page: 1, @type => params[@type].delete(room))
+        else
+          request.params.merge(page: 1, @type => params[@type].present? ? params[@type] + room : room)
+        end,
+        class: "bed-tag #{studio?(room) if type == "rooms"} #{tag_active?(room)}"}"
 
-  def room_filling(room, type)
-    "<div class='filling #{filling_active?(room)} #{studio?(room) if type == "rooms"}'></div>".html_safe
+    filling = "<div class='filling #{filling_active?(room)} #{studio?(room) if type == "rooms"}'></div>"
+
+    return (link + filling).html_safe
   end
 
   private
@@ -25,7 +25,7 @@ module RoomsHelper
   end
 
   def filling_active?(room)
-    'active' if params[@type].present? && params[@type].include?(room.to_s) && params[@type].include?((room + 1).to_s)
+    'active' if params[@type].present? && params[@type].include?(room) && params[@type].include?((room.to_i + 1).to_s)
   end
 
   def room_name(room)
