@@ -11,7 +11,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
   </head>
 
-  <body>
+  <body data-controller="nav" data-action="mouseover->nav#hideMenu">
     <%= render 'shared/nav' %>
     <%= render 'shared/flashes' %>
     <%= yield %>
