@@ -26,7 +26,7 @@
       &.active {
         color: #2487A4;
         &:hover {
-          background-color: #D9EAEF;
+          background-color: $light-blue;
         }
       }
     }
@@ -46,13 +46,13 @@
           font-weight: bold;
         }
         &:hover {
-          background-color: #D9EAEF;
+          background-color: $light-blue;
         }
       }
       .points {
         margin: 0;
         padding-top: 5px;
-        color: #2487A4;
+        color: $blue;
       }
     }
   }

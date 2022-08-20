@@ -6,7 +6,6 @@
   margin: 10px auto;
   .form {
     position: fixed;
-    top: 9vh;
     left: 2vw;
     display: flex;
     flex-direction: column;
@@ -57,7 +56,7 @@
     position: relative;
     .filling {
       margin: 0;
-      background-color: #D7EBEF;
+      background-color: $light-blue;
       width: 41px;
       height: 36px;
       opacity: 0;

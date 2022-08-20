@@ -34,15 +34,15 @@ input {
   justify-content: center;
   align-items: center;
   transition: background-color 0.1s;
-  color: #2586A4;
+  color: $blue;
   animation: name duration timing-function;
   cursor: pointer;
   &:hover {
-    color: #2586A4;
+    color: $blue;
   }
   &.active {
-    background-color: #D7EBEF;
-    border: 1px solid #D7EBEF;
+    background-color: $light-blue;
+    border: 1px solid $light-blue;
   }
   &.studio {
     width: 80px;
@@ -54,15 +54,15 @@ input {
   margin: 0;
   padding: 4px 8px;
   border-radius: 4px;
-  border: 0.5px solid #2586A4;
-  color: #2586A4;
+  border: 0.5px solid $blue;
+  color: $blue;
   font-size: 0.9rem;
   &:hover {
-    color: #2586A4;
+    color: $blue;
   }
   &.active {
-    background-color: #D8EBEF;
-    color: #2586A4;
+    background-color: $light-blue;
+    color: $blue;
   }
 }
 
