@@ -10,7 +10,7 @@
   gap: 12px;
   animation: alert-pop-in 0.3s ease-in-out;
   &.success {
-    background-color: #D7EBEF;
+    background-color: $light-blue;
     color: #2487A4;
   }
   &.error {
