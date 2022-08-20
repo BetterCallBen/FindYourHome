@@ -79,44 +79,14 @@
 
       <div class="room-filter div-filter">
 
-        <div class="filling-div">
-          <%= link_to "Studio",
-            if params[:rooms].present? && params[:rooms].include?("1")
-              params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(page: 1, rooms: params[:rooms].delete("1"))
-            else
-              request.params.merge(page: 1, rooms: params[:rooms].present? ? params[:rooms] + "1" : "1")
-            end,
-            class: "bed-tag studio" + (params[:rooms].present? && params[:rooms].include?("1") ? " active" : "")
-          %>
-          <div class="filling studio <%= 'active' if params[:rooms].present? && params[:rooms].include?("1") && params[:rooms].include?("2")%>" ></div>
-        </div>
-
-        <% 3.times do |n| %>
+        <% (1..5).each do |room| %>
 
           <div class="filling-div">
-            <%= link_to (n + 2).to_s,
-              if params[:rooms].present? && params[:rooms].include?((n + 2).to_s)
-                params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(page: 1, rooms: params[:rooms].delete((n + 2).to_s))
-              else
-                request.params.merge(page: 1, rooms: params[:rooms].present? ? params[:rooms] + (n + 2).to_s : (n + 2).to_s)
-              end,
-              class: "bed-tag" + (params[:rooms].present? && params[:rooms].include?((n + 2).to_s) ? " active" : "")
-            %>
-            <div class="filling <%= 'active' if params[:rooms].present? && params[:rooms].include?((n + 2).to_s) && params[:rooms].include?((n + 3).to_s)%>" ></div>
+            <%= room_filter(room, "rooms") %>
+            <%= room_filling(room, "rooms") %>
           </div>
 
         <% end %>
-
-        <div class="filling-div">
-          <%= link_to "5+",
-            if params[:rooms].present? && params[:rooms].include?("5")
-              params[:rooms].chars.count == 1 ?  request.params.except(:rooms) : request.params.merge(page: 1, rooms: params[:rooms].delete("5"))
-            else
-              request.params.merge(page: 1, rooms: params[:rooms].present? ? params[:rooms] + "5" : "5")
-            end,
-            class: "bed-tag" + (params[:rooms].present? && params[:rooms].include?("5") ? " active" : "")
-          %>
-        </div>
 
         <% if params[:rooms].present? %>
           <input type="hidden" name="rooms" value="<%= params[:rooms]%>">
@@ -124,72 +94,24 @@
 
       </div>
 
-      <p class="filter-title">Nombre de chambre</p>
-
       <div class="bedroom-filter div-filter">
 
-        <div class="filling-div">
-          <%= link_to "1",
-            if params[:bedrooms].present? && params[:bedrooms].include?("1")
-              params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(page: 1, bedrooms: params[:bedrooms].delete("1"))
-            else
-              request.params.merge(page: 1, bedrooms: params[:bedrooms].present? ? params[:bedrooms] + "1" : "1")
-            end,
-            class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("1") ? " active" : "")
-          %>
-          <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("1") && params[:bedrooms].include?("2")%>" ></div>
-        </div>
+        <% (1..5).each do |bedroom| %>
 
-        <div class="filling-div">
-          <%= link_to "2",
-            if params[:bedrooms].present? && params[:bedrooms].include?("2")
-              params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(page: 1, bedrooms: params[:bedrooms].delete("2"))
-            else
-              request.params.merge(page: 1, bedrooms: params[:bedrooms].present? ? params[:bedrooms] + "2" : "2")
-            end,
-            class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("2") ? " active" : "")
-          %>
-          <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("2") && params[:bedrooms].include?("3")%>" ></div>
-        </div>
+          <div class="filling-div">
+            <%= room_filter(bedroom, "bedrooms") %>
+            <%= room_filling(bedroom, "rooms") %>
+          </div>
 
-        <div class="filling-div">
-          <%= link_to "3",
-            if params[:bedrooms].present? && params[:bedrooms].include?("3")
-              params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(page: 1, bedrooms: params[:bedrooms].delete("3"))
-            else
-              request.params.merge(page: 1, bedrooms: params[:bedrooms].present? ? params[:bedrooms] + "3" : "3")
-            end,
-            class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("3") ? " active" : "")
-          %>
-          <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("3") && params[:bedrooms].include?("4")%>" ></div>
-        </div>
+        <% end %>
 
-        <div class="filling-div">
-          <%= link_to "4",
-            if params[:bedrooms].present? && params[:bedrooms].include?("4")
-              params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(page: 1, bedrooms: params[:bedrooms].delete("4"))
-            else
-              request.params.merge(page: 1, bedrooms: params[:bedrooms].present? ? params[:bedrooms] + "4" : "4")
-            end,
-            class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("4") ? " active" : "")
-          %>
-          <div class="filling <%= 'active' if params[:bedrooms].present? && params[:bedrooms].include?("4") && params[:bedrooms].include?("5")%>" ></div>
-        </div>
-
-        <div class="filling-div">
-          <%= link_to "5+",
-            if params[:bedrooms].present? && params[:bedrooms].include?("5")
-              params[:bedrooms].chars.count == 1 ? request.params.except(:bedrooms) : request.params.merge(page: 1, bedrooms: params[:bedrooms].delete("5"))
-            else
-              request.params.merge(page: 1, bedrooms: params[:bedrooms].present? ? params[:bedrooms] + "5" : "5")
-            end,
-            class: "bed-tag" + (params[:bedrooms].present? && params[:bedrooms].include?("5") ? " active" : "")
-          %>
-        </div>
-
-        <input type="hidden" name="bedrooms" value="<%= params[:bedrooms] %>" >
+        <% if params[:bedrooms].present? %>
+          <input type="hidden" name="bedrooms" value="<%= params[:bedrooms]%>">
+        <% end %>
 
       </div>
+
+      <p class="filter-title">Nombre de chambre</p>
 
       <p class="filter-title">Surface</p>
 
@@ -341,7 +263,6 @@
   </div>
 
 
-
   <div class="apartments">
     <div class="apartment-infos">
 
@@ -400,7 +321,6 @@
         <div class="pagination-navigation">
 
           <%# précédent %>
-
 
           <% if @current_page > 1 %>
             <%= link_to request.params.merge(page: @current_page - 1), class: "pagination-btn active" do %>
