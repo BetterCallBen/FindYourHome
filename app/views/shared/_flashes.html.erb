@@ -1,11 +1,11 @@
 <% if notice %>
-  <div class="alert success" data-controller="notice">
+  <div class="alert success" data-controller="notice" data-favorite-target="notification">
     <%= notice.html_safe %>
     <i class="fa-solid fa-xmark" data-action="click->notice#close" ></i>
   </div>
 <% end %>
 <% if alert %>
-  <div class="alert error" data-controller="notice">
+  <div class="alert error" data-controller="notice" data-favorite-target="notification">
     <%= alert.html_safe %>
     <i class="fa-solid fa-xmark" data-action="click->notice#close" ></i>
   </div>

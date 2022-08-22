@@ -2,7 +2,7 @@ import { Controller } from "stimulus"
 import { csrfToken } from "@rails/ujs";
 
 export default class extends Controller {
-  static targets = []
+  static targets = ["notification"]
   static values = {}
 
 
@@ -10,7 +10,6 @@ export default class extends Controller {
     const target = event.currentTarget
     const type = event.currentTarget.dataset.type
     const propertyId = event.currentTarget.dataset.propertyId
-    console.log(propertyId)
     const html = `<div data-action="click->favorite#removeFavorite" data-property-id="${propertyId}" data-type="${type}">
                     <div class="apartment-fav">
                       <i class="fa-solid fa-heart active"></i>
@@ -27,6 +26,14 @@ export default class extends Controller {
     .then(response => response.json())
     .then(data => {
       target.outerHTML = html
+      const notif = `<div class="alert success" data-controller="notice" data-favorite-target="notification">
+                      ${data.message}
+                        <i class="fa-solid fa-xmark" data-action="click->notice#close" ></i>
+                      </div>`
+      this.notificationTargets.forEach(notification => {
+        notification.remove()
+      })
+      this.element.insertAdjacentHTML("afterbegin", notif)
     })
   }
 
@@ -50,6 +57,15 @@ export default class extends Controller {
     .then(response => response.json())
     .then(data => {
       target.outerHTML = html
+      const notif = `<div class="alert success" data-controller="notice" data-favorite-target="notification">
+                      ${data.message}
+                        <i class="fa-solid fa-xmark" data-action="click->notice#close" ></i>
+                      </div>`
+      console.log(this.notifTargets);
+      this.notificationTargets.forEach(notification => {
+        notification.remove()
+      })
+      this.element.insertAdjacentHTML("afterbegin", notif)
     })
   }
 }
