@@ -1,9 +1,9 @@
 <div class="contain"
-      data-action="click->apartments#hideAll click->locations#hideLocations"
-      data-controller="apartments locations bedrooms"
-      locations-insses-value="<%= @locations_insees.nil? ? [] : @locations_insees %>"
-      bedrooms-bedrooms-value="<%= @bedrooms.nil? ? [] : @bedrooms%>"
-      bedrooms-rooms-value="<%= @rooms.nil? ? [] : @rooms%>">
+     data-action="click->apartments#hideAll click->locations#hideLocations"
+     data-controller="apartments locations bedrooms"
+     locations-insses-value="<%= @locations_insees.nil? ? [] : @locations_insees %>"
+     bedrooms-bedrooms-value="<%= @bedrooms.nil? ? [] : @bedrooms%>"
+     bedrooms-rooms-value="<%= @rooms.nil? ? [] : @rooms%>">
   <div class="form">
     <%= form_with(url: properties_path, method: :get,
                   data: { 'apartments-target': "form" },
@@ -305,7 +305,7 @@
       </div>
     </div>
 
-    <div class="apartment-cards" data-apartments-target="apartments" data-controller="favorite">
+    <div class="apartment-cards" data-apartments-target="apartments">
       <%= render 'properties' %>
     </div>
 
