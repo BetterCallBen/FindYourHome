@@ -1,6 +1,8 @@
 <nav class="nav">
 
-  <div class="menu-btn" data-action="mouseover->nav#displayMenu click->nav#fixMenu">
+  <%= link_to "Home", root_path %>
+
+  <div class="menu-btn" data-action="mouseover->nav#displayMenu">
     <div class="menu-hamburger">
       <span class="line top-line"></span>
       <span class="line middle-line"></span>
@@ -10,16 +12,12 @@
     <p class="menu-text">Menu</p>
   </div>
 
-  <%= link_to "Home", root_path %>
-
 </nav>
 
-<div class="menu-div" data-action="mouseover->dontHideMenu">
-  <div class="menu" data-nav-target="menu">
-    <% if user_signed_in? %>
-      <%= link_to "Déconnexion", destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "Connexion", new_user_session_path %>
-    <% end %>
-  </div>
+<div class="menu" data-nav-target="menu" data-action="mouseover->dontHideMenu">
+  <% if user_signed_in? %>
+    <%= link_to "Déconnexion", destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to "Connexion", new_user_session_path %>
+  <% end %>
 </div>
