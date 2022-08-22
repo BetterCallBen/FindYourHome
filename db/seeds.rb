@@ -17,14 +17,15 @@ LYON_BOROUGH = [{ name: "Lyon 1er", insee_code: "69381" }, { name: "Lyon 2ème",
                 { name: "Lyon 5ème", insee_code: "69385" }, { name: "Lyon 6ème", insee_code: "69386" },
                 { name: "Lyon 7ème", insee_code: "69387" }, { name: "Lyon 8ème", insee_code: "69388" },
                 { name: "Lyon 9ème", insee_code: "69389" }]
+
 APARTMENT_IMAGES = %w[https://images.ctfassets.net/pg6xj64qk0kh/2r4QaBLvhQFH1mPGljSdR9/39b737d93854060282f6b4a9b9893202/camden-paces-apartments-buckhead-ga-terraces-living-room-with-den_1.jpg
                       https://cf.bstatic.com/xdata/images/hotel/max1024x768/72282092.jpg?k=5eeba7eb191652ce0c0988b4c7c042f1165b7064d865b096bb48b8c48bf191b9&o=&hp=1
                       https://cdn.theblueground.com/website/static/img/paris-1-thumbnail.58117ea048647b0c1da0.jpg
                       https://image.architonic.com/prj2-3/20116834/rua-141-apartment-in-sao-paulo-architonic-3629-01-arcit18.jpg
                       https://www.aveliving.com/AVE/media/Property_Images/Florham%20Park/hero/flor-apt-living-(2)-hero.jpg?ext=.jpg
                       https://cf.bstatic.com/xdata/images/hotel/max1024x768/267316381.jpg?k=86b64cf28cd12f4c6feb7b7be23c8bcce91b2cd1be7c48a7383c4297d8d695ce&o=&hp=1
-                      https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/2e/25/da/old-town-by-welcome-apartment.jpg?w=900&h=-1&s=1
-                      https://www.paris-housing.com/listings/140315/real_estate_image_big_682x455/big_0_20092211340655ruelecorbusier15.jpg]
+                      https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/2e/25/da/old-town-by-welcome-apartment.jpg?w=900&h=-1&s=1]
+UNFURNISHED_APARTMENT_IMAGES = %w[https://www.paris-housing.com/listings/140315/real_estate_image_big_682x455/big_0_20092211340655ruelecorbusier15.jpg]
 
 puts 'Destroy DB'
 City.destroy_all
