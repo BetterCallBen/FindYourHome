@@ -1,12 +1,13 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "secondSurfaceInput", "sortPropositions", "form" ]
+  static targets = [ "secondSurfaceInput", "sortPropositions", "form", "burger" ]
 
   // General methods
 
   hideAll() {
     this.sortPropositionsTarget.classList.add("d-none")
+    this.burgerTarget.classList.remove("active")
   }
 
   // Surface
@@ -31,6 +32,7 @@ export default class extends Controller {
 
   displaySort(event) {
     event.stopPropagation()
+    this.burgerTarget.classList.toggle("cross")
     this.sortPropositionsTarget.classList.toggle("d-none")
   }
 
