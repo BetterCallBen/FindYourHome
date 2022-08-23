@@ -7,7 +7,7 @@ export default class extends Controller {
   displayMenu(event) {
     event.stopPropagation()
     event.currentTarget.classList.add("active")
-    this.menuTarget.classList.add("temporary")
+    this.menuTarget.classList.add("active")
   }
 
   dontHideMenu(event) {
@@ -16,7 +16,7 @@ export default class extends Controller {
 
   hideMenu(event) {
     event.currentTarget.classList.remove("active")
-    this.menuTarget.classList.remove("temporary")
+    this.menuTarget.classList.remove("active")
   }
 
 }
