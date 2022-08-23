@@ -49,7 +49,9 @@
 
           <% else %>
 
-            <%= link_to 1, request.params.merge(page: 1), class: "pagination-number" %>
+            <% if @current_page > 2 %>
+              <%= link_to 1, request.params.merge(page: 1), class: "pagination-number" %>
+            <% end %>
 
             <% if @current_page > 3 %>
 

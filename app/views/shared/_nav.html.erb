@@ -2,19 +2,21 @@
 
   <%= link_to "Home", root_path %>
 
-  <div class="menu-btn" data-action="mouseover->nav#displayMenu">
+  <div class="menu-btn" data-action="click->nav#displayMenu">
+
+    <p class="menu-text">Menu</p>
+
     <div class="menu-hamburger">
       <span class="line top-line"></span>
       <span class="line middle-line"></span>
       <span class="line bottom-line"></span>
     </div>
 
-    <p class="menu-text">Menu</p>
   </div>
 
 </nav>
 
-<div class="menu" data-nav-target="menu" data-action="mouseover->dontHideMenu">
+<div class="menu" data-nav-target="menu" data-action="mouseover->nav#dontHideMenu">
   <% if user_signed_in? %>
     <%= link_to "Déconnexion", destroy_user_session_path, method: :delete %>
   <% else %>
