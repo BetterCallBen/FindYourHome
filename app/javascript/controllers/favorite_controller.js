@@ -61,7 +61,6 @@ export default class extends Controller {
                       ${data.message}
                         <i class="fa-solid fa-xmark" data-action="click->notice#close" ></i>
                       </div>`
-      console.log(this.notifTargets);
       this.notificationTargets.forEach(notification => {
         notification.remove()
       })
