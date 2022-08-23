@@ -1,10 +1,10 @@
 .menu {
   position: fixed;
-  top: 10vh;
+  top: 0;
   right: 0;
   z-index: 4;
   width: 18vw;
-  height: 85vh;
+  height: 100vh;
   padding: 10px;
   background-color: white;
   display: flex;
@@ -14,10 +14,9 @@
   transform: translateX(16vw);
   transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
   color: $blue;
-  &.temporary {
+  &.active {
     opacity: 1;
     transform: translateX(0);
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.301);
-    border-radius: 4px;
   }
 }

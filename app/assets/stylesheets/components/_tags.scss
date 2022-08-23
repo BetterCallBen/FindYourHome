@@ -18,6 +18,40 @@
     .sort-value {
       margin: 0;
     }
+    .burger-menu {
+      width: 15px;
+      height: 15px;
+      position: relative;
+      .line {
+        height: 20%;
+        width: 100%;
+        border-radius: 1px;
+        background-color: black;
+        transition: 0.3s;
+        position: absolute;
+        left: 0;
+        &.top-line {
+          top: 0%;
+        }
+        &.middle-line {
+          top: 40%;
+        }
+        &.bottom-line {
+          bottom: 0%;
+        }
+      }
+      &.cross {
+        .middle-line {
+          opacity: 0;
+        }
+        .top-line {
+          animation: tocrosstop 0.4s forwards;
+        }
+        .bottom-line {
+          animation: tocrossbottom 0.4s forwards;
+        }
+      }
+    }
   }
   .sort-tags {
     z-index: 3;
@@ -65,4 +99,63 @@
     }
   }
 
+}
+
+@keyframes tocrosstop {
+  0% {
+    transform: rotate(0deg);
+    top: 0%;
+  }
+  50% {
+    transform: rotate(0deg);
+    top: 40%;
+  }
+  100% {
+    transform: rotate(45deg);
+    top: 40%;
+  }
+}
+
+@keyframes tocrossbottom {
+  0% {
+    transform: rotate(0deg);
+    bottom: 0%;
+  }
+  50% {
+    transform: rotate(0deg);
+    bottom: 40%;
+  }
+  100% {
+    transform: rotate(-45deg);
+    bottom: 40%;
+  }
+}
+@keyframes tocbartop {
+  0% {
+    transform: rotate(0deg);
+    top: 0%;
+  }
+  50% {
+    transform: rotate(0deg);
+    top: 40%;
+  }
+  100% {
+    transform: rotate(45deg);
+    top: 40%;
+  }
+}
+
+@keyframes tocrossbottom {
+  0% {
+    transform: rotate(0deg);
+    bottom: 0%;
+  }
+  50% {
+    transform: rotate(0deg);
+    bottom: 40%;
+  }
+  100% {
+    transform: rotate(-45deg);
+    bottom: 40%;
+  }
 }
