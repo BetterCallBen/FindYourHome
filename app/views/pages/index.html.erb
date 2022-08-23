@@ -275,7 +275,12 @@
         <div class="sort-div">
           <div class="sort-input" data-action="click->apartments#displaySort">
             <p class="sort-value"><%= params[:sort].present? ? translate_sort_by(params[:sort]) : "Pertinence" %></p>
-            <i class="fa-solid fa-bars"></i>
+            <div class="burger-menu" data-apartments-target="burger">
+              <div class="line top-line"></div>
+              <div class="line middle-line"></div>
+              <div class="line bottom-line"></div>
+            </div>
+
           </div>
           <div class="sort-tags d-none" data-apartments-target="sortPropositions">
             <%= link_to request.params.merge(page: 1, sort: "relevance"), class: "sort-tag first" do %>
