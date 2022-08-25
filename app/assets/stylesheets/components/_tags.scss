@@ -20,32 +20,32 @@
     }
     .burger-menu {
       width: 15px;
-      height: 15px;
+      height: 13px;
       position: relative;
       .line {
-        height: 20%;
+        height: 16%;
         width: 100%;
-        border-radius: 1px;
-        background-color: black;
-        transition: 0.3s;
         position: absolute;
         left: 0;
+        border-radius: 500px;
+        background-color: black;
+        transition: 0.3s;
         &.top-line {
-          top: 0%;
+          animation: tobartop 0.4s forwards;
         }
         &.middle-line {
-          top: 40%;
+          top: 42%;
         }
         &.bottom-line {
-          bottom: 0%;
+          animation: tobarbottom 0.4s forwards;
         }
       }
       &.cross {
-        .middle-line {
-          opacity: 0;
-        }
         .top-line {
           animation: tocrosstop 0.4s forwards;
+        }
+        .middle-line {
+          opacity: 0;
         }
         .bottom-line {
           animation: tocrossbottom 0.4s forwards;
@@ -54,7 +54,6 @@
     }
   }
   .sort-tags {
-    z-index: 3;
     position: absolute;
     top: calc(4.5vh + 3px);
     width: 100%;
@@ -63,6 +62,10 @@
     border-radius: 4px;
     background-color: #fff;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.301);
+    animation: pop 0.3s forwards;
+    &.hidden {
+      animation: hidde 0.3s forwards;
+    }
     .sort-tag {
       width: 100%;
       padding: 8px;
@@ -101,6 +104,31 @@
 
 }
 
+@keyframes pop {
+  0% {
+    opacity: 0;
+    z-index: 3;
+  }
+  100% {
+    opacity: 1;
+    z-index: 3;
+  }
+}
+@keyframes hidde {
+  0% {
+    opacity: 1;
+    z-index: 3;
+  }
+  99% {
+    opacity: 0;
+    z-index: 3;
+  }
+  100% {
+    opacity: 0;
+    z-index: -1;
+  }
+}
+
 @keyframes tocrosstop {
   0% {
     transform: rotate(0deg);
@@ -108,11 +136,11 @@
   }
   50% {
     transform: rotate(0deg);
-    top: 40%;
+    top: 42%;
   }
   100% {
     transform: rotate(45deg);
-    top: 40%;
+    top: 42%;
   }
 }
 
@@ -123,39 +151,40 @@
   }
   50% {
     transform: rotate(0deg);
-    bottom: 40%;
+    bottom: 42%;
   }
   100% {
     transform: rotate(-45deg);
-    bottom: 40%;
+    bottom: 42%;
   }
 }
-@keyframes tocbartop {
+
+@keyframes tobartop {
   0% {
+    transform: rotate(45deg);
+    top: 42%;
+  }
+  50% {
+    transform: rotate(0deg);
+    top: 42%;
+  }
+  100% {
     transform: rotate(0deg);
     top: 0%;
   }
-  50% {
-    transform: rotate(0deg);
-    top: 40%;
-  }
-  100% {
-    transform: rotate(45deg);
-    top: 40%;
-  }
 }
 
-@keyframes tocrossbottom {
+@keyframes tobarbottom {
   0% {
-    transform: rotate(0deg);
-    bottom: 0%;
+    transform: rotate(-45deg);
+    bottom: 42%;
   }
   50% {
     transform: rotate(0deg);
-    bottom: 40%;
+    bottom: 42%;
   }
   100% {
-    transform: rotate(-45deg);
-    bottom: 40%;
+    transform: rotate(0deg);
+    bottom: 0%;
   }
 }
