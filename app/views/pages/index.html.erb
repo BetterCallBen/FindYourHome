@@ -45,7 +45,6 @@
         <% end %>
       </div>
 
-
       <div class="locations">
         <div class="location-input">
           <% unless @locations_tags.nil? %>
@@ -280,9 +279,8 @@
               <div class="line middle-line"></div>
               <div class="line bottom-line"></div>
             </div>
-
           </div>
-          <div class="sort-tags d-none" data-apartments-target="sortPropositions">
+          <div class="sort-tags hidden" data-apartments-target="sortPropositions">
             <%= link_to request.params.merge(page: 1, sort: "relevance"), class: "sort-tag first" do %>
               <% if params[:sort].present? && params[:sort] == 'relevance' || !params[:sort].present? %>
                 <i class="fa-solid fa-circle-check"></i>
