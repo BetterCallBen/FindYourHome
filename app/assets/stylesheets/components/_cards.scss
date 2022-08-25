@@ -23,13 +23,15 @@
       cursor: pointer;
       transition: 0.2s;
       opacity: 0;
+      &:hover .fa-heart.active {
+        animation: like 0.3s ease-in-out;
+      }
       .fa-heart {
         transition: 0.2s;
         color: grey;
         font-size: 1.1rem;
         &.active {
           color: #F44336;
-          animation: like 0.3s ease-in-out;
         }
       }
     }
