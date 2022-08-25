@@ -6,9 +6,15 @@ class HousesController < ApplicationController
   def add_favorite
     @favorite_house = FavoriteHouse.new
     @favorite_house.house = House.find(params[:id])
-    @favorite_house.user = current_user
-    @favorite_house.save
-    render json: { head: :ok, message: "La maison a bien été ajouté à vos favoris" }
+    if user_signed_in?
+      @favorite_house.user = current_user
+    else
+      redirect_to new_user_session_path
+    end
+
+    if @favorite_house.save
+      render json: { head: :ok, message: "La maison a bien été ajouté à vos favoris" }
+    end
   end
 
   def remove_favorite
