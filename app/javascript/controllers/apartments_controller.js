@@ -7,7 +7,7 @@ export default class extends Controller {
 
   hideAll() {
     this.sortPropositionsTarget.classList.add("d-none")
-    this.burgerTarget.classList.remove("active")
+    this.burgerTarget.classList.remove("cross")
   }
 
   // Surface
@@ -33,7 +33,7 @@ export default class extends Controller {
   displaySort(event) {
     event.stopPropagation()
     this.burgerTarget.classList.toggle("cross")
-    this.sortPropositionsTarget.classList.toggle("d-none")
+    this.sortPropositionsTarget.classList.toggle("hidden")
   }
 
 }
