@@ -25,15 +25,27 @@ export default class extends Controller {
     })
     .then(response => response.json())
     .then(data => {
-      target.outerHTML = html
-      const notif = `<div class="alert success" data-controller="notice" data-favorite-target="notification">
-                      ${data.message}
+      console.log(data)
+      if (data.error) {
+        const notif = `<div class="alert error" data-controller="notice" data-favorite-target="notification">
+                        ${data.error}
                         <i class="fa-solid fa-xmark" data-action="click->notice#close" ></i>
                       </div>`
-      this.notificationTargets.forEach(notification => {
-        notification.remove()
-      })
-      this.element.insertAdjacentHTML("afterbegin", notif)
+        this.notificationTargets.forEach(notification => {
+          notification.remove()
+        })
+        this.element.insertAdjacentHTML("afterbegin", notif)
+      } else {
+        target.outerHTML = html
+        const notif = `<div class="alert success" data-controller="notice" data-favorite-target="notification">
+                        ${data.message}
+                          <i class="fa-solid fa-xmark" data-action="click->notice#close" ></i>
+                        </div>`
+        this.notificationTargets.forEach(notification => {
+          notification.remove()
+        })
+        this.element.insertAdjacentHTML("afterbegin", notif)
+      }
     })
   }
 
@@ -56,6 +68,7 @@ export default class extends Controller {
     })
     .then(response => response.json())
     .then(data => {
+
       target.outerHTML = html
       const notif = `<div class="alert success" data-controller="notice" data-favorite-target="notification">
                       ${data.message}
