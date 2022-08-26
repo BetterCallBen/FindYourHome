@@ -34,6 +34,8 @@ export default class extends Controller {
     event.stopPropagation()
     this.burgerTarget.classList.toggle("cross")
     this.sortPropositionsTarget.classList.toggle("hidden")
+    this.sortPropositionsTarget.classList.remove("d-none")
+
   }
 
 }
