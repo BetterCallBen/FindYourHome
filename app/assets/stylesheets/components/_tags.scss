@@ -27,7 +27,7 @@
         width: 100%;
         position: absolute;
         left: 0;
-        border-radius: 500px;
+        border-radius: 2px;
         background-color: black;
         transition: 0.3s;
         &.top-line {
@@ -64,6 +64,7 @@
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.301);
     animation: pop 0.3s forwards;
     &.hidden {
+      z-index: -1;
       animation: hidde 0.3s forwards;
     }
     .sort-tag {
@@ -101,7 +102,6 @@
       }
     }
   }
-
 }
 
 @keyframes pop {

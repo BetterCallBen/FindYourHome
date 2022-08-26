@@ -8,6 +8,11 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
+  &:hover {
+    .save-bell {
+      animation: shaking 2s;
+    }
+  }
   .save-bell {
     animation: shaking 5s infinite;
     animation-delay: 1s;
