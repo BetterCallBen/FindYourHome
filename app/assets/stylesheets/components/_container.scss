@@ -3,7 +3,7 @@
   display: flex;
   justify-content: flex-end;
   width: 96vw;
-  margin: 20px auto;
+  margin: 10px auto;
   .form {
     position: fixed;
     left: 2vw;
@@ -31,23 +31,103 @@
 }
 
 .div-filter {
-  margin-bottom: 1rem;
+  margin-bottom: clamp(10px, 2vh, 30px);
 }
 
-.criterias-filter, .project-filter {
+.project-filter {
+  display: flex;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.139);
+  .project-btn {
+    padding-top: 12px;
+    width: 8vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    &:hover {
+      background-color: $light-blue;
+    }
+    .project-title {
+      margin: 0;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.850);
+      &.active {
+        color: $blue;
+      }
+    }
+    .line {
+      width: 70%;
+      height: 4px;
+      border-radius: 2px;
+      background-color: $blue;
+    }
+  }
+}
+
+.types-filter {
+  display: flex;
+  gap: 20px;
+  .type-btn {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    &:hover {
+      .type-icon {
+        transform: scale(1.1);
+      }
+    }
+    &.active {
+      .type-icon {
+        background-color: $blue;
+        color: white;
+      }
+    }
+    .type-icon {
+      transition: all 0.2s;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      border: 0.5px solid $blue;
+      color: $blue;
+    }
+    .type-text {
+      color: $blue;
+      margin: 0;
+    }
+    .link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.criterias-filter {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 1.5vh;
+
   .preview {
     margin: 0;
     width: 40px;
     height: 20px;
   }
 }
-
+.rooms-bedrooms {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2vw;
+}
 .bedroom-filter, .room-filter {
-  width: 300px;
   display: flex;
   align-items: center;
   gap: 5px;
