@@ -238,9 +238,9 @@ class PagesController < ApplicationController
   end
 
   def define_what_to_display
-    if @properties.count == @properties.select { |p| p.instance_of?(Apartment) }.count
+    if @properties.count == @properties.select { |p| p.instance_of?(Apartment) }.count && @properties.count > 0
       @what = "appartement"
-    elsif @properties.count == @properties.select { |p| p.instance_of?(House) }.count
+    elsif @properties.count == @properties.select { |p| p.instance_of?(House) }.count && @properties.count > 0
       @what = "maison"
     else
       @what = "bien"
