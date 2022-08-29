@@ -33,6 +33,8 @@ export default class extends Controller {
   displaySort(event) {
     event.stopPropagation()
     this.burgerTarget.classList.toggle("cross")
+    console.log(this.burgerTarget.classList.contains("cross"));
+    this.burgerTarget.classList.toggle("active", !this.burgerTarget.classList.contains("cross"))
     this.sortPropositionsTarget.classList.toggle("hidden")
     this.sortPropositionsTarget.classList.remove("d-none")
 
