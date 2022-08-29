@@ -22,6 +22,7 @@
       width: 15px;
       height: 13px;
       position: relative;
+
       .line {
         height: 16%;
         width: 100%;
@@ -31,12 +32,20 @@
         background-color: black;
         transition: 0.3s;
         &.top-line {
-          animation: tobartop 0.4s forwards;
+          top: 0;
         }
         &.middle-line {
           top: 42%;
         }
         &.bottom-line {
+          bottom: 0;
+        }
+      }
+      &.active {
+        .top-line {
+          animation: tobartop 0.4s forwards;
+        }
+        .bottom-line {
           animation: tobarbottom 0.4s forwards;
         }
       }
