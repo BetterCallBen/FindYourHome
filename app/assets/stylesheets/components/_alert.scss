@@ -11,7 +11,7 @@
   animation: alert-pop-in 0.3s ease-in-out;
   &.success {
     background-color: $light-blue;
-    color: #2487A4;
+    color: $blue;
   }
   &.error {
     background-color: #F7D7D7;

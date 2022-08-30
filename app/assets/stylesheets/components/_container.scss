@@ -38,13 +38,13 @@
   display: flex;
   border-bottom: 1.5px solid rgba(0, 0, 0, 0.139);
   .project-btn {
-    padding-top: 12px;
+    padding-top: 13px;
     width: 8vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 11px;
     &:hover {
       background-color: $light-blue;
     }
@@ -151,6 +151,28 @@
       &.active {
         opacity: 1;
       }
+    }
+  }
+}
+.surface-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  .min-surface-input, .max-surface-input {
+    background-color: white;
+    border: 0.5px solid rgba(0, 0, 0, 0.847);
+    padding: 5px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100px;
+    .input {
+      border: none;
+    }
+    span {
+      margin: 0;
+      color: rgba(0, 0, 0, 0.616);
     }
   }
 }

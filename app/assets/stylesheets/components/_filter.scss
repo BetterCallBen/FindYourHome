@@ -9,6 +9,7 @@ input[type=checkbox], input[type=radio]{
   border-radius: 2px;
   border: 1px solid #ccc;
   margin-bottom: 1rem;
+  background-color: white;
   &:focus {
     outline: none;
   }
@@ -26,7 +27,7 @@ input {
 
 .bed-tag {
   border-radius: 50%;
-  border: 1px solid #b5e6ee;
+  border: 1px solid $light-blue;
   font-size: 0.9rem;
   height: 36px;
   width: 36px;
