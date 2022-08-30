@@ -1,6 +1,17 @@
 <nav class="nav">
 
-  <%= link_to "Home", root_path %>
+
+
+  <%= link_to root_path, class: "logo" do %>
+    <span class="logo-letter extrabold">N</span>
+    <span class="logo-letter bold">A</span>
+    <span class="logo-letter semibold">P</span>
+    <span class="logo-letter medium">O</span>
+    <span class="logo-letter regular">L</span>
+    <span class="logo-letter light">É</span>
+    <span class="logo-letter extralight">O</span>
+    <span class="logo-letter thin">N</span>
+  <% end %>
 
   <div class="menu-btn" data-action="click->nav#displayMenu">
 
@@ -22,4 +33,5 @@
   <% else %>
     <%= link_to "Connexion", new_user_session_path %>
   <% end %>
+  <%= link_to "fav", favorites_path %>
 </div>
