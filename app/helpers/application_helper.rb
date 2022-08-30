@@ -59,4 +59,13 @@ module ApplicationHelper
       "à #{locations[0..-2].join(', ')} ou #{locations.last}"
     end
   end
+
+  def humanize_project(project)
+    hash = {
+      rent: 'à louer',
+      buy: 'à acheter'
+    }
+    return hash[project.downcase.to_sym]
+  end
+
 end
