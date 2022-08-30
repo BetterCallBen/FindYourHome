@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   PER_PAGE = 20
 
   def home
-    redirect_to properties_path
+    redirect_to properties_path(project: 'rent')
   end
 
   def index
@@ -77,10 +77,14 @@ class PagesController < ApplicationController
   end
 
   def filter_by_project
-    return unless params[:project].present?
+    if params[:project].present?
+      @apartments = @apartments.where(project: params[:project])
+      @houses = @houses.where(project: params[:project])
+    else
+      redirect_to request.params.merge(project: 'rent')
+    end
 
-    @apartments = @apartments.where(project: params[:project])
-    @houses = @houses.where(project: params[:project])
+    @project = params[:project]
   end
 
   def filter_by_criterias
