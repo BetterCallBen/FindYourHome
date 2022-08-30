@@ -150,9 +150,14 @@
       <p class="filter-title">Surface</p>
 
       <div class="surface-filter div-filter">
-
-        <input placeholder="Min" class="filter" data-action="keyup->apartments#changeSurface"  min="1" max="120" type="number" name="surface_min" value=<%= params[:surface_min] if params[:surface_min].present? %> >
-        <input placeholder="Max" class="filter" data-apartments-target="secondSurfaceInput" data-action="keyup->apartments#validSurface" min="1" max="120" type="number" name="surface_max" value=<%= params[:surface_max] if params[:surface_max].present? && params[:surface_max].to_i >= params[:surface_min].to_i %> >
+        <div class="min-surface-input">
+          <input placeholder="Min" class="input" data-action="keyup->apartments#changeSurface"  min="1" max="120" type="number" name="surface_min" value=<%= params[:surface_min] if params[:surface_min].present? %> >
+          <span>m2</span>
+        </div>
+        <div class="max-surface-input">
+          <input placeholder="Max" class="input" data-apartments-target="secondSurfaceInput" data-action="keyup->apartments#validSurface" min="1" max="120" type="number" name="surface_max" value=<%= params[:surface_max] if params[:surface_max].present? && params[:surface_max].to_i >= params[:surface_min].to_i %> >
+          <span>m2</span>
+        </div>
 
       </div>
 
@@ -303,6 +308,7 @@
       <p class="what-where">
         <%= pluralize(@properties.count, @what) %>
         <%= @there %>
+        <%= humanize_project(@project) %>
       </p>
 
       <div class="sort-filter">
