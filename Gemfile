@@ -41,6 +41,8 @@ gem 'faker', '~> 1.9'
 
 gem 'devise'
 
+gem 'mathjax-rails'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
