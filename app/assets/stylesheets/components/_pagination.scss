@@ -24,7 +24,7 @@
       transition: 0.2s;
       color: #ccc;
       &.active {
-        color: #2487A4;
+        color: $blue;
         &:hover {
           background-color: $light-blue;
         }
@@ -34,7 +34,7 @@
       display: flex;
       gap: 2px;
       .pagination-number {
-        color: #2487A4;
+        color: $blue;
         height: 30px;
         width: 30px;
         border-radius: 50%;

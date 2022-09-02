@@ -10,6 +10,12 @@
     display: flex;
     flex-direction: column;
     width: 36vw;
+    height: 91vh;
+    form {
+      display: flex;
+      flex-direction: column;
+      height: 90%;
+    }
   }
   .apartments {
     width: 58vw;
@@ -169,10 +175,16 @@
     width: 100px;
     .input {
       border: none;
+      width: 100%;
     }
     span {
       margin: 0;
       color: rgba(0, 0, 0, 0.616);
     }
   }
+}
+
+.favorite-container {
+  width: 96vw;
+  margin: 15px auto;
 }
