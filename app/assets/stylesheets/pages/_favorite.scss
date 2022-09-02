@@ -1,0 +1,19 @@
+.favorite-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  .favorite-card {
+    display: flex;
+    width: 60vw;
+    height: 27vh;
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid grey;
+    .favorite-img {
+      width: 40%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+  }
+}
