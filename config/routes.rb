@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  mathjax 'mathjax'
+
   root to: 'pages#home'
   get 'properties', to: 'pages#index', as: :properties
 
