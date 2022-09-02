@@ -1,3 +1,9 @@
-<% @favorites.each do |favorite| %>
-  <%= link_to favorite.name, favorite.instance_of?(Apartment) ? apartment_path(favorite) : house_path(favorite) %>
-<% end %>
+<div class="favorite-container">
+  <div class="favorite-cards">
+    <% @favorites.each do |property| %>
+        <%= link_to property.instance_of?(Apartment) ? apartment_path(property) : house_path(property), class: "favorite-card" do %>
+          <%= image_tag property.image_url, class:"favorite-img" %>
+        <% end %>
+    <% end %>
+  </div>
+</div>
