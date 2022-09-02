@@ -88,7 +88,7 @@
           <input class="input" placeholder="<%= "Saisissez une ville ou un arrondissement" if @locations_tags.nil? %>" type="text" data-action="keyup->locations#searchLocations click->locations#displayLocations">
         </div>
 
-        <input class="filter d-none" data-locations-target="locations" name="locations" value="<%= params[:locations] if params[:locations] %>">
+        <input class="filter d-none" data-locations-target="locations" name="locations" value="<%= params[:locations] if params[:locations].present?  %>">
 
         <div class="relative-div">
           <div class="location-results d-none" data-locations-target="locationResults" data-action="click->locations#dontHideLocations">
@@ -152,11 +152,9 @@
       <div class="surface-filter div-filter">
         <div class="min-surface-input">
           <input placeholder="Min" class="input" data-action="keyup->apartments#changeSurface"  min="1" max="120" type="number" name="surface_min" value=<%= params[:surface_min] if params[:surface_min].present? %> >
-          <span>m2</span>
         </div>
         <div class="max-surface-input">
           <input placeholder="Max" class="input" data-apartments-target="secondSurfaceInput" data-action="keyup->apartments#validSurface" min="1" max="120" type="number" name="surface_max" value=<%= params[:surface_max] if params[:surface_max].present? && params[:surface_max].to_i >= params[:surface_min].to_i %> >
-          <span>m2</span>
         </div>
 
       </div>
@@ -323,24 +321,35 @@
             </div>
           </div>
           <div class="sort-tags hidden d-none" data-apartments-target="sortPropositions">
+
             <%= link_to request.params.merge(page: 1, sort: "relevance"), class: "sort-tag first" do %>
               <% if params[:sort].present? && params[:sort] == 'relevance' || !params[:sort].present? %>
-                <i class="fa-solid fa-circle-check"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="check-svg">
+                  <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+                </svg>
               <% end %>
               <p>Pertinence</p>
             <% end %>
+
             <%= link_to request.params.merge(page: 1, sort: "price"), class: "sort-tag middle" do %>
               <% if params[:sort].present? && params[:sort] == 'price' %>
-                <i class="fa-solid fa-circle-check"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="check-svg">
+                  <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+                </svg>
+
               <% end %>
               <p>Prix</p>
             <% end %>
+
             <%= link_to request.params.merge(page: 1, sort: "surface"), class: "sort-tag last" do %>
               <% if params[:sort].present? && params[:sort] == 'surface' %>
-                <i class="fa-solid fa-circle-check"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="check-svg">
+                  <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+                </svg>
               <% end %>
               <p>Surface</p>
             <% end %>
+
             <% if params[:sort].present? %>
               <input type="hidden" name="sort" value="<%= params[:sort] %>" >
             <% end %>
