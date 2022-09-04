@@ -3,7 +3,35 @@
     <% @favorites.each do |property| %>
         <%= link_to property.instance_of?(Apartment) ? apartment_path(property) : house_path(property), class: "favorite-card" do %>
           <%= image_tag property.image_url, class:"favorite-img" %>
+          <div class="favorite-content">
+
+            <div class="main-content">
+              <p class="favorite-location">
+                <%= property.borough.name if property.borough %>
+                <%= property.city.name %>
+              </p>
+
+              <h4 class="favorite-title">
+                <%= translate_type(property.class.name) %>
+                <%= "#{translate_status(property.status)} de" if property.status %>
+                <%= property.surface %> m2
+                <%= humanize_project(property.project) %>
+              </h4>
+
+              <div class="line"></div>
+
+              <p class="favorite-infos">
+                <%= pluralize(property.rooms, "pièce") %>
+                <%= pluralize(property.bedrooms, "chambres") %>
+            </div>
+
+            <div class="infos">
+              <h3 class="price"><%= property.price %> €</h3>
+            </div>
+          </div>
+
         <% end %>
+
     <% end %>
   </div>
 </div>
