@@ -1,4 +1,12 @@
 module TranslationHelper
+  def translate_type(type)
+    hash = {
+      apartment: "Appartement",
+      house: "Maison"
+    }
+    return hash[type.downcase.to_sym]
+  end
+
   def translate_sort_by(sort_by)
     hash = {
       relevance: 'Pertinence',

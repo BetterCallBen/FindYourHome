@@ -1,19 +1,18 @@
 module RoomsHelper
-
   def room_filter(room, type)
     @type = type.to_sym
     room = room.to_s
     link_name = type == "rooms" ? room_name(room) : bedroom_name(room)
 
     link = "#{link_to link_name,
-        if params[@type].present? && params[@type].include?(room)
-          params[@type].chars.count == 1 ?  request.params.except(@type) : request.params.merge(page: 1, @type => params[@type].delete(room))
-        else
-          request.params.merge(page: 1, @type => params[@type].present? ? params[@type] + room : room)
-        end,
-        class: "bed-tag #{studio?(room) if type == "rooms"} #{tag_active?(room)}"}"
+      if params[@type].present? && params[@type].include?(room)
+        params[@type].chars.count == 1 ? request.params.except(@type) : request.params.merge(page: 1, @type => params[@type].delete(room))
+      else
+        request.params.merge(page: 1, @type => params[@type].present? ? params[@type] + room : room)
+      end,
+      class: "bed-tag #{studio?(room) if type == 'rooms'} #{tag_active?(room)}"}"
 
-    filling = "<div class='filling #{filling_active?(room)} #{studio?(room) if type == "rooms"}'></div>"
+    filling = "<div class='filling #{filling_active?(room)} #{studio?(room) if type == 'rooms'}'></div>"
 
     return (link + filling).html_safe
   end
@@ -46,5 +45,4 @@ module RoomsHelper
   def studio?(room)
     "studio" if room.to_s == "1"
   end
-
 end
