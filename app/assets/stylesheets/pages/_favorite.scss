@@ -1,12 +1,13 @@
 .favorite-cards {
   display: flex;
   flex-direction: column;
-  gap: 1vh;
+  gap: 3vh;
   .favorite-card {
     display: flex;
+    gap: 1vw;
     width: 60vw;
-    height: 27vh;
-    padding-bottom: 10px;
+    height: 30vh;
+    padding-bottom: 3vh;
     border-bottom: 0.5px solid grey;
     .favorite-img {
       width: 40%;
@@ -14,6 +15,33 @@
       object-fit: cover;
       border-radius: 10px;
     }
+    .favorite-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .main-content {
 
+        .favorite-location {
+          margin-bottom: 5px;
+        }
+        .favorite-title {
+          font-size: 1.2rem;
+          color: rgba(0, 0, 0, 0.876);
+          margin-bottom: 10px;
+
+        }
+        .line {
+          width: 35px;
+          height: 0.5px;
+          background-color: $blue;
+          margin-bottom: 10px;
+        }
+      }
+      .infos {
+        .price {
+          font-size: 1.1rem;
+        }
+      }
+    }
   }
 }
