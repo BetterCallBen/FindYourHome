@@ -3,7 +3,6 @@ class CreateHouses < ActiveRecord::Migration[6.0]
     create_table :houses do |t|
       t.references :city, null: false, foreign_key: true
       t.string :project
-      t.string :name
       t.text :description
       t.text :image_url
       t.string :address

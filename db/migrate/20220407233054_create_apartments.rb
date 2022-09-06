@@ -2,7 +2,6 @@ class CreateApartments < ActiveRecord::Migration[6.0]
   def change
     create_table :apartments do |t|
       t.string :project
-      t.string :name
       t.text :description
       t.text :image_url
       t.string :address
