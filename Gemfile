@@ -26,6 +26,8 @@ gem 'nokogiri', '~> 1.8.0'
 
 gem 'amazing_print', '~> 1.0.0'
 
+gem "geocoder"
+
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
