@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_06_041109) do
+ActiveRecord::Schema.define(version: 2022_09_06_135750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "apartments", force: :cascade do |t|
     t.string "project"
-    t.string "name"
     t.text "description"
     t.text "image_url"
     t.string "address"
@@ -38,6 +37,8 @@ ActiveRecord::Schema.define(version: 2022_08_06_041109) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "city_id", null: false
     t.bigint "borough_id"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["borough_id"], name: "index_apartments_on_borough_id"
     t.index ["city_id"], name: "index_apartments_on_city_id"
   end
@@ -79,7 +80,6 @@ ActiveRecord::Schema.define(version: 2022_08_06_041109) do
   create_table "houses", force: :cascade do |t|
     t.bigint "city_id", null: false
     t.string "project"
-    t.string "name"
     t.text "description"
     t.text "image_url"
     t.string "address"
@@ -98,6 +98,8 @@ ActiveRecord::Schema.define(version: 2022_08_06_041109) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "borough_id"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["borough_id"], name: "index_houses_on_borough_id"
     t.index ["city_id"], name: "index_houses_on_city_id"
   end

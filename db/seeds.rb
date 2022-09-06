@@ -29,6 +29,7 @@ UNFURNISHED_APARTMENT_IMAGES = %w[https://www.paris-housing.com/listings/140315/
 
 puts 'Destroy DB'
 City.destroy_all
+User.destroy_all
 
 puts 'Create Users'
 
@@ -62,7 +63,6 @@ lyon = City.find_by(name: "Lyon")
 rand(200..220).times do
   Apartment.create!(
     project: "rent",
-    name: Faker::Company.name,
     description: Faker::Lorem.paragraph,
     image_url: APARTMENT_IMAGES.sample,
     price: rand(500..1200),
@@ -82,13 +82,13 @@ rand(200..220).times do
     terrace: RARE_BOOLEAN.sample,
     borough: Borough.find_by(name: LYON_BOROUGH.sample[:name])
   )
+  puts Apartment.last
 end
 
 ## houses in Lyon to rent
 rand(120..150).times do
   House.create!(
     project: "rent",
-    name: Faker::Company.name,
     address: Faker::Address.full_address,
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
@@ -107,13 +107,13 @@ rand(120..150).times do
     borough: Borough.find_by(name: LYON_BOROUGH.sample[:name]),
     pool: RARE_BOOLEAN.sample
   )
+  puts House.last
 end
 
 # flats not in Lyon to rent
 rand(40..70).times do
   Apartment.create!(
     project: "rent",
-    name: Faker::Company.name,
     address: Faker::Address.full_address,
     description: Faker::Lorem.paragraph,
     image_url: APARTMENT_IMAGES.sample,
@@ -132,13 +132,13 @@ rand(40..70).times do
     cellar: RARE_BOOLEAN.sample,
     terrace: RARE_BOOLEAN.sample
   )
+  puts Apartment.last
 end
 
 ## houses not in Lyon to rent
 100.times do
   House.create!(
     project: "rent",
-    name: Faker::Company.name,
     address: Faker::Address.full_address,
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
@@ -156,13 +156,13 @@ end
     terrace: RARE_BOOLEAN.sample,
     pool: RARE_BOOLEAN.sample
   )
+  puts House.last
 end
 
 ## flats in Lyon to buy
 rand(200..220).times do
   Apartment.create!(
     project: "buy",
-    name: Faker::Company.name,
     description: Faker::Lorem.paragraph,
     image_url: APARTMENT_IMAGES.sample,
     price: rand(100_000..1_200_000),
@@ -181,13 +181,13 @@ rand(200..220).times do
     terrace: RARE_BOOLEAN.sample,
     borough: Borough.find_by(name: LYON_BOROUGH.sample[:name])
   )
+  puts Apartment.last
 end
 
 ## houses in Lyon to buy
 rand(120..150).times do
   House.create!(
     project: "buy",
-    name: Faker::Company.name,
     address: Faker::Address.full_address,
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
@@ -205,13 +205,13 @@ rand(120..150).times do
     borough: Borough.find_by(name: LYON_BOROUGH.sample[:name]),
     pool: RARE_BOOLEAN.sample
   )
+  puts House.last
 end
 
 ## flats not in Lyon to buy
 rand(40..70).times do
   Apartment.create!(
     project: "buy",
-    name: Faker::Company.name,
     address: Faker::Address.full_address,
     description: Faker::Lorem.paragraph,
     image_url: APARTMENT_IMAGES.sample,
@@ -229,13 +229,13 @@ rand(40..70).times do
     cellar: BOOLEAN.sample,
     terrace: RARE_BOOLEAN.sample
   )
+  puts Apartment.last
 end
 
 ## houses not in Lyon to buy
 100.times do
   House.create!(
     project: "buy",
-    name: Faker::Company.name,
     address: Faker::Address.full_address,
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
@@ -252,6 +252,7 @@ end
     terrace: RARE_BOOLEAN.sample,
     pool: RARE_BOOLEAN.sample
   )
+  puts House.last
 end
 
 puts 'Finished!'
