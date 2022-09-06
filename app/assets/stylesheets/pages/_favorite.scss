@@ -1,47 +1,135 @@
-.favorite-cards {
+.favorite-container {
   display: flex;
   flex-direction: column;
   gap: 3vh;
-  .favorite-card {
+  .actions {
+    height: 6vh;
+    width: 100%;
     display: flex;
-    gap: 1vw;
-    width: 60vw;
-    height: 30vh;
-    padding-bottom: 3vh;
-    border-bottom: 0.5px solid grey;
-    .favorite-img {
-      width: 40%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-    .favorite-content {
+    justify-content: space-between;
+    align-items: center;
+    .action-back {
+      height: 40px;
+      width: 40px;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      .main-content {
-
-        .favorite-location {
-          margin-bottom: 5px;
-        }
-        .favorite-title {
-          font-size: 1.2rem;
-          color: rgba(0, 0, 0, 0.876);
-          margin-bottom: 10px;
-
-        }
-        .line {
-          width: 35px;
-          height: 0.5px;
-          background-color: $blue;
-          margin-bottom: 10px;
-        }
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: 0.2s;
+      transform: translateX(-10px);
+      &:hover {
+        background-color: $light-blue;
       }
-      .infos {
-        .price {
-          font-size: 1.1rem;
+      .back-icon {
+        font-size: 1.1rem;
+        color: $blue;
+      }
+    }
+    .title {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: $blue;
+    }
+  }
+  .favorite-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+    width: 58%;
+    .favorite-link-action {
+      position: relative;
+      .favorite-heart {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          transition: 0.2s;
+
+          &:hover {
+            cursor: pointer;
+            background-color: $light-blue;
+
+          }
+
+          .heart-icon {
+            height: 25px;
+            color: grey;
+
+            &.active {
+              color: #FF385C;
+            }
+          }
+        }
+      .favorite-card {
+        display: flex;
+        gap: 1vw;
+        width: 100%;
+        height: 32vh;
+        padding-bottom: 3vh;
+        padding-right: 30px;
+        border-bottom: 0.5px solid $blue;
+        .favorite-image {
+          width: 45%;
+          height: 100%;
+          border-radius: 10px;
+          overflow: hidden;
+          .image {
+            width: 100%;
+            height: 100%;
+            transition: all 0.5s;
+          }
+          &:hover {
+            .image {
+              transform: scale(1.05);
+            }
+          }
+        }
+        .favorite-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          .main-content {
+
+            .favorite-location {
+              margin-bottom: 5px;
+              color: $blue;
+            }
+            .favorite-title {
+              font-size: 1.2rem;
+              color: rgba(0, 0, 0, 0.876);
+              margin-bottom: 10px;
+
+            }
+            .favorite-infos {
+              color: $blue;
+            }
+            .line {
+              width: 35px;
+              height: 0.5px;
+              background-color: $blue;
+              margin-bottom: 10px;
+            }
+          }
+          .infos {
+            .price {
+              color: $blue;
+              font-size: 1.1rem;
+              margin: 0;
+            }
+          }
         }
       }
     }
+
+  }
+  .map {
+    width: 42%;
+    height: 600px;
   }
 }
