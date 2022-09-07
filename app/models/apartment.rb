@@ -4,7 +4,7 @@ class Apartment < ApplicationRecord
   has_many :favorite_apartments, dependent: :destroy
 
   geocoded_by :address
-  after_validation :geocode, if: :will_save_change_to_address?
+  after_validation :geocode
 
   validates :address, presence: true
   validates :surface, presence: true
