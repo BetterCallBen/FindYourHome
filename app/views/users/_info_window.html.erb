@@ -1,0 +1,13 @@
+<%= render "favorite_action", favorites: @favorites, property: property %>
+
+<%= image_tag property.image_url, class: "image", alt: "photo de l'appartement" %>
+<div class="content">
+  <p class="address"><%= property.address %></p>
+  <p class="title">
+    <%= translate_type(property.class.name) %>
+    <%= "#{translate_status(property.status)} de" if property.status %>
+    <%= property.surface %>m2
+    <%= humanize_project(property.project) %>
+  </p>
+  <p class="price"><%= property.price %>€</p>
+</div>
