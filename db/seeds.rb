@@ -25,7 +25,12 @@ APARTMENT_IMAGES = %w[https://images.ctfassets.net/pg6xj64qk0kh/2r4QaBLvhQFH1mPG
                       https://www.aveliving.com/AVE/media/Property_Images/Florham%20Park/hero/flor-apt-living-(2)-hero.jpg?ext=.jpg
                       https://cf.bstatic.com/xdata/images/hotel/max1024x768/267316381.jpg?k=86b64cf28cd12f4c6feb7b7be23c8bcce91b2cd1be7c48a7383c4297d8d695ce&o=&hp=1
                       https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/2e/25/da/old-town-by-welcome-apartment.jpg?w=900&h=-1&s=1]
+
 UNFURNISHED_APARTMENT_IMAGES = %w[https://www.paris-housing.com/listings/140315/real_estate_image_big_682x455/big_0_20092211340655ruelecorbusier15.jpg]
+LYON_ADDRESSES = ["Rue des Capucins", "Quai du Général Sarrail", "Rue de la République", "Rue Édouard-Herriot",
+                  "Boulevard de la Croix-Rousse", "Rue des Pierres-Plantées", "Place Colbert", "Place de Fourvière", "Rue de la Bombarde",
+                  "Place Bellecour", "Rue d'Ivry", "Rue mercière", "Rue de la Bourse", "Rue Hyppolite Flandrin", "Rue Saint Jean", "Place Louis Chazette",
+                  "Place Louis Pradel", "Rue Tronchet"]
 
 puts 'Destroy DB'
 City.destroy_all
@@ -66,7 +71,7 @@ rand(200..220).times do
     description: Faker::Lorem.paragraph,
     image_url: APARTMENT_IMAGES.sample,
     price: rand(500..1200),
-    address: Faker::Address.full_address,
+    address: "#{rand(1..30)} #{LYON_ADDRESSES.sample}, Lyon",
     status: STATUS.sample,
     floor: rand(1..6),
     building_floor: rand(3..6),
@@ -89,7 +94,7 @@ end
 rand(120..150).times do
   House.create!(
     project: "rent",
-    address: Faker::Address.full_address,
+    address: "#{rand(1..30)} #{LYON_ADDRESSES.sample}, Lyon",
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
     price: rand(700..2500),
@@ -114,7 +119,7 @@ end
 rand(40..70).times do
   Apartment.create!(
     project: "rent",
-    address: Faker::Address.full_address,
+    address: LYON_ADDRESSES.sample,
     description: Faker::Lorem.paragraph,
     image_url: APARTMENT_IMAGES.sample,
     price: rand(756..2500),
@@ -139,7 +144,7 @@ end
 100.times do
   House.create!(
     project: "rent",
-    address: Faker::Address.full_address,
+    address: LYON_ADDRESSES.sample,
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
     price: rand(756..2500),
@@ -166,7 +171,7 @@ rand(200..220).times do
     description: Faker::Lorem.paragraph,
     image_url: APARTMENT_IMAGES.sample,
     price: rand(100_000..1_200_000),
-    address: Faker::Address.full_address,
+    address: "#{rand(1..30)} #{LYON_ADDRESSES.sample}, Lyon",
     floor: rand(1..6),
     building_floor: rand(3..6),
     rooms: a = rand(1..5),
@@ -188,7 +193,7 @@ end
 rand(120..150).times do
   House.create!(
     project: "buy",
-    address: Faker::Address.full_address,
+    address: "#{rand(1..30)} #{LYON_ADDRESSES.sample}, Lyon",
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
     price: rand(100_000..1_000_000),
@@ -212,7 +217,7 @@ end
 rand(40..70).times do
   Apartment.create!(
     project: "buy",
-    address: Faker::Address.full_address,
+    address: LYON_ADDRESSES.sample,
     description: Faker::Lorem.paragraph,
     image_url: APARTMENT_IMAGES.sample,
     price: rand(75_600..2_500_000),
@@ -236,7 +241,7 @@ end
 100.times do
   House.create!(
     project: "buy",
-    address: Faker::Address.full_address,
+    address: LYON_ADDRESSES.sample,
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
     price: rand(75_600..2_500_000),
@@ -256,3 +261,23 @@ end
 end
 
 puts 'Finished!'
+
+# House.create!(
+#   project: "rent",
+#   address: LYON_ADDRESSES.sample,
+#   description: Faker::Lorem.paragraph,
+#   image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
+#   price: rand(700..2500),
+#   status: "furnished",
+#   rooms: 6,
+#   bedrooms: 4,
+#   surface: 126,
+#   city: City.first,
+#   balcony: true,
+#   chimney: true,
+#   garage: false,
+#   cellar: true,
+#   terrace: true,
+#   garden: false,
+#   pool: true
+# )
