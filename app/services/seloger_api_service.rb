@@ -29,7 +29,6 @@ class SelogerApiService
 
     @response = http.request(request)
     @properties << JSON.parse(@response.read_body)
-
   end
 
   def display_properties
