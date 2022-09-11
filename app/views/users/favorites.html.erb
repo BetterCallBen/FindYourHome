@@ -1,4 +1,7 @@
-<div class="favorite-container">
+<div class="favorite-container"
+     data-controller="map"
+     data-map-markers-value="<%= @markers.to_json %>"
+     data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
   <div class="favorite-cards">
     <div class="actions">
       <%= link_to :back, class: "action-back" do %>
@@ -9,7 +12,9 @@
 
     </div>
     <% @favorites.each do |property| %>
-      <div class="favorite-link-action">
+      <div class="favorite-link-action"
+           data-action="mouseover->map#showMarker mouseout->map#hideMarker"
+           data-marker-id="<%= property.id %>">
 
         <%= link_to property.instance_of?(Apartment) ? apartment_path(property) : house_path(property), class:"favorite-card" do %>
 
@@ -50,8 +55,6 @@
     <% end %>
   </div>
   <div class="map"
-       data-controller="map"
-       data-map-markers-value="<%= @markers.to_json %>"
-       data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+       data-map-target="map">
   </div>
 </div>
