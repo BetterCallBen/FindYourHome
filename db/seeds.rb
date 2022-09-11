@@ -27,10 +27,15 @@ APARTMENT_IMAGES = %w[https://images.ctfassets.net/pg6xj64qk0kh/2r4QaBLvhQFH1mPG
                       https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/2e/25/da/old-town-by-welcome-apartment.jpg?w=900&h=-1&s=1]
 
 UNFURNISHED_APARTMENT_IMAGES = %w[https://www.paris-housing.com/listings/140315/real_estate_image_big_682x455/big_0_20092211340655ruelecorbusier15.jpg]
-LYON_ADDRESSES = ["Rue des Capucins", "Quai du Général Sarrail", "Rue de la République", "Rue Édouard-Herriot",
-                  "Boulevard de la Croix-Rousse", "Rue des Pierres-Plantées", "Place Colbert", "Place de Fourvière", "Rue de la Bombarde",
-                  "Place Bellecour", "Rue d'Ivry", "Rue mercière", "Rue de la Bourse", "Rue Hyppolite Flandrin", "Rue Saint Jean", "Place Louis Chazette",
-                  "Place Louis Pradel", "Rue Tronchet"]
+LYON_ADDRESSES = [{ address: "Rue des Capucins", borough: "Lyon 1er" }, { address: "Quai du Général Sarrail", borough: "Lyon 1er" },
+                  { address: "Rue de la République", borough: "Lyon 1er" }, { address: "Rue Édouard-Herriot", borough: "Lyon 2ème" },
+                  { address: "Boulevard de la Croix-Rousse", borough: "Lyon 4ème" }, { address: "Rue des Pierres-Plantées", borough: "Lyon 1er" },
+                  { address: "Place Colbert", borough: "Lyon 1er" }, { address: "Place de Fourvière", borough: "Lyon 5ème" },
+                  { address: "Rue de la Bombarde", borough: "Lyon 5ème" }, { address: "Rue mercière", borough: "Lyon 2ème" },
+                  { address: "Place Bellecour", borough: "Lyon 2ème" }, { address: "Rue d'Ivry", borough: "Lyon 4ème" },
+                  { address: "Rue de la Bourse", borough: "Lyon 1er" }, { address: "Rue Hyppolite Flandrin", borough: "Lyon 1er" },
+                  { address: "Rue Saint Jean", borough: "Lyon 5ème" }, { address: "Rue Tronchet", borough: "Lyon 6ème" },
+                  { address: "Place Louis Chazette", borough: "Lyon 1er" }, { address: "Place Louis Pradel", borough: "Lyon 1er" }]
 
 puts 'Destroy DB'
 City.destroy_all
@@ -191,9 +196,10 @@ end
 
 ## houses in Lyon to buy
 rand(120..150).times do
+  location = LYON_ADDRESSES.sample
   House.create!(
     project: "buy",
-    address: "#{rand(1..30)} #{LYON_ADDRESSES.sample}, Lyon",
+    address: "#{rand(1..30)} #{location[:address]}, Lyon",
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
     price: rand(100_000..1_000_000),
@@ -207,7 +213,7 @@ rand(120..150).times do
     cellar: RARE_BOOLEAN.sample,
     garden: BOOLEAN.sample,
     terrace: RARE_BOOLEAN.sample,
-    borough: Borough.find_by(name: LYON_BOROUGH.sample[:name]),
+    borough: Borough.find_by(name: location[:borough]),
     pool: RARE_BOOLEAN.sample
   )
   puts House.last
