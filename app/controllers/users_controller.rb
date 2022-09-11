@@ -19,6 +19,7 @@ class UsersController < ApplicationController
         lat: property.latitude,
         lng: property.longitude,
         partial: render_to_string(partial: "marker", locals: { property: property }),
+        id: property.id,
         info_window: render_to_string(partial: "info_window", locals: { favorites: @favorites, property: property })
       }
     end
