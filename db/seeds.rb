@@ -71,12 +71,13 @@ lyon = City.find_by(name: "Lyon")
 
 ## flats in Lyon to rent
 rand(200..220).times do
+  location = LYON_ADDRESSES.sample
   Apartment.create!(
     project: "rent",
     description: Faker::Lorem.paragraph,
     image_url: APARTMENT_IMAGES.sample,
     price: rand(500..1200),
-    address: "#{rand(1..30)} #{LYON_ADDRESSES.sample}, Lyon",
+    address: "#{rand(1..30)} #{location[:address]}, Lyon",
     status: STATUS.sample,
     floor: rand(1..6),
     building_floor: rand(3..6),
@@ -90,16 +91,17 @@ rand(200..220).times do
     garage: BOOLEAN.sample,
     cellar: RARE_BOOLEAN.sample,
     terrace: RARE_BOOLEAN.sample,
-    borough: Borough.find_by(name: LYON_BOROUGH.sample[:name])
+    borough: Borough.find_by(name: location[:borough])
   )
   puts Apartment.last
 end
 
 ## houses in Lyon to rent
 rand(120..150).times do
+  location = LYON_ADDRESSES.sample
   House.create!(
     project: "rent",
-    address: "#{rand(1..30)} #{LYON_ADDRESSES.sample}, Lyon",
+    address: "#{rand(1..30)} #{location[:address]}, Lyon",
     description: Faker::Lorem.paragraph,
     image_url: "https://www.depreux-construction.com/wp-content/uploads/2018/11/depreux-construction.jpg",
     price: rand(700..2500),
@@ -114,7 +116,7 @@ rand(120..150).times do
     cellar: RARE_BOOLEAN.sample,
     terrace: RARE_BOOLEAN.sample,
     garden: BOOLEAN.sample,
-    borough: Borough.find_by(name: LYON_BOROUGH.sample[:name]),
+    borough: Borough.find_by(name: location[:borough]),
     pool: RARE_BOOLEAN.sample
   )
   puts House.last
@@ -171,12 +173,13 @@ end
 
 ## flats in Lyon to buy
 rand(200..220).times do
+  location = LYON_ADDRESSES.sample
   Apartment.create!(
     project: "buy",
     description: Faker::Lorem.paragraph,
     image_url: APARTMENT_IMAGES.sample,
     price: rand(100_000..1_200_000),
-    address: "#{rand(1..30)} #{LYON_ADDRESSES.sample}, Lyon",
+    address: "#{rand(1..30)} #{location[:address]}, Lyon",
     floor: rand(1..6),
     building_floor: rand(3..6),
     rooms: a = rand(1..5),
@@ -189,7 +192,7 @@ rand(200..220).times do
     garage: BOOLEAN.sample,
     cellar: RARE_BOOLEAN.sample,
     terrace: RARE_BOOLEAN.sample,
-    borough: Borough.find_by(name: LYON_BOROUGH.sample[:name])
+    borough: Borough.find_by(name: location[:borough])
   )
   puts Apartment.last
 end
