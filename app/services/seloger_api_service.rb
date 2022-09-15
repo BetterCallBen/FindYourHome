@@ -4,14 +4,13 @@ require 'openssl'
 require 'json'
 
 class SelogerApiService
-
   def call
     @properties = []
-    get_url
+    set_url
     display_properties
   end
 
-  def get_url
+  def set_url
     (1..10).each do |page|
       url = URI("https://seloger.p.rapidapi.com/properties/list?zipCodes=69006&pageIndex=#{page}&pageSize=50&realtyTypes=1&transactionType=1&sortBy=0&includeNewConstructions=true")
       get_properties(url)
